@@ -94,8 +94,7 @@
   .pl-drift { animation: pl-drift 10s ease-in-out infinite; }
 
   /* Subtle head float — paired heads breathe in opposition.
-     NOTE: when an element also has .pl-parallax / .pl-mouse-drift,
-     JS controls transform, so we disable the keyframe animation. */
+     These run on the INNER <img>; outer wrapper handles JS momentum. */
   @keyframes pl-float-slow {
     0%, 100% { transform: translate(0, 0) rotate(0deg); }
     50%      { transform: translate(-6px, -10px) rotate(-1deg); }
@@ -106,11 +105,6 @@
   }
   .pl-float-slow     { animation: pl-float-slow 11s ease-in-out infinite; will-change: transform; }
   .pl-float-slow-rev { animation: pl-float-slow-rev 13s ease-in-out infinite; will-change: transform; }
-  /* JS-driven elements opt out of the keyframe animation */
-  .pl-float-slow.pl-parallax,
-  .pl-float-slow-rev.pl-parallax,
-  .pl-float-slow.pl-mouse-drift,
-  .pl-float-slow-rev.pl-mouse-drift { animation: none; }
 
   /* Watercolor bloom — soft, drifts slowly behind content */
   @keyframes pl-bloom {

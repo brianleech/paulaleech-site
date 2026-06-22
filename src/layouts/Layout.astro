@@ -98,27 +98,66 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
       }, { threshold: 0.12 });
       document.querySelectorAll('.pl-reveal').forEach(el => io.observe(el));
 
-      // Combined parallax (scroll) + mouse drift on .pl-parallax / .pl-mouse-drift.
-      // Anything with data-speed gets scroll parallax. data-mouse gets cursor drift (px max).
-      const fxEls = Array.from(document.querySelectorAll('.pl-parallax, .pl-mouse-drift'));
-      let mx = 0, my = 0;
-      function applyFx() {
-        const y = window.scrollY;
-        for (const el of fxEls) {
-          const speed = parseFloat(el.dataset.speed || '0');
-          const mAmp  = parseFloat(el.dataset.mouse || '0');
-          const tx = mx * mAmp;
-          const ty = (my * mAmp) + (y * speed * -1);
-          el.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+      // Momentum: scroll delta + window resize delta drive a damped velocity
+      // on each .pl-momentum element. Resolves back to (0,0) so CSS ambient
+      // float on the child element takes over when motion settles.
+      // data-scroll = px per scrolled px (signed, mirrors direction)
+      // data-resize = px per resized px
+      (() => {
+        const els = Array.from(document.querySelectorAll('.pl-momentum'));
+        if (!els.length) return;
+        const state = els.map(el => ({
+          el,
+          scrollAmp: parseFloat(el.dataset.scroll || '0.15'),
+          resizeAmp: parseFloat(el.dataset.resize || '0.3'),
+          y: 0, x: 0,    // current displacement
+          vy: 0, vx: 0,  // current velocity
+        }));
+        let lastScroll = window.scrollY;
+        let lastW = window.innerWidth;
+        let lastH = window.innerHeight;
+
+        window.addEventListener('scroll', () => {
+          const y = window.scrollY;
+          const dy = y - lastScroll;
+          lastScroll = y;
+          // Inject scroll delta as a velocity impulse on Y axis
+          for (const s of state) s.vy += dy * s.scrollAmp * 0.6;
+        }, { passive: true });
+
+        window.addEventListener('resize', () => {
+          const w = window.innerWidth, h = window.innerHeight;
+          const dw = w - lastW, dh = h - lastH;
+          lastW = w; lastH = h;
+          for (const s of state) {
+            s.vx += dw * s.resizeAmp * 0.5;
+            s.vy += dh * s.resizeAmp * 0.5;
+          }
+        }, { passive: true });
+
+        const SPRING  = 0.06;   // pull back to 0
+        const DAMPING = 0.82;   // velocity decay each frame
+        const EPS     = 0.05;
+        function tick() {
+          for (const s of state) {
+            // spring toward 0, with damping
+            s.vy += -s.y * SPRING;
+            s.vx += -s.x * SPRING;
+            s.vy *= DAMPING;
+            s.vx *= DAMPING;
+            s.y  += s.vy;
+            s.x  += s.vx;
+            // Snap to 0 when essentially still — lets CSS ambient float take over cleanly
+            if (Math.abs(s.y) < EPS && Math.abs(s.vy) < EPS) { s.y = 0; s.vy = 0; }
+            if (Math.abs(s.x) < EPS && Math.abs(s.vx) < EPS) { s.x = 0; s.vx = 0; }
+            s.el.style.transform = (s.x === 0 && s.y === 0)
+              ? ''
+              : `translate3d(${s.x.toFixed(2)}px, ${s.y.toFixed(2)}px, 0)`;
+          }
+          requestAnimationFrame(tick);
         }
-      }
-      window.addEventListener('scroll', applyFx, { passive: true });
-      window.addEventListener('mousemove', (e) => {
-        mx = (e.clientX / window.innerWidth  - 0.5) * 2;
-        my = (e.clientY / window.innerHeight - 0.5) * 2;
-        applyFx();
-      }, { passive: true });
-      applyFx();
+        requestAnimationFrame(tick);
+      })();
     </script>
   </body>
 </html>
