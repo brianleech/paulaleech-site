@@ -116,9 +116,9 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         let lastW = window.innerWidth;
         let lastH = window.innerHeight;
 
-        const MAX_OFFSET = 30;      // px cap on impulse
-        const SPRING     = 0.045;   // gentle pull to 0 — lower = lazier overshoot
-        const DAMPING    = 0.86;    // velocity decay — higher = less oscillation
+        const MAX_OFFSET = 22;      // px cap on impulse
+        const SPRING     = 0.09;    // stiffer = quicker stop, no springy feel
+        const DAMPING    = 0.72;    // heavy damping — kills oscillation
         const EPS        = 0.04;
 
         function clamp(v) { return Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, v)); }
