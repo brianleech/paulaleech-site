@@ -98,28 +98,27 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
       }, { threshold: 0.12 });
       document.querySelectorAll('.pl-reveal').forEach(el => io.observe(el));
 
-      // Parallax on .pl-parallax (data-speed = pixels per scrolled px)
-      const parallaxEls = document.querySelectorAll('.pl-parallax');
-      const onScroll = () => {
+      // Combined parallax (scroll) + mouse drift on .pl-parallax / .pl-mouse-drift.
+      // Anything with data-speed gets scroll parallax. data-mouse gets cursor drift (px max).
+      const fxEls = Array.from(document.querySelectorAll('.pl-parallax, .pl-mouse-drift'));
+      let mx = 0, my = 0;
+      function applyFx() {
         const y = window.scrollY;
-        for (const el of parallaxEls) {
-          const speed = parseFloat(el.dataset.speed || '0.15');
-          el.style.transform = `translate3d(0, ${y * speed * -1}px, 0)`;
+        for (const el of fxEls) {
+          const speed = parseFloat(el.dataset.speed || '0');
+          const mAmp  = parseFloat(el.dataset.mouse || '0');
+          const tx = mx * mAmp;
+          const ty = (my * mAmp) + (y * speed * -1);
+          el.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
         }
-      };
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-
-      // Cursor drift on hero illustration
-      const drift = document.querySelector('.pl-cursor-drift');
-      if (drift) {
-        document.addEventListener('mousemove', (e) => {
-          const x = (e.clientX / window.innerWidth - 0.5) * 20;
-          const y = (e.clientY / window.innerHeight - 0.5) * 20;
-          drift.style.setProperty('--drift-x', x + 'px');
-          drift.style.setProperty('--drift-y', y + 'px');
-        });
       }
+      window.addEventListener('scroll', applyFx, { passive: true });
+      window.addEventListener('mousemove', (e) => {
+        mx = (e.clientX / window.innerWidth  - 0.5) * 2;
+        my = (e.clientY / window.innerHeight - 0.5) * 2;
+        applyFx();
+      }, { passive: true });
+      applyFx();
     </script>
   </body>
 </html>
