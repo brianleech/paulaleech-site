@@ -116,9 +116,8 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         let lastW = window.innerWidth;
         let lastH = window.innerHeight;
 
-        const MAX_OFFSET = 22;      // px cap on impulse
-        const SPRING     = 0.09;    // stiffer = quicker stop, no springy feel
-        const DAMPING    = 0.72;    // heavy damping — kills oscillation
+        const MAX_OFFSET = 18;      // px cap on impulse
+        const FRICTION   = 0.78;    // velocity decay each frame — no spring force at all
         const EPS        = 0.04;
 
         function clamp(v) { return Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, v)); }
@@ -143,14 +142,14 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
         function tick() {
           for (const s of state) {
-            // spring toward 0
-            s.vy += -s.y * SPRING;
-            s.vx += -s.x * SPRING;
-            s.vy *= DAMPING;
-            s.vx *= DAMPING;
+            // Pure friction — no spring force, no overshoot
+            s.vy *= FRICTION;
+            s.vx *= FRICTION;
             s.y  += s.vy;
             s.x  += s.vx;
-            // Clean zero when truly settled
+            // Constant pull toward 0 once velocity is small (linear return, no bounce)
+            if (Math.abs(s.vy) < 0.5) s.y *= 0.92;
+            if (Math.abs(s.vx) < 0.5) s.x *= 0.92;
             if (Math.abs(s.y) < EPS && Math.abs(s.vy) < EPS) { s.y = 0; s.vy = 0; }
             if (Math.abs(s.x) < EPS && Math.abs(s.vx) < EPS) { s.x = 0; s.vx = 0; }
             s.el.style.transform = (s.x === 0 && s.y === 0)
