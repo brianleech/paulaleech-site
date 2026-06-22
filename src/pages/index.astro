@@ -14,8 +14,8 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
   <!-- HERO: huge cropped heads flanking the wordmark, type top-left -->
   <section class="relative" style="min-height: 78vh;">
     <!-- LEFT head (rose). Outer = JS momentum; inner = CSS ambient float. -->
-    <div class="pl-momentum absolute pointer-events-none" data-scroll="0.18" data-resize="0.4"
-      style="right: calc(50% - 80px); top: 160px; z-index: 1; will-change: transform;">
+    <div class="pl-momentum pl-fit-vertical absolute pointer-events-none" data-scroll="0.18" data-resize="0.4"
+      style="right: calc(50% - 80px); z-index: 1; will-change: transform;">
       <img
         src={headRose.src}
         alt=""
@@ -32,8 +32,8 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
 
     <!-- RIGHT head (sage). Outer = JS momentum (opposite scroll bias); inner = CSS ambient float. -->
-    <div class="pl-momentum absolute pointer-events-none" data-scroll="-0.12" data-resize="-0.4"
-      style="left: calc(50% - 80px); top: calc(4% + 80px); z-index: 1; will-change: transform;">
+    <div class="pl-momentum pl-fit-vertical absolute pointer-events-none" data-scroll="-0.12" data-resize="-0.4"
+      style="left: calc(50% - 80px); z-index: 1; will-change: transform;">
       <img
         src={headSage.src}
         alt=""
@@ -96,7 +96,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
   </section>
 
   <!-- IN SHORT — conversational fragments -->
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-12 md:mt-16 pl-reveal" style="margin-top: calc(4rem - 150px); position: relative; z-index: 5;">
+  <section id="in-short" class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-12 md:mt-16 pl-reveal" style="margin-top: calc(4rem - 150px); position: relative; z-index: 5;">
     <h2 class="pl-label" style="margin-bottom: 3rem;">In short.</h2>
     <div class="pl-grid">
       <div class="col-span-12 md:col-span-3">

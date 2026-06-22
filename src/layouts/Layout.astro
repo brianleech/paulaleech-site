@@ -127,7 +127,51 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
       }, { threshold: 0.12 });
       document.querySelectorAll('.pl-reveal').forEach(el => io.observe(el));
 
-      // Heads lag behind scroll/resize. No spring, no momentum, no bounce.
+      // Fit heads vertically between header and the next section (e.g. #in-short).
+      // Centers each .pl-fit-vertical wrapper in that gap; scales the inner img
+      // down if it would overflow.
+      (() => {
+        const header = document.querySelector('header');
+        const next   = document.getElementById('in-short');
+        const heads  = Array.from(document.querySelectorAll('.pl-fit-vertical'));
+        if (!header || !next || !heads.length) return;
+
+        const SAFE = 40; // px padding inside the available zone
+
+        function fit() {
+          // Document-space positions
+          const headerBottom = header.getBoundingClientRect().bottom + window.scrollY;
+          const nextTop      = next.getBoundingClientRect().top + window.scrollY;
+          const available    = nextTop - headerBottom;
+          const center       = headerBottom + available / 2;
+          const maxH         = Math.max(120, available - SAFE * 2);
+
+          for (const wrapper of heads) {
+            const img = wrapper.querySelector('img');
+            // Reset constraint then re-measure natural rendered height
+            img.style.maxHeight = '';
+            img.style.width = '';
+            const naturalH = img.offsetHeight;
+            let h = naturalH;
+            if (naturalH > maxH) {
+              img.style.maxHeight = maxH + 'px';
+              img.style.width = 'auto';
+              h = maxH;
+            }
+            // Center vertically. Wrapper is position: absolute relative to the hero
+            // section, so subtract the hero section's document offset.
+            const heroOffset = wrapper.offsetParent
+              ? wrapper.offsetParent.getBoundingClientRect().top + window.scrollY
+              : 0;
+            wrapper.style.top = (center - h / 2 - heroOffset) + 'px';
+          }
+        }
+
+        fit();
+        window.addEventListener('resize', fit, { passive: true });
+        // Re-run after fonts/images load (heights can shift)
+        window.addEventListener('load', fit);
+      })();
       // Each head has a target offset proportional to scroll position; current
       // chases target with a slow lerp so motion feels delayed but not springy.
       (() => {
