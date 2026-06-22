@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import verticalHeads from '../assets/illustrations/VerticalHeads.png';
+import headRose from '../assets/illustrations/HeadRose.png';
+import headSage from '../assets/illustrations/HeadSage.png';
 import infinity from '../assets/illustrations/infininity.png';
 import hands from '../assets/illustrations/HandsGraphic2.png';
 import quotes from '../assets/illustrations/QuoteMarks.png';
@@ -10,54 +11,65 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Layout title="Paula Leech — Sex Therapy, Supervision & Courses">
 
-  <!-- HERO: big wordmark over big background illustration -->
-  <section class="relative overflow-hidden" style="min-height: 88vh;">
-    <!-- Background illustration — large, layered, parallax + cursor drift -->
-    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-      <img
-        src={verticalHeads.src}
-        alt=""
-        class="pl-parallax pl-cursor-drift absolute"
-        data-speed="0.08"
-        style="
-          right: -8%;
-          top: 4%;
-          width: min(70vw, 900px);
-          height: auto;
-          mix-blend-mode: multiply;
-          opacity: 0.85;
-        "
-      />
-      <!-- Atmospheric blooms behind everything -->
-      <img src={clouds.src} alt="" class="pl-bloom" style="top: 60%; left: -10%; width: 600px; animation-delay: -4s;" />
-      <img src={infinity.src} alt="" class="pl-bloom" style="bottom: -5%; right: 30%; width: 380px; opacity: 0.35; animation-delay: -10s;" />
-    </div>
+  <!-- HERO: huge cropped heads flanking the wordmark, type top-left -->
+  <section class="relative overflow-hidden" style="min-height: 78vh;">
+    <!-- LEFT head (rose) — large, bleeds off left edge -->
+    <img
+      src={headRose.src}
+      alt=""
+      aria-hidden="true"
+      class="pl-float-slow absolute pointer-events-none"
+      style="
+        left: -18%;
+        top: 6%;
+        width: clamp(380px, 48vw, 720px);
+        height: auto;
+        mix-blend-mode: multiply;
+        opacity: 0.92;
+        z-index: 1;
+      "
+    />
+    <!-- RIGHT head (sage) — large, bleeds off right edge -->
+    <img
+      src={headSage.src}
+      alt=""
+      aria-hidden="true"
+      class="pl-float-slow-rev absolute pointer-events-none"
+      style="
+        right: -16%;
+        top: 4%;
+        width: clamp(380px, 48vw, 720px);
+        height: auto;
+        mix-blend-mode: multiply;
+        opacity: 0.92;
+        z-index: 1;
+      "
+    />
 
-    <div class="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-10 pt-20 md:pt-28">
+    <div class="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-10 pt-10 md:pt-14">
       <div class="pl-reveal">
         <h1
-          class="pl-drift"
           style="
             font-family: var(--font-display);
             font-weight: 500;
             font-variation-settings: 'opsz' 144, 'SOFT' 60;
-            font-size: clamp(4.5rem, 18vw, 18rem);
-            line-height: 0.82;
+            font-size: clamp(3.5rem, 11vw, 10rem);
+            line-height: 0.88;
             letter-spacing: -0.045em;
             color: var(--color-ink);
           "
         >
           Paula<br/>Leech.
         </h1>
-        <p class="pl-label mt-8" style="font-size: 0.85rem;">
+        <p class="pl-label mt-4" style="font-size: 0.78rem;">
           LMFT · CST · CSTS · Sex therapist, supervisor &amp; author
         </p>
       </div>
     </div>
   </section>
 
-  <!-- THE FACTS — labels are italic words now, not cryptic letters -->
-  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-32 md:mt-48 pl-reveal">
+  <!-- THE FACTS — pulled up tight to the hero -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-12 md:mt-16 pl-reveal">
     <h2 class="pl-label" style="margin-bottom: 3rem;">The Facts</h2>
     <div class="pl-grid">
       <div class="col-span-12 md:col-span-3">

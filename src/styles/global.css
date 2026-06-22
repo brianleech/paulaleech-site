@@ -94,6 +94,18 @@
   }
   .pl-drift { animation: pl-drift 10s ease-in-out infinite; }
 
+  /* Subtle head float — paired heads breathe in opposition */
+  @keyframes pl-float-slow {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50%      { transform: translate(-6px, -10px) rotate(-1deg); }
+  }
+  @keyframes pl-float-slow-rev {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50%      { transform: translate(6px, -8px) rotate(1deg); }
+  }
+  .pl-float-slow     { animation: pl-float-slow 11s ease-in-out infinite; will-change: transform; }
+  .pl-float-slow-rev { animation: pl-float-slow-rev 13s ease-in-out infinite; will-change: transform; }
+
   /* Watercolor bloom — soft, drifts slowly behind content */
   @keyframes pl-bloom {
     0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
