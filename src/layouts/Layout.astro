@@ -139,16 +139,22 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         const SAFE = 40; // px padding inside the available zone
 
         function fit() {
-          // Document-space positions
-          const headerBottom = header.getBoundingClientRect().bottom + window.scrollY;
-          const nextTop      = next.getBoundingClientRect().top + window.scrollY;
+          // Use scroll-independent document positions so mid-scroll reloads don't shrink heads.
+          // Walk offsetParent chain to get true document Y.
+          function docTop(el) {
+            let y = 0;
+            while (el) { y += el.offsetTop || 0; el = el.offsetParent; }
+            return y;
+          }
+          const headerH      = header.offsetHeight;
+          const headerBottom = docTop(header) + headerH;
+          const nextTop      = docTop(next);
           const available    = nextTop - headerBottom;
           const center       = headerBottom + available / 2;
           const maxH         = Math.max(120, available - SAFE * 2);
 
           for (const wrapper of heads) {
             const img = wrapper.querySelector('img');
-            // Reset constraint then re-measure natural rendered height
             img.style.maxHeight = '';
             img.style.width = '';
             const naturalH = img.offsetHeight;
@@ -158,11 +164,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
               img.style.width = 'auto';
               h = maxH;
             }
-            // Center vertically. Wrapper is position: absolute relative to the hero
-            // section, so subtract the hero section's document offset.
-            const heroOffset = wrapper.offsetParent
-              ? wrapper.offsetParent.getBoundingClientRect().top + window.scrollY
-              : 0;
+            const heroOffset = wrapper.offsetParent ? docTop(wrapper.offsetParent) : 0;
             wrapper.style.top = (center - h / 2 - heroOffset) + 'px';
           }
         }
