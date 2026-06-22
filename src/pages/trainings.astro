@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Course/training data — easy to add new entries by editing this array.
+// Later we'll move this to src/content/ collections for true CMS-style editing.
+const upcoming = [
+  {
+    title: 'Managing Sexual and Relationship Orientation Countertransference',
+    subtitle: 'AASECT Special Group Supervision',
+    description: 'Designed for clinicians who want to reflect on the countertransference that arises in complex relational and sexual scenarios. We examine the personal responses that inform our clinical practice, identify biases, and engage with them in a reflective, ongoing way.',
+    instructors: ['Paula Leech, LMFT, CST-S', 'Dr. Jared Boot-Haury, PsyD, ABPP, CST-S'],
+    price: null,
+    cta: 'Inquire',
+    href: '/contact',
+  },
+];
+
+const selfPaced = [
+  // Empty for now — placeholder for when first video course launches via Podia
+];
+---
+<Layout title="Trainings & Courses — Paula Leech">
+  <section class="relative max-w-5xl mx-auto px-6 py-20">
+    <div class="blob" style="background:var(--color-peach); width:380px; height:380px; top:0; right:-50px;"></div>
+    <h1 class="relative">Trainings & Courses</h1>
+    <p class="mt-6 text-lg max-w-2xl">Live trainings for clinicians, supervisees, and the sexuality-curious — and, soon, self-paced video courses you can take on your own time.</p>
+
+    <h2 class="mt-16">Upcoming Live Trainings</h2>
+    <div class="mt-8 grid gap-6">
+      {upcoming.map(c => (
+        <article class="p-8 bg-[var(--color-cream-deep)]/60 rounded-2xl">
+          <div class="text-xs uppercase tracking-widest" style="color:var(--color-clay);">{c.subtitle}</div>
+          <h3 class="mt-2">{c.title}</h3>
+          <p class="mt-3 text-sm">{c.description}</p>
+          <div class="mt-4 text-sm"><strong>Instructors:</strong> {c.instructors.join(' · ')}</div>
+          <div class="mt-6 flex items-center justify-between flex-wrap gap-4">
+            {c.price && <div class="text-2xl" style="font-family:var(--font-serif);">${c.price}</div>}
+            <a href={c.href} class="btn">{c.cta}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <h2 class="mt-20">Self-Paced Video Courses</h2>
+    {selfPaced.length === 0 ? (
+      <p class="mt-4 text-sm italic">Coming soon. Sign up for the newsletter to be the first to know when on-demand courses launch.</p>
+    ) : (
+      <div class="mt-8 grid md:grid-cols-2 gap-6">
+        {selfPaced.map(c => (
+          <article class="p-6 bg-[var(--color-cream-deep)]/60 rounded-2xl">
+            <h3>{c.title}</h3>
+            <p class="mt-2 text-sm">{c.description}</p>
+            <div class="mt-4 flex items-center justify-between">
+              <div class="text-xl" style="font-family:var(--font-serif);">${c.price}</div>
+              <a href={c.href} class="btn">Enroll</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+</Layout>

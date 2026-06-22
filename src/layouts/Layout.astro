@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Paula Leech, LMFT, CST, CSTS — sex therapy, training, and supervision." } = Astro.props;
+
+const nav = [
+  { label: 'About',                 href: '/about' },
+  { label: 'Sex Therapy',           href: '/sex-therapy' },
+  { label: 'Trainings & Courses',   href: '/trainings' },
+  { label: 'Supervision',           href: '/supervision' },
+  { label: 'Book a Session',        href: '/book' },
+  { label: 'Her Book',              href: '/the-book' },
+  { label: 'Press',                 href: '/press' },
+  { label: 'Contact',               href: '/contact' },
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&family=Caveat:wght@400;600&display=swap" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="relative z-10 max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+      <a href="/" class="no-underline flex items-baseline gap-2">
+        <span style="font-family: var(--font-script); font-size:1.9rem; color:var(--color-ink);">paula leech</span>
+        <span class="hidden sm:inline" style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--color-clay);">lmft · cst · csts</span>
+      </a>
+      <nav class="hidden lg:flex items-center gap-5">
+        {nav.map(n => (
+          <a href={n.href} class="no-underline text-sm hover:text-[var(--color-clay)]" style="color:var(--color-ink); text-decoration:none;">{n.label}</a>
+        ))}
+        <a href="/contact" class="btn">Get In Touch</a>
+      </nav>
+      <details class="lg:hidden">
+        <summary class="cursor-pointer text-sm" style="color:var(--color-ink);">Menu</summary>
+        <div class="absolute right-6 top-16 bg-[var(--color-cream)] border border-[var(--color-cream-deep)] p-4 rounded shadow-lg flex flex-col gap-3 z-50">
+          {nav.map(n => <a href={n.href} class="no-underline text-sm" style="color:var(--color-ink);">{n.label}</a>)}
+        </div>
+      </details>
+    </header>
+
+    <main class="relative">
+      <slot />
+    </main>
+
+    <footer class="mt-32 bg-[var(--color-cream-deep)] py-16 px-6">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+        <div>
+          <div style="font-family: var(--font-script); font-size:1.6rem; color:var(--color-ink);">paula leech</div>
+          <p class="text-sm mt-2">Sex therapy, training, and supervision. Working virtually with clients across the US.</p>
+        </div>
+        <div>
+          <h4 class="text-sm uppercase tracking-widest mb-3" style="font-family:var(--font-sans); color:var(--color-ink);">Explore</h4>
+          <ul class="text-sm space-y-2 list-none p-0">
+            {nav.map(n => <li><a href={n.href} class="no-underline">{n.label}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm uppercase tracking-widest mb-3" style="font-family:var(--font-sans); color:var(--color-ink);">Stay in touch</h4>
+          <form class="flex gap-2 mb-4" onsubmit="event.preventDefault(); alert('Email signup wires to Kit/ConvertKit before launch.');">
+            <input type="email" placeholder="your@email.com" required class="flex-1 px-3 py-2 text-sm bg-[var(--color-cream)] border border-[var(--color-clay)]/30 rounded" />
+            <button class="btn" style="padding:0.5rem 1rem;">Join</button>
+          </form>
+          <div class="flex gap-4 text-sm">
+            <a href="https://www.instagram.com/" class="no-underline">Instagram</a>
+            <a href="https://www.tiktok.com/" class="no-underline">TikTok</a>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto mt-10 pt-6 border-t border-[var(--color-clay)]/20 text-xs text-center" style="color:var(--color-ink-soft);">
+        © {new Date().getFullYear()} Paula Leech Therapy, LMFT, CST, CSTS
+      </div>
+    </footer>
+  </body>
+</html>
