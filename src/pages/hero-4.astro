@@ -1,0 +1,56 @@
+---
+// Variant 4: credentials as vertical side-rail
+import Layout from '../layouts/Layout.astro';
+import headRose from '../assets/illustrations/HeadRose.png';
+import headSage from '../assets/illustrations/HeadSage.png';
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Layout title="Variant 4 — vertical side-rail">
+
+  <section class="relative" style="min-height: 78vh;">
+    <img src={headRose.src} alt="" aria-hidden="true" class="pl-float-slow absolute pointer-events-none"
+      style="left:100px; top:80px; width:clamp(360px,42vw,620px); mix-blend-mode:multiply; opacity:0.92; z-index:1;" />
+    <img src={headSage.src} alt="" aria-hidden="true" class="pl-float-slow-rev absolute pointer-events-none"
+      style="right:100px; top:4%; width:clamp(360px,42vw,620px); mix-blend-mode:multiply; opacity:0.92; z-index:1;" />
+
+    <!-- Vertical side-rail credentials, LEFT edge -->
+    <div style="
+      position: absolute;
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      transform-origin: left center;
+      z-index: 20;
+      white-space: nowrap;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--color-stone);
+    ">
+      LMFT · CST · CSTS &nbsp;—&nbsp; Sex Therapist · Supervisor · Author
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-[1400px] px-12 lg:px-20 pt-10 md:pt-14" style="padding-top: calc(100px + 2.5rem);">
+      <h1 style="
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-variation-settings: 'opsz' 144, 'SOFT' 60;
+        font-size: clamp(3.5rem, 11vw, 10rem);
+        line-height: 0.88;
+        letter-spacing: -0.045em;
+        color: var(--color-ink);
+      ">
+        Paula<br/>Leech.
+      </h1>
+    </div>
+
+    <p style="position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); z-index: 50;" class="pl-label">
+      VARIANT 4 — vertical side-rail ·
+      <a href={`${BASE}/`} style="text-decoration: underline;">v0 (current)</a> ·
+      <a href={`${BASE}/hero-1`} style="text-decoration: underline;">v1 masthead</a> ·
+      <a href={`${BASE}/hero-25`} style="text-decoration: underline;">v2+5 combo</a>
+    </p>
+  </section>
+
+</Layout>
