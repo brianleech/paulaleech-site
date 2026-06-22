@@ -1,0 +1,17 @@
+/* Paula Leech brand tokens — pulled from ColorPalette.ai source. */
+:root {
+  /* Main */
+  --paula-ink:    #2a3818;  /* deep forest — primary text / dark surfaces */
+  --paula-cream:  #faf1d8;  /* warm cream — default background */
+
+  /* Secondary */
+  --paula-honey:  #fdcd88;
+  --paula-stone:  #847e80;
+  --paula-blue:   #28618c;
+  --paula-plum:   #774a64;
+  --paula-leaf:   #279145;
+  --paula-olive:  #8e6f2a;
+  --paula-iris:   #5a4a75;
+}
+
+html { background: var(--paula-cream); color: var(--paula-ink); }
