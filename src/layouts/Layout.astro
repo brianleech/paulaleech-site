@@ -30,10 +30,10 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     <title>{title}</title>
   </head>
   <body>
-    <header class="sticky top-0 z-30 backdrop-blur" style="background: color-mix(in srgb, var(--color-cream) 88%, transparent);">
-      <div class="mx-auto max-w-[1400px] px-12 lg:px-20 py-5 flex items-center justify-between">
-        <a href={`${BASE}/`} class="flex items-center" aria-label="Paula Leech — Home">
-          <img src={headerMark.src} alt="Paula Leech" style="height: 44px; width: auto; display: block;" />
+    <header class="sticky top-0 z-30 backdrop-blur" style="background: color-mix(in srgb, var(--color-cream) 88%, transparent); overflow: visible;">
+      <div class="mx-auto max-w-[1400px] px-12 lg:px-20 py-5 flex items-center justify-between" style="position: relative;">
+        <a href={`${BASE}/`} class="flex items-center" aria-label="Paula Leech — Home" style="position: relative;">
+          <img src={headerMark.src} alt="Paula Leech" style="height: 120px; width: auto; display: block; margin-top: -40px; margin-bottom: -36px;" />
         </a>
         <nav class="hidden md:flex items-center gap-8">
           {nav.map(n => (
