@@ -15,6 +15,7 @@ const nav = [
   { label: 'Work With Me',  href: '/work-with-paula' },
   { label: 'Courses',       href: '/courses' },
   { label: 'My Book',       href: '/book' },
+  { label: 'Press',         href: '/press' },
   { label: 'Contact',       href: '/contact' },
 ];
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -62,12 +63,40 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     </main>
 
     <footer class="mt-40 border-t" style="border-color: color-mix(in srgb, var(--color-ink) 15%, transparent);">
+      <!-- Newsletter band (footer placement) -->
+      <div class="mx-auto max-w-[1400px] px-12 lg:px-20 py-16 border-b" style="border-color: color-mix(in srgb, var(--color-ink) 15%, transparent);">
+        <div class="pl-grid items-end">
+          <div class="col-span-12 md:col-span-6">
+            <p class="pl-label">The Newsletter</p>
+            <h3 style="font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.6rem, 2.6vw, 2.25rem); line-height: 1.1; margin-top: 0.5rem; letter-spacing: -0.015em;">
+              Occasional letters. No&nbsp;pitches.
+            </h3>
+          </div>
+          <div class="col-span-12 md:col-span-6 mt-6 md:mt-0">
+            <form data-newsletter="footer" class="flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault(); event.target.querySelector('[data-msg]').textContent = 'Thanks. Will let you know when this is wired up.';">
+              <input
+                type="email"
+                required
+                name="email"
+                placeholder="you@example.com"
+                aria-label="Email address"
+                class="flex-1 px-4 py-3 rounded-full"
+                style="background: transparent; border: 1px solid color-mix(in srgb, var(--color-ink) 30%, transparent); color: var(--color-ink); font-size: 1rem;"
+              />
+              <button type="submit" class="pl-pill" style="padding: 0.85rem 1.6rem;">Subscribe</button>
+              <span data-msg class="text-sm self-center" style="color: var(--color-plum);"></span>
+            </form>
+            <p class="pl-label mt-3" style="font-size: 0.65rem; opacity: 0.7;">Backend pending — stub form for layout only.</p>
+          </div>
+        </div>
+      </div>
+
       <div class="mx-auto max-w-[1400px] px-12 lg:px-20 py-20 pl-grid">
         <div class="col-span-12 md:col-span-4">
           <div style="font-family: var(--font-display); font-size: 2.25rem; line-height: 1;">paula leech</div>
           <p class="pl-label mt-3">lmft · cst · csts</p>
           <p class="mt-6 text-sm" style="color: var(--color-ink-soft); max-width: 28ch;">
-            Sex therapy in Massachusetts &amp; Oregon. Supervision worldwide. Courses online.
+            Sex therapy in Massachusetts, Oregon &amp; New York. Supervision worldwide. Courses online.
           </p>
         </div>
         <div class="col-span-6 md:col-span-3 mt-10 md:mt-0">

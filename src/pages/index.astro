@@ -235,6 +235,80 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
+  <!-- PRESS MINI-BAND -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 pl-reveal">
+    <div class="pl-grid items-start">
+      <div class="col-span-12 md:col-span-4">
+        <span class="pl-label">Press &amp; Appearances</span>
+        <h2 style="font-family: var(--font-display); font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 0.95; margin-top: 0.75rem; letter-spacing: -0.025em;">
+          Where I've<br/><em style="font-weight: 400;">shown up.</em>
+        </h2>
+        <a href={`${BASE}/press`} class="pl-pill mt-8 inline-flex">Full archive →</a>
+      </div>
+      <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
+        <div class="pl-ledger">
+          <span class="pl-label" style="min-width: 5rem;">MAY 26</span>
+          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
+            Where Should We Begin? <span class="pl-label ml-3">Esther Perel · Podcast</span>
+          </span>
+          <span class="pl-label">Listen →</span>
+        </div>
+        <div class="pl-ledger">
+          <span class="pl-label" style="min-width: 5rem;">FEB 26</span>
+          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
+            On Anxiety in the Bedroom <span class="pl-label ml-3">The Cut · Article</span>
+          </span>
+          <span class="pl-label">Read →</span>
+        </div>
+        <div class="pl-ledger">
+          <span class="pl-label" style="min-width: 5rem;">OCT 25</span>
+          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
+            Sex Therapy 101 <span class="pl-label ml-3">Sex With Emily · Podcast</span>
+          </span>
+          <span class="pl-label">Listen →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INLINE NEWSLETTER -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 pl-reveal">
+    <div class="pl-grid items-center" style="padding: 3.5rem 2rem; background: color-mix(in srgb, var(--color-honey) 35%, transparent); border-radius: 1rem;">
+      <div class="col-span-12 md:col-span-6">
+        <p class="pl-label">The Newsletter</p>
+        <h2 style="
+          font-family: var(--font-display);
+          font-style: italic;
+          font-weight: 400;
+          font-size: clamp(2rem, 4vw, 3.25rem);
+          line-height: 1.05;
+          letter-spacing: -0.02em;
+          margin-top: 0.75rem;
+        ">
+          Occasional letters.<br/>No pitches.
+        </h2>
+        <p class="mt-4 text-base" style="color: var(--color-ink-soft); max-width: 42ch; line-height: 1.6;">
+          Writing on intimacy, anxiety, and the work in between &mdash; sent when I have something worth saying.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-6 mt-8 md:mt-0">
+        <form data-newsletter="inline" class="flex flex-col gap-3" onsubmit="event.preventDefault(); event.target.querySelector('[data-msg]').textContent = 'Thanks. Will let you know when this is wired up.';">
+          <input
+            type="email"
+            required
+            name="email"
+            placeholder="you@example.com"
+            aria-label="Email address"
+            class="px-5 py-4 rounded-full"
+            style="background: var(--color-cream); border: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent); color: var(--color-ink); font-size: 1.05rem;"
+          />
+          <button type="submit" class="pl-pill self-start" style="padding: 0.95rem 1.8rem; font-size: 0.95rem;">Subscribe</button>
+          <span data-msg class="text-sm" style="color: var(--color-plum);"></span>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- BOOK CLOSING -->
   <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 mb-32 pl-reveal relative">
     <div class="pl-grid items-center">

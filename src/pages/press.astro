@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Stub data — swap with real appearances when ready.
+const appearances = [
+  { date: "MAY 26",  title: "On the work of staying present in long-term partnerships", outlet: "Where Should We Begin?",   kind: "Podcast",   url: "#" },
+  { date: "MAR 26",  title: "Sexual anxiety after kids: what helps",                       outlet: "Sex With Emily",         kind: "Podcast",   url: "#" },
+  { date: "FEB 26",  title: "Why intimacy gets quieter — and how to bring it back",        outlet: "The Cut",                kind: "Article",   url: "#" },
+  { date: "JAN 26",  title: "What sex therapy actually looks like",                        outlet: "Modern Love",            kind: "Article",   url: "#" },
+  { date: "NOV 25",  title: "Treating sexual shame in the era of OnlyFans",                outlet: "Therapist Uncensored",   kind: "Podcast",   url: "#" },
+  { date: "OCT 25",  title: "AASECT annual conference keynote",                            outlet: "AASECT",                 kind: "Talk",      url: "#" },
+  { date: "AUG 25",  title: "Five things every sex therapist should know about anxiety",   outlet: "Psychology Today",       kind: "Article",   url: "#" },
+  { date: "JUN 25",  title: "When desire feels like obligation",                           outlet: "Foreplay Radio",         kind: "Podcast",   url: "#" },
+  { date: "APR 25",  title: "Book launch interview: Overcoming Anxiety in Sex & Relationships", outlet: "Goop",              kind: "Article",   url: "#" },
+];
+---
+<Layout title="Press & Appearances — Paula Leech">
+
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 pt-16 md:pt-24 pl-reveal">
+    <p class="pl-label">Press &amp; Appearances</p>
+    <h1 style="
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-variation-settings: 'opsz' 144, 'SOFT' 60;
+      font-size: clamp(3rem, 9vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      margin-top: 1rem;
+      color: var(--color-ink);
+    ">
+      Where I've<br/><em style="font-weight: 400;">shown up.</em>
+    </h1>
+    <p class="mt-8 max-w-2xl" style="font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1.4; color: var(--color-ink-soft);">
+      Podcasts, articles, talks, and the occasional unhinged late-night television appearance.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-20 md:mt-32 pl-reveal">
+    <div class="pl-grid">
+      <div class="col-span-12 md:col-span-12">
+        {appearances.map(a => (
+          <a href={a.url} target="_blank" rel="noopener" class="pl-ledger" style="cursor: pointer; text-decoration: none;">
+            <span class="pl-label" style="min-width: 5.5rem;">{a.date}</span>
+            <span style="font-family: var(--font-display); font-size: clamp(1.15rem, 2vw, 1.5rem);">
+              {a.title}
+              <span class="pl-label ml-3">{a.outlet} · {a.kind}</span>
+            </span>
+            <span class="pl-label">{a.kind === 'Podcast' ? 'Listen' : a.kind === 'Article' ? 'Read' : 'Watch'} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Inquiry CTA -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-32 md:mt-40 mb-32 pl-reveal">
+    <div class="pl-grid items-center" style="padding: 3rem 2rem; background: color-mix(in srgb, var(--color-honey) 35%, transparent); border-radius: 1rem;">
+      <div class="col-span-12 md:col-span-8">
+        <span class="pl-label">For Press</span>
+        <h2 style="font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.75rem, 3.4vw, 2.75rem); line-height: 1.1; margin-top: 0.5rem; letter-spacing: -0.015em;">
+          Looking to interview Paula?
+        </h2>
+        <p class="mt-4 text-base" style="color: var(--color-ink-soft); max-width: 50ch; line-height: 1.6;">
+          Quick replies. Specialized in sex, anxiety, intimacy, and the messy bits of long-term relationships.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-4 mt-6 md:mt-0 md:text-right">
+        <a href="mailto:paula@paulaleech.com?subject=Press%20inquiry" class="pl-pill" style="padding: 0.95rem 1.8rem;">Send a press inquiry →</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
