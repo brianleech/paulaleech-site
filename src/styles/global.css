@@ -27,7 +27,6 @@
     color: var(--color-ink);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
   }
 
   h1, h2, h3, h4 {
