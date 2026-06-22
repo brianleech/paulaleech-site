@@ -81,6 +81,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
       </div>
     </footer>
 
+    <script is:inline src={`${BASE}/annotate.js`}></script>
     <script is:inline>
       document.documentElement.classList.add('js');
       const io = new IntersectionObserver((entries) => {
