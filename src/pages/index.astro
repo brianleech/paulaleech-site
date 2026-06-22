@@ -1,9 +1,168 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import verticalHeads from '../assets/illustrations/VerticalHeads.png';
+import infinity from '../assets/illustrations/infininity.png';
+import hands from '../assets/illustrations/HandsGraphic2.png';
+import quotes from '../assets/illustrations/QuoteMarks.png';
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
-<Layout title="Paula Leech — Paula Leech">
-  <section class="mx-auto max-w-3xl px-6 py-24">
-    <h1 class="text-4xl font-serif mb-6">Paula Leech</h1>
-    <p class="text-stone-600">Hero / pitch / contact CTA. TODO.</p>
+<Layout title="Paula Leech — Sex Therapy, Supervision & Courses">
+
+  <!-- HERO: skyscraper wordmark -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 pt-10 md:pt-16">
+    <div class="pl-grid items-end">
+      <div class="col-span-12 md:col-span-9 pl-reveal">
+        <h1
+          class="pl-drift"
+          style="
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-variation-settings: 'opsz' 144, 'SOFT' 60, 'WONK' 0;
+            font-size: clamp(4rem, 17vw, 16rem);
+            line-height: 0.82;
+            letter-spacing: -0.04em;
+            color: var(--color-ink);
+          "
+        >
+          Paula<br/>Leech.
+        </h1>
+      </div>
+      <div class="col-span-12 md:col-span-3 mt-6 md:mt-0 md:pb-4 pl-reveal">
+        <img src={verticalHeads.src} alt="" class="w-full max-w-[200px] ml-auto" style="mix-blend-mode: multiply;" />
+      </div>
+    </div>
   </section>
+
+  <!-- THE FACTS — gutter labels, ledger layout -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-16 md:mt-24 pl-reveal">
+    <h2 class="pl-label" style="color: var(--color-stone); margin-bottom: 2rem;">The Facts</h2>
+    <div class="pl-grid">
+      <div class="col-span-12 md:col-span-3">
+        <span class="pl-drop">W.</span>
+        <p class="mt-2 text-sm" style="color: var(--color-ink-soft);">Sex therapist, supervisor, and educator. AASECT certified.</p>
+      </div>
+      <div class="col-span-12 md:col-span-3 mt-8 md:mt-0">
+        <span class="pl-drop">L.</span>
+        <p class="mt-2 text-sm" style="color: var(--color-ink-soft);">Therapy: Massachusetts &amp; Oregon.<br/>Supervision: worldwide.</p>
+      </div>
+      <div class="col-span-12 md:col-span-3 mt-8 md:mt-0">
+        <span class="pl-drop">B.</span>
+        <p class="mt-2 text-sm" style="color: var(--color-ink-soft);">Author of <em>Overcoming Anxiety in Sex and Relationships</em> (2024).</p>
+      </div>
+      <div class="col-span-12 md:col-span-3 mt-8 md:mt-0">
+        <span class="pl-drop">H.</span>
+        <p class="mt-2 text-sm" style="color: var(--color-ink-soft);">Based in Portland, OR. Working virtually with clients across two states.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD STATEMENT -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-24 md:mt-36 pl-reveal">
+    <div class="pl-grid">
+      <div class="col-span-12 md:col-span-2">
+        <img src={quotes.src} alt="" class="w-16 md:w-20" style="mix-blend-mode: multiply;" />
+      </div>
+      <div class="col-span-12 md:col-span-9">
+        <p style="font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.25; letter-spacing: -0.015em;">
+          Anxiety, shame, disconnection — the parts of intimacy nobody taught us how to talk about.
+          My work is to make the conversation possible, with steadiness and a little humor.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK — ledger -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-24 md:mt-36 pl-reveal">
+    <div class="pl-grid items-start">
+      <div class="col-span-12 md:col-span-3">
+        <span class="pl-label">A.</span>
+        <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.25rem); line-height: 0.95; margin-top: 0.5rem;">
+          Ways to work together.
+        </h2>
+        <a href={`${BASE}/work-with-paula`} class="pl-pill mt-6 inline-flex">See all →</a>
+      </div>
+      <div class="col-span-12 md:col-span-9 mt-8 md:mt-0">
+        <div class="pl-ledger">
+          <span class="pl-label" style="min-width: 2.5rem;">I.</span>
+          <span style="font-family: var(--font-display); font-size: 1.4rem;">
+            Sex Therapy <span class="pl-label ml-2">MA · OR</span>
+          </span>
+          <span class="pl-label">Individuals &amp; couples →</span>
+        </div>
+        <div class="pl-ledger">
+          <span class="pl-label" style="min-width: 2.5rem;">II.</span>
+          <span style="font-family: var(--font-display); font-size: 1.4rem;">
+            Clinical Supervision <span class="pl-label ml-2">Worldwide</span>
+          </span>
+          <span class="pl-label">For therapists &amp; CST candidates →</span>
+        </div>
+        <div class="pl-ledger">
+          <span class="pl-label" style="min-width: 2.5rem;">III.</span>
+          <span style="font-family: var(--font-display); font-size: 1.4rem;">
+            Courses &amp; Trainings <span class="pl-label ml-2">Online</span>
+          </span>
+          <span class="pl-label">Scheduled &amp; on-demand →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES SPOTLIGHT -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-24 md:mt-36 pl-reveal">
+    <div class="pl-grid items-start">
+      <div class="col-span-12 md:col-span-3">
+        <span class="pl-label">C.</span>
+        <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.25rem); line-height: 0.95; margin-top: 0.5rem;">
+          What's running now.
+        </h2>
+        <a href={`${BASE}/courses`} class="pl-pill mt-6 inline-flex">Browse catalog →</a>
+      </div>
+      <div class="col-span-12 md:col-span-9 mt-8 md:mt-0">
+        <div class="pl-ledger">
+          <span class="pl-label" style="min-width: 2.5rem;">JUL 23</span>
+          <span style="font-family: var(--font-display); font-size: 1.4rem;">
+            Treating Sexual Anxiety <span class="pl-label ml-2">Live · 6 hrs CE</span>
+          </span>
+          <span style="font-family: var(--font-mono); font-size: 0.95rem;">$400 →</span>
+        </div>
+        <div class="pl-ledger">
+          <span class="pl-label" style="min-width: 2.5rem;">ON-DEMAND</span>
+          <span style="font-family: var(--font-display); font-size: 1.4rem;">
+            Foundations for Sex Therapists <span class="pl-label ml-2">8 modules</span>
+          </span>
+          <span style="font-family: var(--font-mono); font-size: 0.95rem;">$295 →</span>
+        </div>
+        <div class="pl-ledger">
+          <span class="pl-label" style="min-width: 2.5rem;">ON-DEMAND</span>
+          <span style="font-family: var(--font-display); font-size: 1.4rem;">
+            The Anxiety + Intimacy Workshop <span class="pl-label ml-2">Self-paced</span>
+          </span>
+          <span style="font-family: var(--font-mono); font-size: 0.95rem;">$95 →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK + INFINITY CLOSING -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-24 md:mt-36 mb-24 pl-reveal">
+    <div class="pl-grid items-center">
+      <div class="col-span-12 md:col-span-5">
+        <img src={hands.src} alt="" class="w-full max-w-md" style="mix-blend-mode: multiply;" />
+      </div>
+      <div class="col-span-12 md:col-span-7 mt-8 md:mt-0">
+        <span class="pl-label">B.</span>
+        <h2 style="font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.05; margin-top: 0.5rem;">
+          Overcoming Anxiety<br/>in Sex and Relationships.
+        </h2>
+        <p class="mt-4 text-sm" style="color: var(--color-ink-soft); max-width: 50ch;">
+          A workbook for the moments intimacy gets tangled in fear. Tools, scripts, and the kind of permission most of us didn't grow up with.
+        </p>
+        <div class="mt-6 flex gap-3">
+          <a href={`${BASE}/book`} class="pl-pill">Read more →</a>
+          <a href="https://www.amazon.com/dp/B0DG6N6P2G" class="pl-pill" style="background: var(--color-blue);" target="_blank" rel="noopener">Buy on Amazon</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </Layout>

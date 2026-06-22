@@ -5,18 +5,15 @@ export interface Props {
   title: string;
   description?: string;
 }
-const { title, description = "Paula Leech, LMFT, CST, CSTS — sex therapy, training, and supervision." } = Astro.props;
+const { title, description = "Paula Leech, LMFT, CST, CSTS — sex therapy, supervision, and courses." } = Astro.props;
 
 const nav = [
-  { label: 'About',                 href: '/about' },
-  { label: 'Sex Therapy',           href: '/sex-therapy' },
-  { label: 'Trainings & Courses',   href: '/trainings' },
-  { label: 'Supervision',           href: '/supervision' },
-  { label: 'Book a Session',        href: '/book' },
-  { label: 'Her Book',              href: '/the-book' },
-  { label: 'Press',                 href: '/press' },
-  { label: 'Contact',               href: '/contact' },
+  { letter: 'A.', label: 'About',   href: '/about' },
+  { letter: 'W.', label: 'Work',    href: '/work-with-paula' },
+  { letter: 'C.', label: 'Courses', href: '/courses' },
+  { letter: 'B.', label: 'Book',    href: '/book' },
 ];
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <!doctype html>
 <html lang="en">
@@ -24,62 +21,78 @@ const nav = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${BASE}/favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&family=Caveat:wght@400;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
     <title>{title}</title>
   </head>
   <body>
-    <header class="relative z-10 max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-      <a href="/" class="no-underline flex items-baseline gap-2">
-        <span style="font-family: var(--font-script); font-size:1.9rem; color:var(--color-ink);">paula leech</span>
-        <span class="hidden sm:inline" style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--color-clay);">lmft · cst · csts</span>
-      </a>
-      <nav class="hidden lg:flex items-center gap-5">
-        {nav.map(n => (
-          <a href={n.href} class="no-underline text-sm hover:text-[var(--color-clay)]" style="color:var(--color-ink); text-decoration:none;">{n.label}</a>
-        ))}
-        <a href="/contact" class="btn">Get In Touch</a>
-      </nav>
-      <details class="lg:hidden">
-        <summary class="cursor-pointer text-sm" style="color:var(--color-ink);">Menu</summary>
-        <div class="absolute right-6 top-16 bg-[var(--color-cream)] border border-[var(--color-cream-deep)] p-4 rounded shadow-lg flex flex-col gap-3 z-50">
-          {nav.map(n => <a href={n.href} class="no-underline text-sm" style="color:var(--color-ink);">{n.label}</a>)}
+    <header class="sticky top-0 z-30 backdrop-blur" style="background: color-mix(in srgb, var(--color-cream) 88%, transparent);">
+      <div class="mx-auto max-w-[1400px] px-6 lg:px-10 py-4 flex items-center justify-between">
+        <a href={`${BASE}/`} class="flex items-baseline gap-2" aria-label="Paula Leech — Home">
+          <span style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; letter-spacing: -0.02em;">paula leech</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-7">
+          {nav.map(n => (
+            <a href={`${BASE}${n.href}`} class="flex items-baseline gap-1.5 group">
+              <span class="pl-label group-hover:text-[var(--color-plum)] transition-colors">{n.letter}</span>
+              <span class="text-sm group-hover:text-[var(--color-plum)] transition-colors">{n.label}</span>
+            </a>
+          ))}
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="tel:+15035551234" class="pl-pill" aria-label="Call Paula">
+            <span>Call</span>
+          </a>
+          <a href="mailto:paula@paulaleech.com" class="pl-pill" style="background: var(--color-plum);">
+            <span>Email</span>
+          </a>
         </div>
-      </details>
+      </div>
     </header>
 
-    <main class="relative">
+    <main>
       <slot />
     </main>
 
-    <footer class="mt-32 bg-[var(--color-cream-deep)] py-16 px-6">
-      <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
-        <div>
-          <div style="font-family: var(--font-script); font-size:1.6rem; color:var(--color-ink);">paula leech</div>
-          <p class="text-sm mt-2">Sex therapy, training, and supervision. Working virtually with clients across the US.</p>
+    <footer class="mt-32 border-t" style="border-color: color-mix(in srgb, var(--color-ink) 15%, transparent);">
+      <div class="mx-auto max-w-[1400px] px-6 lg:px-10 py-16 pl-grid">
+        <div class="col-span-12 md:col-span-4">
+          <div style="font-family: var(--font-display); font-size: 2rem; line-height: 1;">paula leech</div>
+          <p class="pl-label mt-2">lmft · cst · csts</p>
+          <p class="mt-6 text-sm" style="color: var(--color-ink-soft); max-width: 28ch;">
+            Sex therapy in Massachusetts &amp; Oregon. Supervision worldwide. Courses online.
+          </p>
         </div>
-        <div>
-          <h4 class="text-sm uppercase tracking-widest mb-3" style="font-family:var(--font-sans); color:var(--color-ink);">Explore</h4>
-          <ul class="text-sm space-y-2 list-none p-0">
-            {nav.map(n => <li><a href={n.href} class="no-underline">{n.label}</a></li>)}
-          </ul>
+        <div class="col-span-6 md:col-span-3 mt-10 md:mt-0">
+          <p class="pl-label mb-3">Contact</p>
+          <a href="mailto:paula@paulaleech.com" class="block text-sm">paula@paulaleech.com</a>
+          <a href="tel:+15035551234" class="block text-sm mt-1">(503) 555-1234</a>
+          <a href="https://instagram.com/paulaleechtherapy" class="block text-sm mt-1" target="_blank" rel="noopener">@paulaleechtherapy</a>
         </div>
-        <div>
-          <h4 class="text-sm uppercase tracking-widest mb-3" style="font-family:var(--font-sans); color:var(--color-ink);">Stay in touch</h4>
-          <form class="flex gap-2 mb-4" onsubmit="event.preventDefault(); alert('Email signup wires to Kit/ConvertKit before launch.');">
-            <input type="email" placeholder="your@email.com" required class="flex-1 px-3 py-2 text-sm bg-[var(--color-cream)] border border-[var(--color-clay)]/30 rounded" />
-            <button class="btn" style="padding:0.5rem 1rem;">Join</button>
-          </form>
-          <div class="flex gap-4 text-sm">
-            <a href="https://www.instagram.com/" class="no-underline">Instagram</a>
-            <a href="https://www.tiktok.com/" class="no-underline">TikTok</a>
-          </div>
+        <div class="col-span-6 md:col-span-3 mt-10 md:mt-0">
+          <p class="pl-label mb-3">Site</p>
+          {nav.map(n => (
+            <a href={`${BASE}${n.href}`} class="block text-sm mt-1">{n.label}</a>
+          ))}
+          <a href={`${BASE}/contact`} class="block text-sm mt-1">Contact</a>
         </div>
-      </div>
-      <div class="max-w-6xl mx-auto mt-10 pt-6 border-t border-[var(--color-clay)]/20 text-xs text-center" style="color:var(--color-ink-soft);">
-        © {new Date().getFullYear()} Paula Leech Therapy, LMFT, CST, CSTS
+        <div class="col-span-12 md:col-span-2 mt-10 md:mt-0 text-right hidden md:block">
+          <p class="pl-label">© 2026</p>
+        </div>
       </div>
     </footer>
+
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Reveal on scroll
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.pl-reveal').forEach(el => io.observe(el));
+    </script>
   </body>
 </html>

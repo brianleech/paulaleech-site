@@ -1,61 +1,110 @@
 @import "tailwindcss";
 
 @theme {
-  /* Warm, embodied palette pulled from the current site */
-  --color-cream:        #f4e9d2;   /* page background */
-  --color-cream-deep:   #ead9bb;   /* footer / subtle blocks */
-  --color-ink:          #1a1410;   /* primary text */
-  --color-ink-soft:     #4a3c30;   /* body text */
-  --color-peach:        #f0c6b1;   /* watercolor blob 1 */
-  --color-blush:        #e1a795;   /* watercolor blob 2 */
-  --color-sage:         #b9c4a4;   /* watercolor blob 3 */
-  --color-rose:         #d49a8c;   /* accents */
-  --color-clay:         #8b5a44;   /* secondary accent */
+  /* Paula Leech — locked from ColorPalette.ai */
+  --color-cream:       #faf1d8;
+  --color-cream-deep:  #f0e4be;
+  --color-ink:         #2a3818;
+  --color-ink-soft:    #3d4a2a;
+  --color-honey:       #fdcd88;
+  --color-stone:       #847e80;
+  --color-blue:        #28618c;
+  --color-plum:        #774a64;
+  --color-leaf:        #279145;
+  --color-olive:       #8e6f2a;
+  --color-iris:        #5a4a75;
 
-  /* Type */
-  --font-serif:  "Cormorant Garamond", "Cormorant", Georgia, serif;
-  --font-sans:   "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-script: "Caveat", "Brush Script MT", cursive;
+  /* Type system */
+  --font-display: "Fraunces", "Times New Roman", serif;
+  --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 @layer base {
   html { background: var(--color-cream); color: var(--color-ink); }
-  body { font-family: var(--font-sans); font-size: 1.0625rem; line-height: 1.7; color: var(--color-ink-soft); }
-  h1, h2, h3, h4 { font-family: var(--font-serif); color: var(--color-ink); font-weight: 500; letter-spacing: -0.01em; line-height: 1.15; }
-  h1 { font-size: clamp(2.5rem, 5vw, 4.25rem); }
-  h2 { font-size: clamp(1.875rem, 3.5vw, 2.75rem); }
-  h3 { font-size: clamp(1.375rem, 2.2vw, 1.75rem); }
-  a  { color: var(--color-clay); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-  a:hover { color: var(--color-ink); }
+  body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--color-ink);
+  }
+
+  a  { color: inherit; text-decoration: none; }
+  a:hover { color: var(--color-plum); }
+
+  /* Page grid — visible 12-col with hairline rules */
+  .pl-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 1.5rem;
+  }
+
+  /* Section label (gutter letter like A./W./C.) */
+  .pl-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-stone);
+  }
+
+  /* Big serif drop-letter (D./P./H./I. style) */
+  .pl-drop {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--color-ink);
+  }
+
+  /* Ledger row with leader dots */
+  .pl-ledger {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    column-gap: 0.75rem;
+    padding: 1rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+    font-size: 1rem;
+    transition: background 0.2s ease, padding 0.2s ease;
+  }
+  .pl-ledger:last-child { border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent); }
+  .pl-ledger:hover { background: color-mix(in srgb, var(--color-honey) 25%, transparent); padding-left: 0.5rem; padding-right: 0.5rem; }
+  .pl-ledger .dots {
+    border-bottom: 2px dotted color-mix(in srgb, var(--color-ink) 30%, transparent);
+    transform: translateY(-3px);
+  }
+
+  /* Hero type drift — very subtle */
+  @keyframes pl-drift {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  .pl-drift { animation: pl-drift 8s ease-in-out infinite; }
+
+  /* Reveal-on-scroll: only hides once JS marks <html class="js"> */
+  .pl-reveal { transition: opacity 0.7s ease, transform 0.7s ease; }
+  html.js .pl-reveal:not(.is-in) { opacity: 0; transform: translateY(12px); }
 }
 
-/* Soft watercolor blob, reusable */
-.blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.55;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Arched photo frame, matches current site treatment */
-.arch {
-  border-top-left-radius: 9999px;
-  border-top-right-radius: 9999px;
-  overflow: hidden;
-}
-
-.btn {
-  display: inline-block;
-  padding: 0.7rem 1.4rem;
-  background: var(--color-ink);
-  color: var(--color-cream);
-  text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+/* Contact pill (always-visible) */
+.pl-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  background: var(--color-ink); color: var(--color-cream);
+  border-radius: 999px;
+  font-size: 0.85rem; letter-spacing: 0.02em;
   transition: background 0.2s;
 }
-.btn:hover { background: var(--color-clay); color: var(--color-cream); }
+.pl-pill:hover { background: var(--color-plum); color: var(--color-cream); }
