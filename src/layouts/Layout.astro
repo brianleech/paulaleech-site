@@ -8,10 +8,11 @@ export interface Props {
 const { title, description = "Paula Leech, LMFT, CST, CSTS — sex therapy, supervision, and courses." } = Astro.props;
 
 const nav = [
-  { letter: 'A.', label: 'About',   href: '/about' },
-  { letter: 'W.', label: 'Work',    href: '/work-with-paula' },
-  { letter: 'C.', label: 'Courses', href: '/courses' },
-  { letter: 'B.', label: 'Book',    href: '/book' },
+  { label: 'About',    href: '/about' },
+  { label: 'Work',     href: '/work-with-paula' },
+  { label: 'Courses',  href: '/courses' },
+  { label: 'Book',     href: '/book' },
+  { label: 'Contact',  href: '/contact' },
 ];
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
@@ -29,25 +30,21 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
   </head>
   <body>
     <header class="sticky top-0 z-30 backdrop-blur" style="background: color-mix(in srgb, var(--color-cream) 88%, transparent);">
-      <div class="mx-auto max-w-[1400px] px-6 lg:px-10 py-4 flex items-center justify-between">
+      <div class="mx-auto max-w-[1400px] px-6 lg:px-10 py-5 flex items-center justify-between">
         <a href={`${BASE}/`} class="flex items-baseline gap-2" aria-label="Paula Leech — Home">
-          <span style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; letter-spacing: -0.02em;">paula leech</span>
+          <span style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; letter-spacing: -0.02em;">paula leech</span>
         </a>
-        <nav class="hidden md:flex items-center gap-7">
+        <nav class="hidden md:flex items-center gap-8">
           {nav.map(n => (
-            <a href={`${BASE}${n.href}`} class="flex items-baseline gap-1.5 group">
-              <span class="pl-label group-hover:text-[var(--color-plum)] transition-colors">{n.letter}</span>
-              <span class="text-sm group-hover:text-[var(--color-plum)] transition-colors">{n.label}</span>
+            <a href={`${BASE}${n.href}`} class="text-sm relative group" style="color: var(--color-ink);">
+              <span class="transition-colors group-hover:text-[var(--color-plum)]">{n.label}</span>
+              <span class="absolute -bottom-1 left-0 w-0 h-px bg-[var(--color-plum)] transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
         </nav>
-        <div class="flex items-center gap-3">
-          <a href="tel:+15035551234" class="pl-pill" aria-label="Call Paula">
-            <span>Call</span>
-          </a>
-          <a href="mailto:paula@paulaleech.com" class="pl-pill" style="background: var(--color-plum);">
-            <span>Email</span>
-          </a>
+        <div class="flex items-center gap-2">
+          <a href="tel:+150****1234" class="pl-pill" aria-label="Call Paula">Call</a>
+          <a href="mailto:paula@paulaleech.com" class="pl-pill" style="background: var(--color-plum);">Email</a>
         </div>
       </div>
     </header>
@@ -56,27 +53,26 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
       <slot />
     </main>
 
-    <footer class="mt-32 border-t" style="border-color: color-mix(in srgb, var(--color-ink) 15%, transparent);">
-      <div class="mx-auto max-w-[1400px] px-6 lg:px-10 py-16 pl-grid">
+    <footer class="mt-40 border-t" style="border-color: color-mix(in srgb, var(--color-ink) 15%, transparent);">
+      <div class="mx-auto max-w-[1400px] px-6 lg:px-10 py-20 pl-grid">
         <div class="col-span-12 md:col-span-4">
-          <div style="font-family: var(--font-display); font-size: 2rem; line-height: 1;">paula leech</div>
-          <p class="pl-label mt-2">lmft · cst · csts</p>
+          <div style="font-family: var(--font-display); font-size: 2.25rem; line-height: 1;">paula leech</div>
+          <p class="pl-label mt-3">lmft · cst · csts</p>
           <p class="mt-6 text-sm" style="color: var(--color-ink-soft); max-width: 28ch;">
             Sex therapy in Massachusetts &amp; Oregon. Supervision worldwide. Courses online.
           </p>
         </div>
         <div class="col-span-6 md:col-span-3 mt-10 md:mt-0">
-          <p class="pl-label mb-3">Contact</p>
-          <a href="mailto:paula@paulaleech.com" class="block text-sm">paula@paulaleech.com</a>
-          <a href="tel:+15035551234" class="block text-sm mt-1">(503) 555-1234</a>
-          <a href="https://instagram.com/paulaleechtherapy" class="block text-sm mt-1" target="_blank" rel="noopener">@paulaleechtherapy</a>
+          <p class="pl-label mb-4">Contact</p>
+          <a href="mailto:paula@paulaleech.com" class="block text-sm mt-2 hover:text-[var(--color-plum)] transition-colors">paula@paulaleech.com</a>
+          <a href="tel:+150****1234" class="block text-sm mt-2 hover:text-[var(--color-plum)] transition-colors">(503) 555-1234</a>
+          <a href="https://instagram.com/paulaleechtherapy" class="block text-sm mt-2 hover:text-[var(--color-plum)] transition-colors" target="_blank" rel="noopener">@paulaleechtherapy</a>
         </div>
         <div class="col-span-6 md:col-span-3 mt-10 md:mt-0">
-          <p class="pl-label mb-3">Site</p>
+          <p class="pl-label mb-4">Site</p>
           {nav.map(n => (
-            <a href={`${BASE}${n.href}`} class="block text-sm mt-1">{n.label}</a>
+            <a href={`${BASE}${n.href}`} class="block text-sm mt-2 hover:text-[var(--color-plum)] transition-colors">{n.label}</a>
           ))}
-          <a href={`${BASE}/contact`} class="block text-sm mt-1">Contact</a>
         </div>
         <div class="col-span-12 md:col-span-2 mt-10 md:mt-0 text-right hidden md:block">
           <p class="pl-label">© 2026</p>
@@ -86,13 +82,35 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
     <script is:inline>
       document.documentElement.classList.add('js');
-      // Reveal on scroll
       const io = new IntersectionObserver((entries) => {
         for (const e of entries) {
           if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
         }
-      }, { threshold: 0.15 });
+      }, { threshold: 0.12 });
       document.querySelectorAll('.pl-reveal').forEach(el => io.observe(el));
+
+      // Parallax on .pl-parallax (data-speed = pixels per scrolled px)
+      const parallaxEls = document.querySelectorAll('.pl-parallax');
+      const onScroll = () => {
+        const y = window.scrollY;
+        for (const el of parallaxEls) {
+          const speed = parseFloat(el.dataset.speed || '0.15');
+          el.style.transform = `translate3d(0, ${y * speed * -1}px, 0)`;
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Cursor drift on hero illustration
+      const drift = document.querySelector('.pl-cursor-drift');
+      if (drift) {
+        document.addEventListener('mousemove', (e) => {
+          const x = (e.clientX / window.innerWidth - 0.5) * 20;
+          const y = (e.clientY / window.innerHeight - 0.5) * 20;
+          drift.style.setProperty('--drift-x', x + 'px');
+          drift.style.setProperty('--drift-y', y + 'px');
+        });
+      }
     </script>
   </body>
 </html>

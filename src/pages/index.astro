@@ -4,102 +4,155 @@ import verticalHeads from '../assets/illustrations/VerticalHeads.png';
 import infinity from '../assets/illustrations/infininity.png';
 import hands from '../assets/illustrations/HandsGraphic2.png';
 import quotes from '../assets/illustrations/QuoteMarks.png';
+import bookMockup from '../assets/illustrations/BookMockup.png';
+import clouds from '../assets/illustrations/Clouds.png';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Layout title="Paula Leech — Sex Therapy, Supervision & Courses">
 
-  <!-- HERO: skyscraper wordmark -->
-  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 pt-10 md:pt-16">
-    <div class="pl-grid items-end">
-      <div class="col-span-12 md:col-span-9 pl-reveal">
+  <!-- HERO: big wordmark over big background illustration -->
+  <section class="relative overflow-hidden" style="min-height: 88vh;">
+    <!-- Background illustration — large, layered, parallax + cursor drift -->
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <img
+        src={verticalHeads.src}
+        alt=""
+        class="pl-parallax pl-cursor-drift absolute"
+        data-speed="0.08"
+        style="
+          right: -8%;
+          top: 4%;
+          width: min(70vw, 900px);
+          height: auto;
+          mix-blend-mode: multiply;
+          opacity: 0.85;
+        "
+      />
+      <!-- Atmospheric blooms behind everything -->
+      <img src={clouds.src} alt="" class="pl-bloom" style="top: 60%; left: -10%; width: 600px; animation-delay: -4s;" />
+      <img src={infinity.src} alt="" class="pl-bloom" style="bottom: -5%; right: 30%; width: 380px; opacity: 0.35; animation-delay: -10s;" />
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-10 pt-20 md:pt-28">
+      <div class="pl-reveal">
         <h1
           class="pl-drift"
           style="
             font-family: var(--font-display);
             font-weight: 500;
-            font-variation-settings: 'opsz' 144, 'SOFT' 60, 'WONK' 0;
-            font-size: clamp(4rem, 17vw, 16rem);
+            font-variation-settings: 'opsz' 144, 'SOFT' 60;
+            font-size: clamp(4.5rem, 18vw, 18rem);
             line-height: 0.82;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.045em;
             color: var(--color-ink);
           "
         >
           Paula<br/>Leech.
         </h1>
-      </div>
-      <div class="col-span-12 md:col-span-3 mt-6 md:mt-0 md:pb-4 pl-reveal">
-        <img src={verticalHeads.src} alt="" class="w-full max-w-[200px] ml-auto" style="mix-blend-mode: multiply;" />
-      </div>
-    </div>
-  </section>
-
-  <!-- THE FACTS — gutter labels, ledger layout -->
-  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-16 md:mt-24 pl-reveal">
-    <h2 class="pl-label" style="color: var(--color-stone); margin-bottom: 2rem;">The Facts</h2>
-    <div class="pl-grid">
-      <div class="col-span-12 md:col-span-3">
-        <span class="pl-drop">W.</span>
-        <p class="mt-2 text-sm" style="color: var(--color-ink-soft);">Sex therapist, supervisor, and educator. AASECT certified.</p>
-      </div>
-      <div class="col-span-12 md:col-span-3 mt-8 md:mt-0">
-        <span class="pl-drop">L.</span>
-        <p class="mt-2 text-sm" style="color: var(--color-ink-soft);">Therapy: Massachusetts &amp; Oregon.<br/>Supervision: worldwide.</p>
-      </div>
-      <div class="col-span-12 md:col-span-3 mt-8 md:mt-0">
-        <span class="pl-drop">B.</span>
-        <p class="mt-2 text-sm" style="color: var(--color-ink-soft);">Author of <em>Overcoming Anxiety in Sex and Relationships</em> (2024).</p>
-      </div>
-      <div class="col-span-12 md:col-span-3 mt-8 md:mt-0">
-        <span class="pl-drop">H.</span>
-        <p class="mt-2 text-sm" style="color: var(--color-ink-soft);">Based in Portland, OR. Working virtually with clients across two states.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- LEAD STATEMENT -->
-  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-24 md:mt-36 pl-reveal">
-    <div class="pl-grid">
-      <div class="col-span-12 md:col-span-2">
-        <img src={quotes.src} alt="" class="w-16 md:w-20" style="mix-blend-mode: multiply;" />
-      </div>
-      <div class="col-span-12 md:col-span-9">
-        <p style="font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.25; letter-spacing: -0.015em;">
-          Anxiety, shame, disconnection — the parts of intimacy nobody taught us how to talk about.
-          My work is to make the conversation possible, with steadiness and a little humor.
+        <p class="pl-label mt-8" style="font-size: 0.85rem;">
+          LMFT · CST · CSTS · Sex therapist, supervisor &amp; author
         </p>
       </div>
     </div>
   </section>
 
-  <!-- WORK — ledger -->
-  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-24 md:mt-36 pl-reveal">
-    <div class="pl-grid items-start">
+  <!-- THE FACTS — labels are italic words now, not cryptic letters -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-32 md:mt-48 pl-reveal">
+    <h2 class="pl-label" style="margin-bottom: 3rem;">The Facts</h2>
+    <div class="pl-grid">
       <div class="col-span-12 md:col-span-3">
-        <span class="pl-label">A.</span>
-        <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.25rem); line-height: 0.95; margin-top: 0.5rem;">
-          Ways to work together.
-        </h2>
-        <a href={`${BASE}/work-with-paula`} class="pl-pill mt-6 inline-flex">See all →</a>
+        <span class="pl-section-word">Who.</span>
+        <p class="mt-4 text-base" style="color: var(--color-ink-soft); line-height: 1.55;">
+          Sex therapist, clinical supervisor, and educator. AASECT certified.
+        </p>
       </div>
-      <div class="col-span-12 md:col-span-9 mt-8 md:mt-0">
+      <div class="col-span-12 md:col-span-3 mt-10 md:mt-0">
+        <span class="pl-section-word">Where.</span>
+        <p class="mt-4 text-base" style="color: var(--color-ink-soft); line-height: 1.55;">
+          Therapy: Massachusetts &amp; Oregon.<br/>
+          Supervision: worldwide.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-3 mt-10 md:mt-0">
+        <span class="pl-section-word">What.</span>
+        <p class="mt-4 text-base" style="color: var(--color-ink-soft); line-height: 1.55;">
+          Anxiety, shame, mismatched desire, and the work of finding pleasure again.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-3 mt-10 md:mt-0">
+        <span class="pl-section-word">How.</span>
+        <p class="mt-4 text-base" style="color: var(--color-ink-soft); line-height: 1.55;">
+          Virtual sessions. Steady, direct, and a little funny when it helps.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD STATEMENT — surrounded by quote ornaments -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-40 md:mt-56 relative pl-reveal">
+    <div class="relative">
+      <!-- Opening quote (top-left) -->
+      <img src={quotes.src} alt="" class="pl-quote-ornament absolute" style="
+        top: -3rem; left: -1rem;
+        width: clamp(80px, 11vw, 160px);
+        transform: rotate(-8deg);
+      " />
+      <!-- Closing quote (bottom-right, flipped) -->
+      <img src={quotes.src} alt="" class="pl-quote-ornament absolute" style="
+        bottom: -4rem; right: 0;
+        width: clamp(80px, 11vw, 160px);
+        transform: rotate(180deg) rotate(-8deg);
+      " />
+
+      <div class="pl-grid">
+        <div class="col-span-12 md:col-start-2 md:col-span-10">
+          <p style="
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: clamp(1.75rem, 3.4vw, 3rem);
+            line-height: 1.2;
+            letter-spacing: -0.018em;
+            color: var(--color-ink);
+          ">
+            Anxiety, shame, disconnection &mdash;
+            the parts of intimacy nobody taught us how to talk about.
+            My work is to make the conversation possible,
+            with steadiness and a little humor.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LET'S WORK TOGETHER -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-40 md:mt-56 pl-reveal">
+    <div class="pl-grid items-start">
+      <div class="col-span-12 md:col-span-4">
+        <span class="pl-label">Services</span>
+        <h2 style="font-family: var(--font-display); font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 0.95; margin-top: 0.75rem; letter-spacing: -0.025em;">
+          Let's work<br/><em style="font-weight: 400;">together.</em>
+        </h2>
+        <a href={`${BASE}/work-with-paula`} class="pl-pill mt-8 inline-flex">See all →</a>
+      </div>
+      <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
         <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 2.5rem;">I.</span>
-          <span style="font-family: var(--font-display); font-size: 1.4rem;">
-            Sex Therapy <span class="pl-label ml-2">MA · OR</span>
+          <span class="pl-label" style="min-width: 4rem;">I.</span>
+          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
+            Sex Therapy <span class="pl-label ml-3">MA · OR</span>
           </span>
           <span class="pl-label">Individuals &amp; couples →</span>
         </div>
         <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 2.5rem;">II.</span>
-          <span style="font-family: var(--font-display); font-size: 1.4rem;">
-            Clinical Supervision <span class="pl-label ml-2">Worldwide</span>
+          <span class="pl-label" style="min-width: 4rem;">II.</span>
+          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
+            Clinical Supervision <span class="pl-label ml-3">Worldwide</span>
           </span>
           <span class="pl-label">For therapists &amp; CST candidates →</span>
         </div>
         <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 2.5rem;">III.</span>
-          <span style="font-family: var(--font-display); font-size: 1.4rem;">
-            Courses &amp; Trainings <span class="pl-label ml-2">Online</span>
+          <span class="pl-label" style="min-width: 4rem;">III.</span>
+          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
+            Courses &amp; Trainings <span class="pl-label ml-3">Online</span>
           </span>
           <span class="pl-label">Scheduled &amp; on-demand →</span>
         </div>
@@ -108,34 +161,34 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
   </section>
 
   <!-- COURSES SPOTLIGHT -->
-  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-24 md:mt-36 pl-reveal">
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-40 md:mt-56 pl-reveal">
     <div class="pl-grid items-start">
-      <div class="col-span-12 md:col-span-3">
-        <span class="pl-label">C.</span>
-        <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.25rem); line-height: 0.95; margin-top: 0.5rem;">
-          What's running now.
+      <div class="col-span-12 md:col-span-4">
+        <span class="pl-label">Now Booking</span>
+        <h2 style="font-family: var(--font-display); font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 0.95; margin-top: 0.75rem; letter-spacing: -0.025em;">
+          What's<br/><em style="font-weight: 400;">running now.</em>
         </h2>
-        <a href={`${BASE}/courses`} class="pl-pill mt-6 inline-flex">Browse catalog →</a>
+        <a href={`${BASE}/courses`} class="pl-pill mt-8 inline-flex">Browse catalog →</a>
       </div>
-      <div class="col-span-12 md:col-span-9 mt-8 md:mt-0">
+      <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
         <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 2.5rem;">JUL 23</span>
-          <span style="font-family: var(--font-display); font-size: 1.4rem;">
-            Treating Sexual Anxiety <span class="pl-label ml-2">Live · 6 hrs CE</span>
+          <span class="pl-label" style="min-width: 5rem;">JUL 23</span>
+          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
+            Treating Sexual Anxiety <span class="pl-label ml-3">Live · 6 hrs CE</span>
           </span>
           <span style="font-family: var(--font-mono); font-size: 0.95rem;">$400 →</span>
         </div>
         <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 2.5rem;">ON-DEMAND</span>
-          <span style="font-family: var(--font-display); font-size: 1.4rem;">
-            Foundations for Sex Therapists <span class="pl-label ml-2">8 modules</span>
+          <span class="pl-label" style="min-width: 5rem;">ON-DEMAND</span>
+          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
+            Foundations for Sex Therapists <span class="pl-label ml-3">8 modules</span>
           </span>
           <span style="font-family: var(--font-mono); font-size: 0.95rem;">$295 →</span>
         </div>
         <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 2.5rem;">ON-DEMAND</span>
-          <span style="font-family: var(--font-display); font-size: 1.4rem;">
-            The Anxiety + Intimacy Workshop <span class="pl-label ml-2">Self-paced</span>
+          <span class="pl-label" style="min-width: 5rem;">ON-DEMAND</span>
+          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
+            The Anxiety + Intimacy Workshop <span class="pl-label ml-3">Self-paced</span>
           </span>
           <span style="font-family: var(--font-mono); font-size: 0.95rem;">$95 →</span>
         </div>
@@ -143,23 +196,33 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
-  <!-- BOOK + INFINITY CLOSING -->
-  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-24 md:mt-36 mb-24 pl-reveal">
+  <!-- BOOK CLOSING -->
+  <section class="mx-auto max-w-[1400px] px-6 lg:px-10 mt-40 md:mt-56 mb-32 pl-reveal relative">
     <div class="pl-grid items-center">
-      <div class="col-span-12 md:col-span-5">
-        <img src={hands.src} alt="" class="w-full max-w-md" style="mix-blend-mode: multiply;" />
+      <div class="col-span-12 md:col-span-6">
+        <div class="pl-parallax" data-speed="-0.05">
+          <img src={bookMockup.src} alt="Overcoming Anxiety in Sex and Relationships — book mockup" class="w-full max-w-lg rounded-sm" style="box-shadow: 0 30px 60px -20px rgba(42,56,24,0.3);" />
+        </div>
       </div>
-      <div class="col-span-12 md:col-span-7 mt-8 md:mt-0">
-        <span class="pl-label">B.</span>
-        <h2 style="font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.05; margin-top: 0.5rem;">
+      <div class="col-span-12 md:col-span-6 mt-10 md:mt-0">
+        <span class="pl-label">The Book</span>
+        <h2 style="
+          font-family: var(--font-display);
+          font-style: italic;
+          font-weight: 400;
+          font-size: clamp(2.25rem, 4.2vw, 3.75rem);
+          line-height: 1.05;
+          letter-spacing: -0.02em;
+          margin-top: 0.75rem;
+        ">
           Overcoming Anxiety<br/>in Sex and Relationships.
         </h2>
-        <p class="mt-4 text-sm" style="color: var(--color-ink-soft); max-width: 50ch;">
-          A workbook for the moments intimacy gets tangled in fear. Tools, scripts, and the kind of permission most of us didn't grow up with.
+        <p class="mt-6 text-base" style="color: var(--color-ink-soft); max-width: 50ch; line-height: 1.65;">
+          A comprehensive guide to intimate and emotional freedom. Tools, scripts, and the kind of permission most of us didn't grow up with.
         </p>
-        <div class="mt-6 flex gap-3">
+        <div class="mt-8 flex gap-3 flex-wrap">
           <a href={`${BASE}/book`} class="pl-pill">Read more →</a>
-          <a href="https://www.amazon.com/dp/B0DG6N6P2G" class="pl-pill" style="background: var(--color-blue);" target="_blank" rel="noopener">Buy on Amazon</a>
+          <a href="https://www.routledge.com" class="pl-pill" style="background: var(--color-blue);" target="_blank" rel="noopener">Buy the book</a>
         </div>
       </div>
     </div>
