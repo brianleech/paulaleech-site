@@ -98,11 +98,9 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
       }, { threshold: 0.12 });
       document.querySelectorAll('.pl-reveal').forEach(el => io.observe(el));
 
-      // Momentum: scroll delta + window resize delta drive a damped velocity
-      // on each .pl-momentum element. Resolves back to (0,0) so CSS ambient
-      // float on the child element takes over when motion settles.
-      // data-scroll = px per scrolled px (signed, mirrors direction)
-      // data-resize = px per resized px
+      // Subtle push: scroll/resize delta nudges each head, then it eases back to 0
+      // (no spring oscillation). When motion settles, transform clears and the
+      // CSS ambient float on the inner img takes over.
       (() => {
         const els = Array.from(document.querySelectorAll('.pl-momentum'));
         if (!els.length) return;
@@ -110,19 +108,25 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
           el,
           scrollAmp: parseFloat(el.dataset.scroll || '0.15'),
           resizeAmp: parseFloat(el.dataset.resize || '0.3'),
-          y: 0, x: 0,    // current displacement
-          vy: 0, vx: 0,  // current velocity
+          // current offset, target offset
+          y: 0, x: 0, ty: 0, tx: 0,
         }));
         let lastScroll = window.scrollY;
         let lastW = window.innerWidth;
         let lastH = window.innerHeight;
 
+        const MAX_OFFSET = 30; // px — cap how far a head can drift
+        const FOLLOW     = 0.18; // how fast current chases target
+        const DECAY      = 0.88; // how fast target eases back to 0
+        const EPS        = 0.05;
+
+        function clamp(v) { return Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, v)); }
+
         window.addEventListener('scroll', () => {
           const y = window.scrollY;
           const dy = y - lastScroll;
           lastScroll = y;
-          // Inject scroll delta as a velocity impulse on Y axis
-          for (const s of state) s.vy += dy * s.scrollAmp * 0.6;
+          for (const s of state) s.ty = clamp(s.ty + dy * s.scrollAmp);
         }, { passive: true });
 
         window.addEventListener('resize', () => {
@@ -130,26 +134,22 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
           const dw = w - lastW, dh = h - lastH;
           lastW = w; lastH = h;
           for (const s of state) {
-            s.vx += dw * s.resizeAmp * 0.5;
-            s.vy += dh * s.resizeAmp * 0.5;
+            s.tx = clamp(s.tx + dw * s.resizeAmp);
+            s.ty = clamp(s.ty + dh * s.resizeAmp);
           }
         }, { passive: true });
 
-        const SPRING  = 0.06;   // pull back to 0
-        const DAMPING = 0.82;   // velocity decay each frame
-        const EPS     = 0.05;
         function tick() {
           for (const s of state) {
-            // spring toward 0, with damping
-            s.vy += -s.y * SPRING;
-            s.vx += -s.x * SPRING;
-            s.vy *= DAMPING;
-            s.vx *= DAMPING;
-            s.y  += s.vy;
-            s.x  += s.vx;
-            // Snap to 0 when essentially still — lets CSS ambient float take over cleanly
-            if (Math.abs(s.y) < EPS && Math.abs(s.vy) < EPS) { s.y = 0; s.vy = 0; }
-            if (Math.abs(s.x) < EPS && Math.abs(s.vx) < EPS) { s.x = 0; s.vx = 0; }
+            // ease target back to 0
+            s.tx *= DECAY;
+            s.ty *= DECAY;
+            // current chases target (no overshoot — single-direction lerp)
+            s.x += (s.tx - s.x) * FOLLOW;
+            s.y += (s.ty - s.y) * FOLLOW;
+            // Snap to clean zero when settled — lets CSS ambient float take over
+            if (Math.abs(s.x) < EPS && Math.abs(s.tx) < EPS) { s.x = 0; s.tx = 0; }
+            if (Math.abs(s.y) < EPS && Math.abs(s.ty) < EPS) { s.y = 0; s.ty = 0; }
             s.el.style.transform = (s.x === 0 && s.y === 0)
               ? ''
               : `translate3d(${s.x.toFixed(2)}px, ${s.y.toFixed(2)}px, 0)`;
