@@ -13,32 +13,32 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <!-- HERO: huge cropped heads flanking the wordmark, type top-left -->
   <section class="relative overflow-hidden" style="min-height: 78vh;">
-    <!-- LEFT head (rose) — large, bleeds off left edge -->
+    <!-- LEFT head (rose) — large, min 200px from left edge -->
     <img
       src={headRose.src}
       alt=""
       aria-hidden="true"
       class="pl-float-slow absolute pointer-events-none"
       style="
-        left: -18%;
+        left: 200px;
         top: 6%;
-        width: clamp(380px, 48vw, 720px);
+        width: clamp(280px, 32vw, 480px);
         height: auto;
         mix-blend-mode: multiply;
         opacity: 0.92;
         z-index: 1;
       "
     />
-    <!-- RIGHT head (sage) — large, bleeds off right edge -->
+    <!-- RIGHT head (sage) — large, min 200px from right edge -->
     <img
       src={headSage.src}
       alt=""
       aria-hidden="true"
       class="pl-float-slow-rev absolute pointer-events-none"
       style="
-        right: -16%;
+        right: 200px;
         top: 4%;
-        width: clamp(380px, 48vw, 720px);
+        width: clamp(280px, 32vw, 480px);
         height: auto;
         mix-blend-mode: multiply;
         opacity: 0.92;
