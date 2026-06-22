@@ -131,18 +131,17 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
   <!-- LEAD STATEMENT — bracketed by giant teal/rose quotes -->
   <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 relative pl-reveal">
     <div class="relative">
-      <!-- Opening quote (left, raised) -->
+      <!-- Opening quote (left, raised above text top) -->
       <img src={quotesLeft.src} alt="" class="pl-quote-ornament absolute" style="
-        top: 20%;
+        top: -4rem;
         left: -2rem;
         width: clamp(70px, 8.5vw, 140px);
         height: auto;
       " />
-      <!-- Closing quote (right, dropped) -->
+      <!-- Closing quote (right, dropped below text bottom) -->
       <img src={quotesRight.src} alt="" class="pl-quote-ornament absolute" style="
-        top: 80%;
+        bottom: -5rem;
         right: -2rem;
-        transform: translateY(-100%);
         width: clamp(70px, 8.5vw, 140px);
         height: auto;
       " />
