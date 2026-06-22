@@ -2,44 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="Contact — Paula Leech">
-  <section class="relative max-w-3xl mx-auto px-6 py-20">
-    <div class="blob" style="background:var(--color-peach); width:300px; height:300px; top:0; left:-100px;"></div>
-    <h1 class="relative">Get in Touch</h1>
-    <p class="mt-6 max-w-xl">Working virtually with clients across the US. The fastest way to reach Paula is by email — she responds personally, usually within a few business days.</p>
-
-    <div class="mt-12 grid sm:grid-cols-2 gap-8">
-      <div class="p-6 bg-[var(--color-cream-deep)]/60 rounded-2xl">
-        <div class="text-xs uppercase tracking-widest" style="color:var(--color-clay);">Email</div>
-        <a href="mailto:pleechtherapy@gmail.com" class="text-lg block mt-2" style="font-family:var(--font-serif);">pleechtherapy@gmail.com</a>
-      </div>
-      <div class="p-6 bg-[var(--color-cream-deep)]/60 rounded-2xl">
-        <div class="text-xs uppercase tracking-widest" style="color:var(--color-clay);">Phone</div>
-        <a href="tel:+16025706657" class="text-lg block mt-2" style="font-family:var(--font-serif);">(602) 570-6657</a>
-      </div>
-    </div>
-
-    <div class="mt-12">
-      <h2>Send a message</h2>
-      <!-- TODO: wire to a form handler (Formspree / Web3Forms / Cloudflare Pages function) before launch. -->
-      <form class="mt-6 grid gap-4" action="https://formspree.io/f/REPLACE_ME" method="POST">
-        <input name="name" required placeholder="Your name" class="px-4 py-3 bg-[var(--color-cream)] border border-[var(--color-clay)]/30 rounded" />
-        <input name="email" type="email" required placeholder="Your email" class="px-4 py-3 bg-[var(--color-cream)] border border-[var(--color-clay)]/30 rounded" />
-        <select name="reason" class="px-4 py-3 bg-[var(--color-cream)] border border-[var(--color-clay)]/30 rounded">
-          <option>What's this regarding?</option>
-          <option>Sex Therapy (MA or OR client)</option>
-          <option>Supervision</option>
-          <option>Training or Course</option>
-          <option>Press / Podcast Inquiry</option>
-          <option>Something else</option>
-        </select>
-        <textarea name="message" rows="6" required placeholder="Tell me a bit about what you're looking for..." class="px-4 py-3 bg-[var(--color-cream)] border border-[var(--color-clay)]/30 rounded"></textarea>
-        <button type="submit" class="btn justify-self-start">Send Message</button>
-      </form>
-    </div>
-
-    <div class="mt-16 flex gap-6">
-      <a href="https://www.instagram.com/paulaleechtherapy/" class="text-sm">Instagram @paulaleechtherapy</a>
-      <a href="https://www.tiktok.com/" class="text-sm">TikTok</a>
-    </div>
+  <section class="mx-auto max-w-3xl px-6 py-24">
+    <h1 class="text-4xl font-serif mb-6">Contact</h1>
+    <p class="text-stone-600">Phone, email, form, office. TODO.</p>
   </section>
 </Layout>
