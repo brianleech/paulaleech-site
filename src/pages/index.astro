@@ -4,7 +4,8 @@ import headRose from '../assets/illustrations/HeadRose.png';
 import headSage from '../assets/illustrations/HeadSage.png';
 import infinity from '../assets/illustrations/infininity.png';
 import hands from '../assets/illustrations/HandsGraphic2.png';
-import quotes from '../assets/illustrations/QuoteMarks.png';
+import quotesLeft from '../assets/illustrations/LeftQuote.png';
+import quotesRight from '../assets/illustrations/RightQuote.png';
 import bookMockup from '../assets/illustrations/BookMockup.png';
 import clouds from '../assets/illustrations/Clouds.png';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -127,24 +128,28 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
-  <!-- LEAD STATEMENT — surrounded by quote ornaments -->
+  <!-- LEAD STATEMENT — bracketed by giant teal/rose quotes -->
   <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 relative pl-reveal">
     <div class="relative">
-      <!-- Opening quote (top-left) -->
-      <img src={quotes.src} alt="" class="pl-quote-ornament absolute" style="
-        top: -3rem; left: -1rem;
-        width: clamp(80px, 11vw, 160px);
-        transform: rotate(-8deg);
+      <!-- Opening quote (left, mid-height) -->
+      <img src={quotesLeft.src} alt="" class="pl-quote-ornament absolute" style="
+        top: 50%;
+        left: -2rem;
+        transform: translateY(-50%);
+        width: clamp(140px, 17vw, 280px);
+        height: auto;
       " />
-      <!-- Closing quote (bottom-right, flipped) -->
-      <img src={quotes.src} alt="" class="pl-quote-ornament absolute" style="
-        bottom: -4rem; right: 0;
-        width: clamp(80px, 11vw, 160px);
-        transform: rotate(180deg) rotate(-8deg);
+      <!-- Closing quote (right, mid-height) -->
+      <img src={quotesRight.src} alt="" class="pl-quote-ornament absolute" style="
+        top: 50%;
+        right: -2rem;
+        transform: translateY(-50%);
+        width: clamp(140px, 17vw, 280px);
+        height: auto;
       " />
 
       <div class="pl-grid">
-        <div class="col-span-12 md:col-start-2 md:col-span-10">
+        <div class="col-span-12 md:col-start-3 md:col-span-8">
           <p style="
             font-family: var(--font-display);
             font-weight: 400;
