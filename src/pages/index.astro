@@ -13,14 +13,14 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <!-- HERO: huge cropped heads flanking the wordmark, type top-left -->
   <section class="relative" style="min-height: 78vh;">
-    <!-- LEFT head (rose) — large, min 200px from left edge -->
+    <!-- LEFT head (rose) — anchored to center so it always overlaps the right head -->
     <img
       src={headRose.src}
       alt=""
       aria-hidden="true"
       class="pl-float-slow absolute pointer-events-none"
       style="
-        left: 100px;
+        right: calc(50% - 80px);
         top: 80px;
         width: clamp(360px, 42vw, 620px);
         height: auto;
@@ -29,14 +29,14 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         z-index: 1;
       "
     />
-    <!-- RIGHT head (sage) — large, min 200px from right edge -->
+    <!-- RIGHT head (sage) — anchored to center, mirrors the rose -->
     <img
       src={headSage.src}
       alt=""
       aria-hidden="true"
       class="pl-float-slow-rev absolute pointer-events-none"
       style="
-        right: 100px;
+        left: calc(50% - 80px);
         top: 4%;
         width: clamp(360px, 42vw, 620px);
         height: auto;
