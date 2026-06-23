@@ -1,0 +1,264 @@
+---
+// WebGL fBm cloud background. Feature-flagged: only renders when ?bg=clouds.
+// Fixed, full-viewport, behind everything. Cream base w/ soft drifting forms.
+---
+<canvas id="clouds-bg" aria-hidden="true"></canvas>
+
+<style>
+  #clouds-bg {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    display: none; /* opt-in via ?bg=clouds */
+  }
+  #clouds-bg.is-on { display: block; }
+  /* When clouds are on, let body show the canvas through */
+  html.has-clouds, html.has-clouds body { background: transparent !important; }
+</style>
+
+<script is:inline>
+  (() => {
+    const canvas = document.getElementById('clouds-bg');
+    if (!canvas) return;
+    const gl = canvas.getContext('webgl2', { antialias: false, premultipliedAlpha: false })
+            || canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false });
+    if (!gl) { console.warn('[clouds] no webgl'); return; }
+
+    document.documentElement.classList.add('has-clouds');
+    canvas.classList.add('is-on');
+
+    const isGL2 = !!gl.createVertexArray;
+    const VERT = isGL2
+      ? `#version 300 es
+         in vec2 a; void main(){ gl_Position = vec4(a,0.0,1.0); }`
+      : `attribute vec2 a; void main(){ gl_Position = vec4(a,0.0,1.0); }`;
+
+    // Palette pulled from CSS tokens — keep in sync with global.css
+    // cream #faf1d8, cream-deep #f0e4be, ink #2a3818, honey #fdcd88
+    const FRAG = isGL2
+      ? `#version 300 es
+         precision highp float;
+         out vec4 outColor;
+         uniform vec2  uRes;
+         uniform float uTime;
+         uniform float uSeed;
+         #define MAIN_OUT outColor
+         ${fragBody()}`
+      : `precision highp float;
+         uniform vec2  uRes;
+         uniform float uTime;
+         uniform float uSeed;
+         #define MAIN_OUT gl_FragColor
+         ${fragBody()}`;
+
+    function fragBody() {
+      return `
+        // hash + value noise + fBm
+        float hash(vec2 p){ p = fract(p*vec2(123.34, 456.21)); p += dot(p, p+45.32); return fract(p.x*p.y); }
+        float vnoise(vec2 p){
+          vec2 i = floor(p), f = fract(p);
+          float a = hash(i);
+          float b = hash(i+vec2(1.0,0.0));
+          float c = hash(i+vec2(0.0,1.0));
+          float d = hash(i+vec2(1.0,1.0));
+          vec2 u = f*f*(3.0-2.0*f);
+          return mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
+        }
+        float fbm(vec2 p){
+          float s = 0.0, a = 0.5;
+          mat2 r = mat2(0.8,-0.6,0.6,0.8);
+          for (int i=0; i<5; i++){
+            s += a * vnoise(p);
+            p = r*p*2.02;
+            a *= 0.5;
+          }
+          return s;
+        }
+
+        // One watercolor bloom: soft radial falloff, edge dissolved by fbm.
+        // Returns alpha [0..1]. tFlow drives the liquid morphing of the edge.
+        float bloom(vec2 p, vec2 c, float r, float edgeFreq, float edgeAmp, float seed, float tFlow){
+          vec2 d = p - c;
+          float dist = length(d);
+          // domain-warp the edge noise with tFlow so the shape morphs like liquid
+          vec2 warp = vec2(
+            fbm(d * edgeFreq * 0.6 + vec2(tFlow * 0.7, -tFlow * 0.5) + seed),
+            fbm(d * edgeFreq * 0.6 + vec2(-tFlow * 0.4, tFlow * 0.6) + seed + 3.7)
+          );
+          float n = fbm(d * edgeFreq + warp * 1.4 + seed + tFlow * 0.3);
+          float radius = r + (n - 0.5) * edgeAmp * 2.2;
+          // soft watercolor falloff: dense core, long feathered tail
+          float a = 1.0 - smoothstep(radius * 0.15, radius, dist);
+          // chew the edges with more high-freq noise, also animated
+          float chew = fbm(d * edgeFreq * 3.2 + warp * 2.0 + seed * 1.7 + tFlow * 0.5);
+          a *= smoothstep(0.25, 0.95, chew * 0.5 + 0.5 + (1.0 - smoothstep(0.0, radius * 0.6, dist)) * 0.6);
+          return clamp(a, 0.0, 1.0);
+        }
+
+        // Per-bloom radius modulation — pseudo-random breathing via fbm of time.
+        // Mixes 3 sines at irrational ratios + low-freq fbm so it never loops
+        // and feels organic rather than rhythmic.
+        float pulse(float baseR, float seed, float now){
+          float a = sin(now * 0.083 + seed);
+          float b = sin(now * 0.137 + seed * 1.71);
+          float c = sin(now * 0.211 + seed * 2.43);
+          // fbm samples a 1D-ish slice of noise so values aren't periodic
+          float n = fbm(vec2(now * 0.06 + seed, seed * 0.5));
+          float wobble = a * 0.35 + b * 0.22 + c * 0.13 + (n - 0.5) * 0.6;
+          // map roughly to [0.35, 1.65] × baseR
+          return baseR * (1.0 + wobble * 0.65);
+        }
+
+        // 4×4 Bayer ordered dither matrix lookup. Returns value in [-0.5, +0.5].
+        float bayer4(vec2 q){
+          int x = int(mod(q.x, 4.0));
+          int y = int(mod(q.y, 4.0));
+          int idx = x + y * 4;
+          float m;
+          if      (idx == 0)  m = 0.0;  else if (idx == 1)  m = 8.0;  else if (idx == 2)  m = 2.0;  else if (idx == 3)  m = 10.0;
+          else if (idx == 4)  m = 12.0; else if (idx == 5)  m = 4.0;  else if (idx == 6)  m = 14.0; else if (idx == 7)  m = 6.0;
+          else if (idx == 8)  m = 3.0;  else if (idx == 9)  m = 11.0; else if (idx == 10) m = 1.0;  else if (idx == 11) m = 9.0;
+          else if (idx == 12) m = 15.0; else if (idx == 13) m = 7.0;  else if (idx == 14) m = 13.0; else                m = 5.0;
+          return (m + 0.5) / 16.0 - 0.5;
+        }
+
+        void main(){
+          vec2 uv = gl_FragCoord.xy / uRes.xy;
+          // aspect-correct coords centered at 0, ranging roughly [-aspect/2, aspect/2] x [-0.5, 0.5]
+          vec2 p = (gl_FragCoord.xy - 0.5*uRes.xy) / uRes.y;
+          float t = uTime * 0.12;
+          // Edge-morph time — drives the liquid shape morphing
+          float tFlow = uTime * 0.45;
+
+          // Cream paper background (matches site --color-cream #faf1d8)
+          vec3 paper = vec3(0.980, 0.945, 0.847);
+          vec3 col = paper;
+
+          // Palette — muted watercolor pigments
+          vec3 rose     = vec3(0.82, 0.52, 0.48);  // warm rose (less purple)
+          vec3 teal     = vec3(0.55, 0.78, 0.78);  // sea-foam teal
+          vec3 charcoal = vec3(0.40, 0.46, 0.50);  // bluish charcoal
+          vec3 tan_     = vec3(0.78, 0.70, 0.58);  // soft tan
+          vec3 plum     = vec3(0.55, 0.40, 0.55);  // muted violet
+
+          // Per-bloom anchor positions: a stable randomized layout per page-load,
+          // driven by uSeed. We hash the seed + a per-bloom index to get x/y in
+          // a comfortable range. Drift is then layered on top of the anchor.
+          vec2 aRoseC     = vec2(hash(vec2(uSeed, 1.0))*1.7 - 0.85, hash(vec2(uSeed, 1.5))*0.8 - 0.4);
+          vec2 aTealC     = vec2(hash(vec2(uSeed, 2.0))*1.7 - 0.85, hash(vec2(uSeed, 2.5))*0.8 - 0.4);
+          vec2 aCharcoalC = vec2(hash(vec2(uSeed, 3.0))*1.7 - 0.85, hash(vec2(uSeed, 3.5))*0.8 - 0.4);
+          vec2 aTanC      = vec2(hash(vec2(uSeed, 4.0))*1.7 - 0.85, hash(vec2(uSeed, 4.5))*0.8 - 0.4);
+          vec2 aTeal2C    = vec2(hash(vec2(uSeed, 5.0))*1.7 - 0.85, hash(vec2(uSeed, 5.5))*0.8 - 0.4);
+          vec2 aPlumC     = vec2(hash(vec2(uSeed, 6.0))*1.7 - 0.85, hash(vec2(uSeed, 6.5))*0.8 - 0.4);
+
+          // Drift orbits layered on top of randomized anchors — wider amplitudes.
+          vec2 cRose     = aRoseC     + vec2(0.34*cos(t*0.7)       + 0.12*sin(t*1.3 + 0.5),
+                                             0.24*sin(t*0.6)       + 0.10*cos(t*1.1 + 1.4));
+          vec2 cTeal     = aTealC     + vec2(0.38*cos(t*0.5 + 1.7) + 0.12*sin(t*1.4 + 2.0),
+                                             0.26*sin(t*0.8 + 0.4) + 0.10*cos(t*1.2 + 0.7));
+          vec2 cCharcoal = aCharcoalC + vec2(0.34*cos(t*0.4 + 2.1) + 0.10*sin(t*1.1 + 3.0),
+                                             0.24*sin(t*0.6 + 1.1) + 0.08*cos(t*1.3 + 2.2));
+          vec2 cTan      = aTanC      + vec2(0.38*cos(t*0.6 + 3.2) + 0.12*sin(t*1.2 + 4.0),
+                                             0.26*sin(t*0.7 + 2.4) + 0.10*cos(t*1.0 + 3.3));
+          vec2 cTeal2    = aTeal2C    + vec2(0.28*cos(t*0.9 + 4.0) + 0.08*sin(t*1.5 + 5.0),
+                                             0.20*sin(t*0.5 + 3.0) + 0.06*cos(t*1.4 + 4.1));
+          vec2 cPlum     = aPlumC     + vec2(0.30*cos(t*0.5 + 5.1) + 0.10*sin(t*1.3 + 6.0),
+                                             0.22*sin(t*0.4 + 4.2) + 0.08*cos(t*1.1 + 5.4));
+
+          // Per-bloom radius modulation — random breathing
+          float rRose     = pulse(0.58, 1.3, uTime);
+          float rTeal     = pulse(0.66, 2.7, uTime);
+          float rCharcoal = pulse(0.53, 4.1, uTime);
+          float rTan      = pulse(0.45, 5.6, uTime);
+          float rTeal2    = pulse(0.29, 6.9, uTime);
+          float rPlum     = pulse(0.37, 8.2, uTime);
+
+          // Bloom alphas — tFlow drives the liquid edge morph
+          float aRose     = bloom(p, cRose,     rRose,      8.0, 0.06, 1.3, tFlow);
+          float aTeal     = bloom(p, cTeal,     rTeal,      7.0, 0.07, 2.7, tFlow);
+          float aCharcoal = bloom(p, cCharcoal, rCharcoal,  9.0, 0.05, 4.1, tFlow);
+          float aTan      = bloom(p, cTan,      rTan,       8.5, 0.05, 5.6, tFlow);
+          float aTeal2    = bloom(p, cTeal2,    rTeal2,    11.0, 0.03, 6.9, tFlow);
+          float aPlum     = bloom(p, cPlum,     rPlum,      9.5, 0.04, 8.2, tFlow);
+
+          // Composite — watercolor on paper: each pigment darkens by mixing toward
+          // the pigment color, not by additive blending.
+          col = mix(col, rose,     aRose     * 0.1375);
+          col = mix(col, teal,     aTeal     * 0.125);
+          // charcoal removed
+          col = mix(col, tan_,     aTan      * 0.1125);
+          col = mix(col, teal,     aTeal2    * 0.1125);
+          // plum removed
+
+          // Ordered dither applied inside blooms — gives them a stippled, paper-print feel.
+          float bloomMax = max(max(aRose, aTeal), max(aTan, aTeal2));
+          float dither = bayer4(gl_FragCoord.xy * 0.5) * 0.28 * bloomMax;
+          col += dither;
+
+          // Subtle paper texture (very low freq)
+          float paperN = fbm(p * 0.8) - 0.5;
+          col -= paperN * 0.015;
+
+          MAIN_OUT = vec4(col, 1.0);
+        }
+      `;
+    }
+
+    function compile(type, src){
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+        console.error('[clouds] shader', gl.getShaderInfoLog(s));
+      }
+      return s;
+    }
+    const prog = gl.createProgram();
+    gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      console.error('[clouds] link', gl.getProgramInfoLog(prog));
+      return;
+    }
+    gl.useProgram(prog);
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'a');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+    const uRes  = gl.getUniformLocation(prog, 'uRes');
+    const uTime = gl.getUniformLocation(prog, 'uTime');
+    const uSeed = gl.getUniformLocation(prog, 'uSeed');
+    const seed  = Math.random() * 1000.0;
+
+    function resize(){
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const w = Math.floor(window.innerWidth  * dpr);
+      const h = Math.floor(window.innerHeight * dpr);
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w; canvas.height = h;
+        gl.viewport(0, 0, w, h);
+      }
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const t0 = performance.now();
+    function frame(now){
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform1f(uTime, reduced ? 0.0 : (now - t0) / 1000.0);
+      gl.uniform1f(uSeed, seed);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+</script>

@@ -6,9 +6,28 @@ import infinity from '../assets/illustrations/infininity.png';
 import hands from '../assets/illustrations/HandsGraphic2.png';
 import quotesLeft from '../assets/illustrations/LeftQuote.png';
 import quotesRight from '../assets/illustrations/RightQuote.png';
+import trainingsData from '../data/trainings.json';
 import bookMockup from '../assets/illustrations/BookMockup.png';
 import clouds from '../assets/illustrations/Clouds.png';
+import armTouch from '../assets/illustrations/HandsCrossed.png';
+import groupSupervision from '../assets/illustrations/MultiHeads.png';
+import theraMedium from '../assets/illustrations/MirroredHeads.png';
+import logoTheCut from '../assets/logos/press/the-cut.png';
+import logoNatasha from '../assets/logos/press/natasha-helfer-podcast.jpg';
+import logoInThisBody from '../assets/logos/press/in-this-body.jpg';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Split trainings by date: anything dated today or later is upcoming,
+// anything earlier is "past" (most-recent 3 shown). dateLabel === 'On-demand'
+// or 'Recurring' is treated as always-current (uses date 9999 in JSON).
+const today = new Date().toISOString().slice(0, 10);
+const upcoming = trainingsData
+  .filter(t => (t.date || '9999-12-31') >= today)
+  .sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+const past = trainingsData
+  .filter(t => (t.date || '9999-12-31') < today)
+  .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+  .slice(0, 3);
 ---
 <Layout title="Paula Leech — Sex Therapy, Supervision & Courses" headerCredentials={true}>
 
@@ -168,7 +187,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
-  <!-- LET'S WORK TOGETHER -->
+  <!-- LET'S WORK TOGETHER — Tarot deck -->
   <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 pl-reveal">
     <div class="pl-grid items-start">
       <div class="col-span-12 md:col-span-4">
@@ -176,35 +195,52 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         <h2 style="font-family: var(--font-display); font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 0.95; margin-top: 0.75rem; letter-spacing: -0.025em;">
           Let's work<br/><em style="font-weight: 400;">together.</em>
         </h2>
+        <p class="mt-6 text-base" style="color: var(--color-ink-soft); max-width: 30ch; line-height: 1.6;">
+          Three doors in. Pick the one for where you are.
+        </p>
         <a href={`${BASE}/work-with-paula`} class="pl-pill mt-8 inline-flex">See all →</a>
       </div>
       <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
-        <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 4rem;">I.</span>
-          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
-            Sex Therapy <span class="pl-label ml-3">MA · OR</span>
-          </span>
-          <span class="pl-label">Individuals &amp; couples →</span>
-        </div>
-        <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 4rem;">II.</span>
-          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
-            Clinical Supervision <span class="pl-label ml-3">Worldwide</span>
-          </span>
-          <span class="pl-label">For therapists &amp; CST candidates →</span>
-        </div>
-        <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 4rem;">III.</span>
-          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
-            Courses &amp; Trainings <span class="pl-label ml-3">Online</span>
-          </span>
-          <span class="pl-label">Scheduled &amp; on-demand →</span>
+        <div class="pl-tarot-deck">
+          <a href={`${BASE}/work-with-paula#therapy`} class="pl-tarot-card">
+            <div class="pl-tarot-art">
+              <img src={armTouch.src} alt="" aria-hidden="true" />
+              <div class="pl-tarot-meta">MA · OR · NY</div>
+            </div>
+            <div>
+              <div class="pl-tarot-title">Sex Therapy</div>
+              <div class="pl-tarot-sub">Individuals &amp; couples</div>
+              <div class="pl-tarot-cta">Begin →</div>
+            </div>
+          </a>
+          <a href={`${BASE}/work-with-paula#supervision`} class="pl-tarot-card">
+            <div class="pl-tarot-art">
+              <img src={groupSupervision.src} alt="" aria-hidden="true" />
+              <div class="pl-tarot-meta">Worldwide</div>
+            </div>
+            <div>
+              <div class="pl-tarot-title">Clinical Supervision</div>
+              <div class="pl-tarot-sub">Therapists &amp; CST candidates</div>
+              <div class="pl-tarot-cta">Apply →</div>
+            </div>
+          </a>
+          <a href={`${BASE}/courses`} class="pl-tarot-card">
+            <div class="pl-tarot-art">
+              <img src={theraMedium.src} alt="" aria-hidden="true" />
+              <div class="pl-tarot-meta">Online</div>
+            </div>
+            <div>
+              <div class="pl-tarot-title">Courses &amp; Trainings</div>
+              <div class="pl-tarot-sub">Scheduled &amp; on-demand</div>
+              <div class="pl-tarot-cta">Browse →</div>
+            </div>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- COURSES SPOTLIGHT -->
+  <!-- COURSES SPOTLIGHT — Manuscript ledger -->
   <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 pl-reveal">
     <div class="pl-grid items-start">
       <div class="col-span-12 md:col-span-4">
@@ -215,32 +251,37 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         <a href={`${BASE}/courses`} class="pl-pill mt-8 inline-flex">Browse catalog →</a>
       </div>
       <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
-        <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 5rem;">JUL 23</span>
-          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
-            Treating Sexual Anxiety <span class="pl-label ml-3">Live · 6 hrs CE</span>
-          </span>
-          <span style="font-family: var(--font-mono); font-size: 0.95rem;">$400 →</span>
+        <div class="pl-ledger-manuscript">
+          {upcoming.map(t => (
+            <a href={`${BASE}${t.url || '/courses'}`} class="pl-ledger-row" style="text-decoration:none;">
+              <span class={`pl-ledger-blot pl-ledger-blot--${t.blot || 'rose'}`} aria-hidden="true"></span>
+              <span class="pl-ledger-date">{t.dateLabel}</span>
+              <span class="pl-ledger-title">{t.title}<span class="pl-ledger-tag">{t.tag}</span></span>
+              <span class="pl-ledger-price">{t.price ? `${t.price} →` : '→'}</span>
+            </a>
+          ))}
         </div>
-        <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 5rem;">ON-DEMAND</span>
-          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
-            Foundations for Sex Therapists <span class="pl-label ml-3">8 modules</span>
-          </span>
-          <span style="font-family: var(--font-mono); font-size: 0.95rem;">$295 →</span>
-        </div>
-        <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 5rem;">ON-DEMAND</span>
-          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
-            The Anxiety + Intimacy Workshop <span class="pl-label ml-3">Self-paced</span>
-          </span>
-          <span style="font-family: var(--font-mono); font-size: 0.95rem;">$95 →</span>
-        </div>
+
+        {past.length > 0 && (
+          <div class="pl-past-trainings">
+            <span class="pl-label" style="display: block; margin-top: 2.5rem; margin-bottom: 0.75rem;">Past Trainings</span>
+            <div class="pl-ledger-manuscript pl-ledger-manuscript--past">
+              {past.map(t => (
+                <div class="pl-ledger-row">
+                  <span class={`pl-ledger-blot pl-ledger-blot--${t.blot || 'rose'}`} aria-hidden="true"></span>
+                  <span class="pl-ledger-date">{t.dateLabel}</span>
+                  <span class="pl-ledger-title">{t.title}<span class="pl-ledger-tag">{t.tag}</span></span>
+                  <span class="pl-ledger-price">Closed</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   </section>
 
-  <!-- PRESS MINI-BAND -->
+  <!-- PRESS — Apothecary labels w/ inline media -->
   <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 pl-reveal">
     <div class="pl-grid items-start">
       <div class="col-span-12 md:col-span-4">
@@ -248,29 +289,113 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         <h2 style="font-family: var(--font-display); font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 0.95; margin-top: 0.75rem; letter-spacing: -0.025em;">
           Where I've<br/><em style="font-weight: 400;">shown up.</em>
         </h2>
+        <p class="mt-6 text-base" style="color: var(--color-ink-soft); max-width: 32ch; line-height: 1.6;">
+          A small shelf of tinctures. Press the cork to listen, or pour the full archive.
+        </p>
         <a href={`${BASE}/press`} class="pl-pill mt-8 inline-flex">Full archive →</a>
       </div>
       <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
-        <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 5rem;">MAY 26</span>
-          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
-            Where Should We Begin? <span class="pl-label ml-3">Esther Perel · Podcast</span>
-          </span>
-          <span class="pl-label">Listen →</span>
-        </div>
-        <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 5rem;">FEB 26</span>
-          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
-            On Anxiety in the Bedroom <span class="pl-label ml-3">The Cut · Article</span>
-          </span>
-          <span class="pl-label">Read →</span>
-        </div>
-        <div class="pl-ledger">
-          <span class="pl-label" style="min-width: 5rem;">OCT 25</span>
-          <span style="font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 1.6rem);">
-            Sex Therapy 101 <span class="pl-label ml-3">Sex With Emily · Podcast</span>
-          </span>
-          <span class="pl-label">Listen →</span>
+        <div class="pl-apothecary-wrap">
+          <div class="pl-apothecary-shelf pl-apothecary-shelf--scroll" id="press-shelf">
+          <div class="pl-bottle">
+            <span class="pl-bottle-audio-mark" aria-hidden="true">♪</span>
+            <div class="pl-bottle-header">
+              <span class="pl-bottle-kicker">No. I · Podcast</span>
+            </div>
+            <div class="pl-bottle-spacer"></div>
+            <div class="pl-bottle-title">Overcoming Anxiety in Sex &amp; Relationships.</div>
+            <div class="pl-bottle-tincture">An hour with Natasha Helfer on the quiet panic that reshapes desire.</div>
+            <div class="pl-bottle-spacer"></div>
+            <div class="pl-bottle-meta">Mar 2025 · 1h 17m</div>
+            <div class="pl-bottle-player">
+              <iframe
+                src="https://open.spotify.com/embed/episode/3BHIOdjTLVDyO29Ft7WhBq?utm_source=generator"
+                width="100%"
+                height="152"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                title="The Natasha Helfer Podcast — Overcoming Anxiety in Sex and Relationships with Paula Leech"
+              ></iframe>
+            </div>
+            <a href="https://open.spotify.com/episode/3BHIOdjTLVDyO29Ft7WhBq" target="_blank" rel="noopener" class="pl-bottle-cork">Open on Spotify →</a>
+          </div>
+
+          <div class="pl-bottle">
+            <span class="pl-bottle-audio-mark" aria-hidden="true">♪</span>
+            <div class="pl-bottle-header">
+              <span class="pl-bottle-kicker">No. II · Podcast</span>
+            </div>
+            <div class="pl-bottle-spacer"></div>
+            <div class="pl-bottle-title">Pregnancy &amp; postpartum challenges for sex.</div>
+            <div class="pl-bottle-tincture">A look at what shifts in desire and the body after kids — and what to do with it.</div>
+            <div class="pl-bottle-spacer"></div>
+            <div class="pl-bottle-meta">Apr 2022 · Better Sex</div>
+            <div class="pl-bottle-player">
+              <iframe
+                src="https://open.spotify.com/embed/episode/0Ll8mexApKVOWvxQiUYNwo?utm_source=generator"
+                width="100%"
+                height="152"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                title="Better Sex Podcast — Pregnancy and Postpartum Challenges for Sex with Paula Leech"
+              ></iframe>
+            </div>
+            <a href="https://open.spotify.com/episode/0Ll8mexApKVOWvxQiUYNwo" target="_blank" rel="noopener" class="pl-bottle-cork">Open on Spotify →</a>
+          </div>
+
+          <div class="pl-bottle">
+            <span class="pl-bottle-audio-mark" aria-hidden="true">♪</span>
+            <div class="pl-bottle-header">
+              <span class="pl-bottle-kicker">No. III · Podcast</span>
+            </div>
+            <div class="pl-bottle-spacer"></div>
+            <div class="pl-bottle-title">Embodiment &amp; the expression of sexuality.</div>
+            <div class="pl-bottle-tincture">A conversation on what living in the body really asks of us.</div>
+            <div class="pl-bottle-spacer"></div>
+            <div class="pl-bottle-meta">Jul 2024 · 58 min</div>
+            <div class="pl-bottle-player">
+              <iframe
+                src="https://open.spotify.com/embed/episode/0Py55ILnVqRoXEvP0eCmQY?utm_source=generator"
+                width="100%"
+                height="152"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                title="In This Body — The Importance of Embodiment in the Expression of Sexuality with Paula Leech"
+              ></iframe>
+            </div>
+            <a href="https://open.spotify.com/episode/0Py55ILnVqRoXEvP0eCmQY" target="_blank" rel="noopener" class="pl-bottle-cork">Open on Spotify →</a>
+          </div>
+
+          <div class="pl-bottle">
+            <span class="pl-bottle-audio-mark" aria-hidden="true">♪</span>
+            <div class="pl-bottle-header">
+              <span class="pl-bottle-kicker">No. IV · Podcast</span>
+            </div>
+            <div class="pl-bottle-spacer"></div>
+            <div class="pl-bottle-title">From tension to trust: healing sexual anxiety.</div>
+            <div class="pl-bottle-tincture">A practical conversation on how anxiety lodges in the body — and how it loosens.</div>
+            <div class="pl-bottle-spacer"></div>
+            <div class="pl-bottle-meta">Aug 2025 · Wise Body Sex Therapy</div>
+            <div class="pl-bottle-player">
+              <iframe
+                src="https://embed.podcasts.apple.com/ca/podcast/from-tension-to-trust-paula-leech-on-healing-sexual-anxiety/id1833251163?i=1000721958902&theme=light"
+                height="175"
+                style="width:100%;overflow:hidden;border-radius:12px;"
+                frameborder="0"
+                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+                allow="autoplay *; encrypted-media *; clipboard-write"
+                loading="lazy"
+                title="Wise Body Sex Therapy — From Tension to Trust with Paula Leech"
+              ></iframe>
+            </div>
+            <a href="https://podcasts.apple.com/ca/podcast/from-tension-to-trust-paula-leech-on-healing-sexual-anxiety/id1833251163?i=1000721958902" target="_blank" rel="noopener" class="pl-bottle-cork">Open on Apple →</a>
+          </div>
+          </div>
+          <button class="pl-shelf-prev" type="button" aria-label="Previous press item" data-target="press-shelf">←</button>
+          <button class="pl-shelf-next" type="button" aria-label="Next press item" data-target="press-shelf">→</button>
         </div>
       </div>
     </div>
@@ -290,7 +415,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
           letter-spacing: -0.02em;
           margin-top: 0.75rem;
         ">
-          Occasional letters.<br/>No pitches.
+          Occasional letters.
         </h2>
         <p class="mt-4 text-base" style="color: var(--color-ink-soft); max-width: 42ch; line-height: 1.6;">
           Writing on intimacy, anxiety, and the work in between &mdash; sent when I have something worth saying.
@@ -340,10 +465,46 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         </p>
         <div class="mt-8 flex gap-3 flex-wrap">
           <a href={`${BASE}/book`} class="pl-pill">Read more →</a>
-          <a href="https://www.routledge.com" class="pl-pill" style="background: var(--color-blue);" target="_blank" rel="noopener">Buy the book</a>
+          <a href="https://www.amazon.com/Overcoming-Anxiety-Sex-Relationships-Comprehensive/dp/1032438398" class="pl-pill" style="background: var(--color-blue);" target="_blank" rel="noopener">Buy the book</a>
         </div>
       </div>
     </div>
   </section>
 
 </Layout>
+
+<script>
+  // Press shelf — advance / rewind one card per click.
+  document.querySelectorAll('.pl-shelf-next, .pl-shelf-prev').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-target');
+      const shelf = id ? document.getElementById(id) : null;
+      if (!shelf) return;
+      const card = shelf.querySelector('.pl-bottle');
+      const step = card ? card.getBoundingClientRect().width + 24 : 320;
+      const dir = btn.classList.contains('pl-shelf-prev') ? -1 : 1;
+      if (dir > 0) {
+        const atEnd = shelf.scrollLeft + shelf.clientWidth >= shelf.scrollWidth - 8;
+        shelf.scrollTo({ left: atEnd ? 0 : shelf.scrollLeft + step, behavior: 'smooth' });
+      } else {
+        const atStart = shelf.scrollLeft <= 8;
+        shelf.scrollTo({ left: atStart ? shelf.scrollWidth : shelf.scrollLeft - step, behavior: 'smooth' });
+      }
+      updatePrev(shelf);
+    });
+  });
+
+  // Hide the back button when at the start.
+  function updatePrev(shelf) {
+    const prev = document.querySelector('.pl-shelf-prev[data-target="' + shelf.id + '"]');
+    if (!prev) return;
+    prev.classList.toggle('is-hidden', shelf.scrollLeft <= 8);
+  }
+  document.querySelectorAll('.pl-apothecary-shelf--scroll').forEach((shelf) => {
+    updatePrev(shelf);
+    shelf.addEventListener('scroll', () => {
+      updatePrev(shelf);
+      shelf.classList.toggle('is-scrolled', shelf.scrollLeft > 8);
+    }, { passive: true });
+  });
+</script>

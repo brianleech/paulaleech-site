@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import headerMark from '../assets/logos/HeaderMark.png';
+import CloudsBG from '../components/CloudsBG.astro';
 
 export interface Props {
   title: string;
@@ -11,12 +12,12 @@ export interface Props {
 const { title, description = "Paula Leech, LMFT, CST, CSTS — sex therapy, supervision, and courses.", headerCredentials = false } = Astro.props;
 
 const nav = [
-  { label: 'About',         href: '/about' },
-  { label: 'Work With Me',  href: '/work-with-paula' },
-  { label: 'Courses',       href: '/courses' },
-  { label: 'My Book',       href: '/book' },
-  { label: 'Press',         href: '/press' },
-  { label: 'Contact',       href: '/contact' },
+  { label: 'About',                 href: '/about' },
+  { label: 'Work With Me',          href: '/work-with-paula' },
+  { label: 'Supervision',           href: '/work-with-paula#supervision' },
+  { label: 'Courses & Trainings',   href: '/courses' },
+  { label: 'Press',                 href: '/press' },
+  { label: 'Contact & Scheduling',  href: '/contact' },
 ];
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
@@ -33,7 +34,8 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     <title>{title}</title>
   </head>
   <body>
-    <header class="sticky top-0 z-30 backdrop-blur" style="background: color-mix(in srgb, var(--color-cream) 88%, transparent); overflow: visible;">
+    <CloudsBG />
+    <header class="site-header sticky top-0 z-30" style="overflow: visible;">
       <div class="mx-auto max-w-[1400px] px-12 lg:px-20 py-5 flex items-center justify-between" style="position: relative;">
         <a href={`${BASE}/`} class="flex items-center gap-3" aria-label="Paula Leech — Home" style="position: relative;">
           <img src={headerMark.src} alt="Paula Leech" style="height: 132px; width: auto; display: block; margin-top: -39px; margin-bottom: -45px;" />
@@ -52,7 +54,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
           ))}
         </nav>
         <div class="flex items-center gap-2">
-          <a href="tel:+150****1234" class="pl-pill" aria-label="Call Paula">Call</a>
+          <a href="tel:+16025706657" class="pl-pill" aria-label="Call Paula">Call</a>
           <a href="mailto:paula@paulaleech.com" class="pl-pill" style="background: var(--color-plum);">Email</a>
         </div>
       </div>
@@ -69,7 +71,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
           <div class="col-span-12 md:col-span-6">
             <p class="pl-label">The Newsletter</p>
             <h3 style="font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.6rem, 2.6vw, 2.25rem); line-height: 1.1; margin-top: 0.5rem; letter-spacing: -0.015em;">
-              Occasional letters. No&nbsp;pitches.
+              Occasional letters.
             </h3>
           </div>
           <div class="col-span-12 md:col-span-6 mt-6 md:mt-0">
@@ -102,7 +104,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         <div class="col-span-6 md:col-span-3 mt-10 md:mt-0">
           <p class="pl-label mb-4">Contact</p>
           <a href="mailto:paula@paulaleech.com" class="block text-sm mt-2 hover:text-[var(--color-plum)] transition-colors">paula@paulaleech.com</a>
-          <a href="tel:+150****1234" class="block text-sm mt-2 hover:text-[var(--color-plum)] transition-colors">(503) 555-1234</a>
+          <a href="tel:+16025706657" class="block text-sm mt-2 hover:text-[var(--color-plum)] transition-colors">(602) 570-6657</a>
           <a href="https://instagram.com/paulaleechtherapy" class="block text-sm mt-2 hover:text-[var(--color-plum)] transition-colors" target="_blank" rel="noopener">@paulaleechtherapy</a>
         </div>
         <div class="col-span-6 md:col-span-3 mt-10 md:mt-0">

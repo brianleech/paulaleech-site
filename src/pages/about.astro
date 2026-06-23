@@ -1,9 +1,272 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import paulaPortrait from '../assets/photos/paula-portrait.jpg';
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
-<Layout title="About — Paula Leech">
-  <section class="mx-auto max-w-3xl px-6 py-24">
-    <h1 class="text-4xl font-serif mb-6">About</h1>
-    <p class="text-stone-600">Bio, credentials, the unexpected angle. TODO.</p>
+<Layout title="About Paula Leech — Sex Therapist & Supervisor">
+
+  <!-- HERO: kicker / name / tagline beside large portrait -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 pt-16 md:pt-20 pl-reveal">
+    <div class="pl-grid items-end" style="row-gap: 3rem;">
+      <div class="col-span-12 md:col-span-6 md:order-2">
+        <div class="pl-portrait">
+          <img src={paulaPortrait.src} alt="Paula Leech, sex therapist" class="pl-portrait-img" />
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-6 md:order-1">
+        <p class="pl-label">About</p>
+        <h1 style="
+          font-family: var(--font-display);
+          font-weight: 500;
+          font-variation-settings: 'opsz' 144, 'SOFT' 60;
+          font-size: clamp(3rem, 8vw, 6.5rem);
+          line-height: 0.92;
+          letter-spacing: -0.04em;
+          margin-top: 0.75rem;
+          color: var(--color-ink);
+        ">
+          Why I'm<br/><em style="font-weight: 400;">here.</em>
+        </h1>
+        <p style="
+          font-family: var(--font-display);
+          font-style: italic;
+          font-weight: 400;
+          font-size: clamp(1.25rem, 2vw, 1.75rem);
+          line-height: 1.3;
+          letter-spacing: -0.01em;
+          color: var(--color-ink-soft);
+          margin-top: 1.25rem;
+          max-width: 28ch;
+        ">
+          Sex therapist &amp; supervisor. AASECT certified.
+        </p>
+      </div>
+    </div>
   </section>
+
+  <!-- BIO — two paragraphs lifted + lightly tightened from her current site -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-32 md:mt-40 pl-reveal">
+    <div class="pl-grid items-start">
+      <div class="col-span-12 md:col-span-4">
+        <span class="pl-label">The path</span>
+      </div>
+      <div class="col-span-12 md:col-span-8 mt-6 md:mt-0">
+        <p style="
+          font-family: var(--font-display);
+          font-weight: 400;
+          font-size: clamp(1.4rem, 2.4vw, 2rem);
+          line-height: 1.4;
+          letter-spacing: -0.015em;
+          color: var(--color-ink);
+        ">
+          I trained as a marriage and family therapist at UMass Boston, then certified through AASECT as a sex therapist and, later, a supervisor of sex therapists. For over a decade I ran a private practice in Quincy, Massachusetts and co-founded a sex therapy agency and training institute &mdash; seeing clients while also training therapists to become competent, confident sex therapists themselves.
+        </p>
+        <p class="mt-8" style="
+          font-family: var(--font-display);
+          font-style: italic;
+          font-weight: 400;
+          font-size: clamp(1.25rem, 2vw, 1.65rem);
+          line-height: 1.5;
+          letter-spacing: -0.01em;
+          color: var(--color-ink-soft);
+        ">
+          I truly love this work. I love the adventure of moving relationships and individuals toward a greater sense of intimacy &mdash; the kind that can keep growing alongside us. I'm inspired by the transformation of therapists themselves as they witness and become part of fantastic change in their clients. And I never tire of learning, alongside and from both professionals and fellow sexuality enthusiasts, about this extraordinary corner of human life.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS — manuscript ledger, reusing the home pattern -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-32 md:mt-40 pl-reveal">
+    <div class="pl-grid items-start">
+      <div class="col-span-12 md:col-span-4">
+        <span class="pl-label">Credentials</span>
+        <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.25rem); line-height: 0.95; margin-top: 0.75rem; letter-spacing: -0.025em;">
+          Education &amp;<br/><em style="font-weight: 400;">certification.</em>
+        </h2>
+      </div>
+      <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
+        <div class="pl-ledger-manuscript pl-ledger-manuscript--about">
+          <div class="pl-ledger-row">
+            <span class="pl-ledger-date">CSTS</span>
+            <span class="pl-ledger-title">Certified Supervisor of Sex Therapy<span class="pl-ledger-tag">AASECT</span></span>
+            <span class="pl-ledger-price">Since 2018</span>
+          </div>
+          <div class="pl-ledger-row">
+            <span class="pl-ledger-date">CST</span>
+            <span class="pl-ledger-title">Certified Sex Therapist<span class="pl-ledger-tag">AASECT</span></span>
+            <span class="pl-ledger-price">Since 2012</span>
+          </div>
+          <div class="pl-ledger-row">
+            <span class="pl-ledger-date">LMFT</span>
+            <span class="pl-ledger-title">Licensed Marriage &amp; Family Therapist<span class="pl-ledger-tag">MA · OR · NY</span></span>
+            <span class="pl-ledger-price">Since 2009</span>
+          </div>
+          <div class="pl-ledger-row">
+            <span class="pl-ledger-date">MA</span>
+            <span class="pl-ledger-title">Marriage &amp; Family Therapy<span class="pl-ledger-tag">UMass Boston</span></span>
+            <span class="pl-ledger-price">Graduate</span>
+          </div>
+          <div class="pl-ledger-row">
+            <span class="pl-ledger-date">BS</span>
+            <span class="pl-ledger-title">Family &amp; Human Development<span class="pl-ledger-tag">Arizona State</span></span>
+            <span class="pl-ledger-price">Undergraduate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 relative pl-reveal">
+    <div class="relative">
+      <div class="pl-grid">
+        <div class="col-span-12 md:col-start-3 md:col-span-8">
+          <p style="
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: clamp(1.6rem, 3vw, 2.6rem);
+            line-height: 1.3;
+            letter-spacing: -0.018em;
+            color: var(--color-ink);
+          ">
+            Our sexuality is interwoven into everything else we are. It's something we spend our whole lives trying to make sense of, in the middle of silence and a sex-negative world &mdash; immensely complex, particularly susceptible to shame and pressure and <em>should</em>. And yet it's one of the primary ways we express and receive love. Therapy is a way to tap into the freedom and joy of unraveling ourselves from all of that.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS / SPECIALTIES — split block -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-32 md:mt-40 pl-reveal">
+    <div class="pl-grid items-start" style="row-gap: 3rem;">
+      <div class="col-span-12 md:col-span-6">
+        <span class="pl-label">Where I work</span>
+        <h3 style="font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.6rem, 2.6vw, 2.25rem); line-height: 1.1; margin-top: 0.75rem; letter-spacing: -0.015em;">
+          Therapy, supervision, training.
+        </h3>
+        <ul class="mt-6" style="color: var(--color-ink-soft); font-size: 1.05rem; line-height: 1.7;">
+          <li>Therapy: <strong style="color: var(--color-ink);">MA, OR, NY</strong> (virtual) &middot; <strong style="color: var(--color-ink);">in-person in Oregon only</strong></li>
+          <li>Supervision: <strong style="color: var(--color-ink);">Worldwide</strong> (Zoom)</li>
+          <li>Trainings at universities, institutes, and agencies across the US &amp; Canada</li>
+        </ul>
+      </div>
+      <div class="col-span-12 md:col-span-6">
+        <span class="pl-label">Clinical Areas of Specialization</span>
+        <h3 style="font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.6rem, 2.6vw, 2.25rem); line-height: 1.1; margin-top: 0.75rem; letter-spacing: -0.015em;">
+          What I work with.
+        </h3>
+
+        <div class="pl-specialties mt-8">
+          <div class="pl-spec-group">
+            <span class="pl-spec-heading">Identity &amp; orientation</span>
+            <ul class="pl-spec-list">
+              <li>LGBTQ+</li>
+              <li>Gender identity &amp; sexual orientation</li>
+            </ul>
+          </div>
+
+          <div class="pl-spec-group">
+            <span class="pl-spec-heading">Desire &amp; arousal</span>
+            <ul class="pl-spec-list">
+              <li>Low / no desire</li>
+              <li>Desire discrepancy in relationships</li>
+              <li>Difficulty reaching orgasm</li>
+              <li>Erectile dysfunction</li>
+              <li>&ldquo;Premature&rdquo; or early ejaculation</li>
+              <li>Delayed ejaculation</li>
+            </ul>
+          </div>
+
+          <div class="pl-spec-group">
+            <span class="pl-spec-heading">Pain &amp; the body</span>
+            <ul class="pl-spec-list">
+              <li>Vaginismus</li>
+              <li>Sexual pain</li>
+              <li>Sexual trauma</li>
+            </ul>
+          </div>
+
+          <div class="pl-spec-group">
+            <span class="pl-spec-heading">Relationships</span>
+            <ul class="pl-spec-list">
+              <li>Infidelity</li>
+              <li>Non-monogamy</li>
+              <li>Kink &amp; BDSM</li>
+            </ul>
+          </div>
+
+          <div class="pl-spec-group">
+            <span class="pl-spec-heading">Behavior</span>
+            <ul class="pl-spec-list">
+              <li>&ldquo;Sex addiction,&rdquo; porn &ldquo;addiction,&rdquo; or sexual compulsivity</li>
+            </ul>
+          </div>
+
+          <div class="pl-spec-group">
+            <span class="pl-spec-heading">Across the lifespan</span>
+            <ul class="pl-spec-list">
+              <li>Developmental sexuality (children &amp; teens)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA — color-blocked triptych -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 mb-32 pl-reveal">
+    <h2 class="pl-cta-heading">
+      Let's <em>begin.</em>
+    </h2>
+    <div class="pl-cta-triptych">
+      <a href={`${BASE}/work-with-paula#therapy`} class="pl-cta-panel pl-cta-panel--plum">
+        <span class="pl-cta-num">01 · Practice</span>
+        <span class="pl-cta-label">Therapy</span>
+        <span class="pl-cta-arrow">Begin →</span>
+      </a>
+      <a href={`${BASE}/work-with-paula#supervision`} class="pl-cta-panel pl-cta-panel--honey">
+        <span class="pl-cta-num">02 · Mentor</span>
+        <span class="pl-cta-label">Supervision</span>
+        <span class="pl-cta-arrow">Apply →</span>
+      </a>
+      <a href={`${BASE}/courses`} class="pl-cta-panel pl-cta-panel--blue">
+        <span class="pl-cta-num">03 · Learn</span>
+        <span class="pl-cta-label">Trainings</span>
+        <span class="pl-cta-arrow">Browse →</span>
+      </a>
+    </div>
+  </section>
+
 </Layout>
+
+<style>
+  .pl-portrait {
+    position: relative;
+    display: block;
+  }
+  .pl-portrait-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 560px;
+    margin-left: auto;
+    border-radius: 4px;
+    box-shadow: 0 40px 80px -32px rgba(42, 56, 24, 0.35);
+    filter: contrast(0.97) saturate(0.92);
+  }
+  .pl-portrait-eyes {
+    position: absolute;
+    top: -2.5rem;
+    left: -1.5rem;
+    width: clamp(90px, 11vw, 160px);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .pl-portrait-eyes img {
+    width: 100%;
+    height: auto;
+    mix-blend-mode: multiply;
+    opacity: 0.7;
+  }
+</style>
