@@ -74,9 +74,9 @@ const past = trainingsData
                 {t.art && artMap[t.art] && (
                   <img src={artMap[t.art].src} alt="" aria-hidden="true" />
                 )}
-                {t.price && (
+                {(t.price || t.priceNote) && (
                   <div class="pl-course-price-tag">
-                    <span class="pl-course-price">{t.price}</span>
+                    {t.price && <span class="pl-course-price">{t.price}</span>}
                     {t.priceNote && <span class="pl-course-price-note">{t.priceNote}</span>}
                   </div>
                 )}
@@ -90,6 +90,7 @@ const past = trainingsData
                 </div>
 
                 <h3 class="pl-course-spotlight-title">{t.title}</h3>
+                {t.subtitle && <p class="pl-course-spotlight-subtitle">{t.subtitle}</p>}
 
                 {t.summary && <p class="pl-course-summary">{t.summary}</p>}
 
@@ -97,6 +98,14 @@ const past = trainingsData
                   <div class="pl-course-detail-row">
                     <span class="pl-label">Format</span>
                     <span class="pl-course-detail-text">{t.format}</span>
+                  </div>
+                )}
+                {t.sessions && t.sessions.length > 0 && (
+                  <div class="pl-course-detail-row">
+                    <span class="pl-label">Sessions</span>
+                    <ul class="pl-course-sessions-list">
+                      {t.sessions.map((s) => <li>{s}</li>)}
+                    </ul>
                   </div>
                 )}
                 {t.audience && (
@@ -109,6 +118,15 @@ const past = trainingsData
                 {t.description && (
                   <div class="pl-course-description">
                     {t.description.map((p) => <p>{p}</p>)}
+                  </div>
+                )}
+
+                {t.questions && t.questions.length > 0 && (
+                  <div class="pl-course-questions">
+                    <span class="pl-label">{t.questionsPrompt || 'Questions we sit with'}</span>
+                    <ul>
+                      {t.questions.map((q) => <li>{q}</li>)}
+                    </ul>
                   </div>
                 )}
 

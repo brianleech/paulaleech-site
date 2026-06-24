@@ -2,24 +2,33 @@
   {
     "id": "intuitive-sex-therapist-2026",
     "title": "The Intuitive Sex Therapist",
-    "tag": "5-week cohort · Group Supervision · 10 hrs",
+    "subtitle": "A 5-week Specialized Group Supervision Experience",
+    "tag": "5-week closed cohort · Group Supervision",
     "date": "2026-09-08",
     "dateLabel": "Sep 8, 2026",
-    "format": "Virtual · 5 weekly sessions · Tuesdays 1–3pm PST",
-    "ces": "10 AASECT CE",
-    "audience": "AASECT-track therapists, sex therapy supervisees, and clinicians ready to deepen their work with intuition.",
-    "price": "$895",
-    "priceNote": "Limited to 12 seats",
-    "summary": "A 5-week cohort for clinicians who want to develop the part of their practice that doesn't live in textbooks — intuition, embodied sensing, the wisdom underneath the words.",
-    "description": [
-      "We're trained to listen with our minds. This cohort is about everything else — the gut tug, the visual that surfaces uninvited, the memory that wants in on the session, the body's quiet 'yes' or 'not yet.' These channels carry information, and most clinical training programs teach us to filter them out as counter-transference. This cohort teaches you to read them.",
-      "Across five weekly sessions, you'll bring real cases, develop a vocabulary for the non-verbal data your nervous system is already collecting, and learn to differentiate problematic counter-transference from the intuitive signal that actually moves a session forward."
+    "format": "Virtual via Zoom · Mondays 1–3pm PT (4–6pm ET) · 120 minutes per session",
+    "sessions": [
+      "Sep 8",
+      "Sep 22",
+      "Oct 6",
+      "Oct 13",
+      "Oct 27"
     ],
-    "outcomes": [
-      "Distinguish intuitive signal from personal counter-transference in session",
-      "Develop a reliable practice for tracking embodied data alongside verbal content",
-      "Hold material that surfaces from memory, image, or sensation with clinical clarity",
-      "Bring intuition into client-facing language without losing your therapeutic frame"
+    "priceNote": "Half due at registration · second half due Oct 9 · supervision contract required",
+    "summary": "A closed cohort for clinicians ready to develop the part of their work that lives outside textbooks — intuition, embodied sensing, and the wisdom that surfaces through memory, image, and gut.",
+    "description": [
+      "We receive communication from so much more than our thoughts in the therapy room. We are spoken to via our own memories, sensations, emotions, “gut” instincts, mental imagery, energy and beyond. What surfaces through these channels carries a wisdom that we can, and often do, partner with as we uncover clues, make connections, and find break-through moments with our clients. How deeply can we trust it — even understand it — when it is often framed in clinical training programs as an intrusion, “counter-transference” to be managed, and something to keep out of therapeutic conversation, especially around sex?",
+      "We understand that we are naturally intuitive as therapists, but this part of our development doesn't live in theory or methodology, via textbooks and research — it's found within ourselves as a critical ability to harness in the work of healing.",
+      "This supervision group is designed to aid clinicians in tapping into and then gleaning understanding and utility in the information other aspects of “self” communicate outside of theoretical scaffolding or focused cerebral engagement. In the place beyond our rational minds lives abstract wisdom and insight that we can develop, that can grow more sophisticated with time, that can inspire trust in the greatest tool we have as clinicians — ourselves.",
+      "Through personal reflection and case examination, participants will link the information and techniques shared back to the art of sex therapy. They will learn how to differentiate memories and experiences that are barriers to client connection (problematic counter-transference) from memories and experiences that illuminate valuable insight and pathways toward healing. Participants will leave with a greater appreciation for and connection with the dimensionality of their instrument.",
+      "This will be a closed, cohort-style group to create a greater sense of connection and safety as we venture into “new” and often vulnerable territory in our work. Commitment to all 5 sessions will be required."
+    ],
+    "questionsPrompt": "Questions the group sits with",
+    "questions": [
+      "What does this visual my brain is giving me represent?",
+      "What is this memory attempting to show me about what is unfolding in front of me?",
+      "Why do I feel pulled to stay with the topic at hand despite not knowing why?",
+      "What is this sinking feeling and why is it important?"
     ],
     "instructors": [
       {
