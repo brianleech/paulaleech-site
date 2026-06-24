@@ -1697,3 +1697,34 @@
     padding: 0 1.5rem;
   }
 }
+
+/* Hero offerings — numbered editorial chips */
+.pl-course-hero-offerings {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2rem;
+  max-width: 42rem;
+}
+.pl-course-hero-offerings li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent);
+  min-width: 9rem;
+}
+.pl-course-hero-off-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--color-plum);
+}
+.pl-course-hero-off-label {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  color: var(--color-ink);
+}
