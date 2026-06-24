@@ -870,8 +870,8 @@
 
 .pl-course-spotlight-art {
   position: relative;
-  /* Bleed toward page edge — negate the outer container padding */
-  margin-left: -3rem;
+  /* Bleed toward page edge — negate most of the outer container padding, leave ~10px buffer */
+  margin-left: calc(-3rem + 10px);
   margin-right: -1rem;
   display: flex;
   flex-direction: column;
@@ -879,7 +879,7 @@
 }
 @media (max-width: 1024px) {
   .pl-course-spotlight-art {
-    margin-left: -1.5rem;
+    margin-left: calc(-1.5rem + 10px);
   }
 }
 @media (max-width: 880px) {
@@ -1736,25 +1736,34 @@
   border-radius: 0.5rem;
   /* Duotone-ish: warm photo through cream filter */
   filter: sepia(0.18) saturate(0.88) brightness(0.98);
-  /* Organic left feather — multiple overlapping radial blobs compose a soft, lobed edge */
+  /* Organic left feather — overlapping radial blobs + solid base.
+     Base linear-gradient guarantees hard top/right/bottom edges; blobs feather only the left.
+     Blob centers baked at shifted positions (was -100px via mask-position, now another -100px). */
   -webkit-mask-image:
-    radial-gradient(70% 55% at 80% 30%, #000 35%, transparent 75%),
-    radial-gradient(65% 60% at 70% 65%, #000 35%, transparent 75%),
-    radial-gradient(55% 45% at 60% 20%, #000 35%, transparent 75%),
-    radial-gradient(50% 40% at 55% 85%, #000 35%, transparent 75%),
-    radial-gradient(60% 100% at 95% 50%, #000 40%, transparent 80%);
+    radial-gradient(70% 55% at 42% 30%, #000 28%, transparent 84%),
+    radial-gradient(65% 60% at 32% 65%, #000 28%, transparent 84%),
+    radial-gradient(55% 45% at 22% 18%, #000 28%, transparent 86%),
+    radial-gradient(50% 40% at 18% 88%, #000 28%, transparent 86%),
+    radial-gradient(22% 18% at 28% 46%, #000 30%, transparent 90%),
+    radial-gradient(16% 14% at 24% 78%, #000 32%, transparent 92%),
+    radial-gradient(14% 12% at 38% 8%, #000 32%, transparent 92%),
+    radial-gradient(60% 100% at 58% 50%, #000 38%, transparent 80%),
+    linear-gradient(to right, transparent 0%, transparent 18%, #000 56%, #000 100%);
           mask-image:
-    radial-gradient(70% 55% at 80% 30%, #000 35%, transparent 75%),
-    radial-gradient(65% 60% at 70% 65%, #000 35%, transparent 75%),
-    radial-gradient(55% 45% at 60% 20%, #000 35%, transparent 75%),
-    radial-gradient(50% 40% at 55% 85%, #000 35%, transparent 75%),
-    radial-gradient(60% 100% at 95% 50%, #000 40%, transparent 80%);
-  /* default mask-composite is 'add' / source-over which is what we want — blobs union */
+    radial-gradient(70% 55% at 42% 30%, #000 28%, transparent 84%),
+    radial-gradient(65% 60% at 32% 65%, #000 28%, transparent 84%),
+    radial-gradient(55% 45% at 22% 18%, #000 28%, transparent 86%),
+    radial-gradient(50% 40% at 18% 88%, #000 28%, transparent 86%),
+    radial-gradient(22% 18% at 28% 46%, #000 30%, transparent 90%),
+    radial-gradient(16% 14% at 24% 78%, #000 32%, transparent 92%),
+    radial-gradient(14% 12% at 38% 8%, #000 32%, transparent 92%),
+    radial-gradient(60% 100% at 58% 50%, #000 38%, transparent 80%),
+    linear-gradient(to right, transparent 0%, transparent 18%, #000 56%, #000 100%);
+  /* default mask-composite is 'add' / source-over — all layers union */
   -webkit-mask-size: 100% 100%;
           mask-size: 100% 100%;
-  /* Shift the mask 100px left so more of the image is exposed on its left side */
-  -webkit-mask-position: -100px 0;
-          mask-position: -100px 0;
+  -webkit-mask-position: 0 0;
+          mask-position: 0 0;
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
   /* Push image past container's right edge so the face stays where it was */

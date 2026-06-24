@@ -1,9 +1,492 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// Acuity owner ID confirmed: 16569176
+const ACUITY_OWNER = "16569176";
+const ACUITY_BASE = `https://app.acuityscheduling.com/schedule.php?owner=${ACUITY_OWNER}`;
+
+// Per-card Acuity selector. Each entry can be either:
+//   - a specific appointment type ID (single calendar)
+//   - a "category:Foo" string (all types under that category)
+//   - "" (full menu)
+const CONSULT_SELECTOR = "94919917";              // New Client Consult — single type
+const SUPERVISION_SELECTOR = "category:Supervision"; // All supervision options
+
+function acuityEmbedUrl(selector: string) {
+  const params = new URLSearchParams({ owner: ACUITY_OWNER, ref: "embedded_booking" });
+  if (selector) params.set("appointmentType", selector);
+  return `https://app.acuityscheduling.com/schedule.php?${params.toString()}`;
+}
+
+const paths = [
+  {
+    id: "new-clients",
+    label: "Schedule a consult",
+    title: "For new clients.",
+    body: "Before we book anything, I like to spend 15 minutes on the phone or Zoom — to hear what's bringing you in, share how I work, and make sure we're a good fit. The consult is free.",
+    cta: "Schedule a consult",
+    mode: "drawer",
+    drawerTitle: "Schedule a free consult",
+    drawerSubtitle: "15 minutes · phone or Zoom · no payment required",
+    embedUrl: acuityEmbedUrl(CONSULT_SELECTOR),
+    note: "Free · 15 minutes · phone or Zoom",
+  },
+  {
+    id: "current-clients",
+    label: "Rebook or reach out",
+    title: "For current clients.",
+    body: "I prefer to schedule with you in person so we can keep your rhythm intact. If something comes up between sessions and you need to cancel, you can do that yourself with at least 24 hours' notice. Anything else — a reschedule, a question, a heads-up — please email me.",
+    cta: "Email Paula",
+    mode: "link",
+    href: "mailto:paula@paulaleech.com",
+    note: "Self-serve cancellation available with 24 hrs notice",
+  },
+  {
+    id: "therapists",
+    label: "Group supervision",
+    title: "For therapists.",
+    body: "I hold ongoing group supervision for AASECT-track clinicians and others working in sex therapy. Open seats are listed below — pick a time that works.",
+    cta: "Book a supervision slot",
+    mode: "drawer",
+    drawerTitle: "Book group supervision",
+    drawerSubtitle: "AASECT CE-eligible · Virtual via Zoom",
+    embedUrl: acuityEmbedUrl(SUPERVISION_SELECTOR),
+    note: "AASECT CE-eligible · Virtual via Zoom",
+  },
+];
 ---
-<Layout title="Contact — Paula Leech">
-  <section class="mx-auto max-w-3xl px-6 py-24">
-    <h1 class="text-4xl font-serif mb-6">Contact</h1>
-    <p class="text-stone-600">Phone, email, form, office. TODO.</p>
+<Layout title="Contact & Scheduling — Paula Leech">
+
+  <!-- Hero -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 pt-16 md:pt-24 pl-reveal">
+    <p class="pl-label">Contact &amp; Scheduling</p>
+    <h1 style="
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-variation-settings: 'opsz' 144, 'SOFT' 60;
+      font-size: clamp(3rem, 9vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      margin-top: 1rem;
+      color: var(--color-ink);
+    ">
+      Let's begin<br/><em style="font-weight: 400;">where you are.</em>
+    </h1>
   </section>
+
+  <!-- Three paths — 3-column grid, hairlines between, outer rule -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-16 md:mt-24 pl-reveal">
+    <div class="pl-letters-grid">
+      {paths.map((p, i) => (
+        <article
+          class="pl-letter"
+          data-tile-mode={p.mode}
+          data-tile-target={p.mode === "drawer" ? p.id : p.href}
+          tabindex="0"
+          role={p.mode === "drawer" ? "button" : "link"}
+          aria-label={p.cta}
+        >
+          <span class="pl-letter-index" aria-hidden="true">{["I", "II", "III"][i]}</span>
+          <header class="pl-letter-head">
+            <h2 class="pl-letter-headline">
+              {p.title}
+            </h2>
+          </header>
+          <p class="pl-letter-body">
+            {p.body}
+          </p>
+          <div class="pl-letter-cta-row">
+            {p.mode === "drawer" ? (
+              <span class="pl-letter-cta" aria-hidden="true">
+                {p.cta}
+                <span class="pl-letter-cta-arrow">→</span>
+              </span>
+            ) : (
+              <span class="pl-letter-cta" aria-hidden="true">
+                {p.cta}
+                <span class="pl-letter-cta-arrow">→</span>
+              </span>
+            )}
+            <span class="pl-letter-note">{p.note}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- General contact strip -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-32 md:mt-40 mb-32 pl-reveal">
+    <div class="pl-grid items-center" style="padding: 3rem 2rem; background: color-mix(in srgb, var(--color-honey) 35%, transparent); border-radius: 1rem;">
+      <div class="col-span-12 md:col-span-8">
+        <span class="pl-label">For everything else</span>
+        <h2 style="font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.75rem, 3.4vw, 2.75rem); line-height: 1.1; margin-top: 0.5rem; letter-spacing: -0.015em;">
+          Press, speaking, or just saying hello.
+        </h2>
+        <p class="mt-4 text-base" style="color: var(--color-ink-soft); max-width: 50ch; line-height: 1.6;">
+          Drop me a note. I read everything that comes in — replies might take a few days, especially during clinical hours.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-4 mt-6 md:mt-0 md:text-right">
+        <a href="mailto:paula@paulaleech.com" class="pl-pill" style="padding: 0.95rem 1.8rem;">paula@paulaleech.com →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DRAWERS — one per "drawer" path, hidden until triggered
+       ============================================================ -->
+  {paths.filter(p => p.mode === "drawer").map(p => (
+    <div class="pl-drawer" data-drawer-id={p.id} aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby={`drawer-title-${p.id}`}>
+      <div class="pl-drawer-backdrop" data-drawer-close></div>
+      <aside class="pl-drawer-panel" tabindex="-1">
+        <header class="pl-drawer-header">
+          <div>
+            <p class="pl-label" style="margin-bottom: 0.35rem;">{p.label}</p>
+            <h3 id={`drawer-title-${p.id}`} style="
+              font-family: var(--font-display);
+              font-weight: 500;
+              font-style: italic;
+              font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+              line-height: 1.15;
+              letter-spacing: -0.015em;
+              color: var(--color-ink);
+              margin: 0;
+            ">{p.drawerTitle}</h3>
+            <p style="
+              color: var(--color-ink-soft);
+              font-size: 0.95rem;
+              margin: 0.4rem 0 0;
+            ">{p.drawerSubtitle}</p>
+          </div>
+          <button type="button" class="pl-drawer-close" data-drawer-close aria-label="Close booking">
+            <span aria-hidden="true">×</span>
+          </button>
+        </header>
+        <div class="pl-drawer-body">
+          <iframe
+            data-src={p.embedUrl}
+            title={p.drawerTitle}
+            width="100%"
+            height="100%"
+            frameborder="0"
+            allowtransparency="true"
+            loading="lazy"
+            style="border: 0; width: 100%; height: 100%; min-height: 600px; background: white;"
+          ></iframe>
+        </div>
+      </aside>
+    </div>
+  ))}
+
+  <!-- Acuity embed helper (resizes the iframe to match content) -->
+  <script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript"></script>
+
+  <!-- Drawer logic -->
+  <script>
+    (function () {
+      const drawers = new Map();
+      document.querySelectorAll('.pl-drawer').forEach(d => {
+        const id = d.getAttribute('data-drawer-id');
+        if (id) drawers.set(id, d);
+      });
+
+      let lastFocus = null;
+
+      function openDrawer(id) {
+        const d = drawers.get(id);
+        if (!d) return;
+        lastFocus = document.activeElement;
+        // Lazy-load the iframe src on first open
+        const iframe = d.querySelector('iframe[data-src]');
+        if (iframe && !iframe.src) {
+          iframe.src = iframe.getAttribute('data-src');
+        }
+        d.setAttribute('aria-hidden', 'false');
+        d.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        const panel = d.querySelector('.pl-drawer-panel');
+        if (panel) panel.focus();
+      }
+
+      function closeDrawer(d) {
+        d.setAttribute('aria-hidden', 'true');
+        d.classList.remove('is-open');
+        document.body.style.overflow = '';
+        if (lastFocus && typeof lastFocus.focus === 'function') {
+          lastFocus.focus();
+        }
+      }
+
+      function closeAll() {
+        drawers.forEach(closeDrawer);
+      }
+
+      // Open triggers — whole tile is clickable
+      document.querySelectorAll('.pl-letter[data-tile-mode]').forEach(tile => {
+        const mode = tile.getAttribute('data-tile-mode');
+        const target = tile.getAttribute('data-tile-target');
+
+        const fire = () => {
+          if (mode === 'drawer' && target) {
+            openDrawer(target);
+          } else if (target) {
+            window.location.href = target;
+          }
+        };
+
+        tile.addEventListener('click', fire);
+        tile.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fire();
+          }
+        });
+      });
+
+      // Close triggers
+      document.querySelectorAll('[data-drawer-close]').forEach(el => {
+        el.addEventListener('click', e => {
+          const d = e.target.closest('.pl-drawer');
+          if (d) closeDrawer(d);
+        });
+      });
+
+      // Escape key
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeAll();
+      });
+    })();
+  </script>
+
 </Layout>
+
+<style>
+  /* ============================================================
+     Letter format — 3-column grid w/ vertical hairlines + outer rule
+     ============================================================ */
+  .pl-letters-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: stretch;
+    border: 1px solid color-mix(in srgb, var(--color-ink, #2a221c) 18%, transparent);
+    min-height: clamp(460px, 58vh, 660px);
+  }
+  .pl-letter {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto 3.5rem;
+    justify-items: center;
+    text-align: center;
+    padding: 3rem 2.25rem 2.75rem;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.35s ease, transform 0.35s ease;
+    outline: none;
+  }
+  .pl-letter::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 0 var(--color-plum, #6b3a4f);
+    transition: box-shadow 0.35s ease;
+  }
+  .pl-letter:hover,
+  .pl-letter:focus-visible {
+    background: color-mix(in srgb, var(--color-honey, #fdcd88) 22%, transparent);
+  }
+  .pl-letter:focus-visible::after {
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--color-plum, #6b3a4f) 55%, transparent);
+  }
+  .pl-letter:hover .pl-letter-cta,
+  .pl-letter:focus-visible .pl-letter-cta {
+    border-bottom-color: var(--color-plum, #6b3a4f);
+    gap: 0.85rem;
+  }
+  .pl-letter:hover .pl-letter-cta-arrow,
+  .pl-letter:focus-visible .pl-letter-cta-arrow {
+    transform: translateX(3px);
+  }
+  .pl-letter + .pl-letter {
+    border-left: 1px solid color-mix(in srgb, var(--color-ink, #2a221c) 18%, transparent);
+  }
+  .pl-letter-index {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--color-stone);
+    margin-bottom: 1.75rem;
+  }
+  .pl-letter-head {
+    min-height: 5.5rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 1.4rem;
+  }
+  .pl-letter-headline {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(1.75rem, 2.4vw, 2.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--color-ink);
+    margin: 0;
+    max-width: 14ch;
+  }
+  .pl-letter-body {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(0.98rem, 1.05vw, 1.1rem);
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    max-width: 32ch;
+    margin: 0 auto;
+  }
+  .pl-letter-cta-row {
+    display: contents;
+  }
+  .pl-letter-cta {
+    background: transparent;
+    border: none;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    color: var(--color-plum, #6b3a4f);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.2rem 0.1rem 0.35rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-plum, #6b3a4f) 25%, transparent);
+    transition: border-color 0.25s ease, gap 0.25s ease, color 0.2s ease;
+    pointer-events: none;
+    margin-top: 2rem;
+    margin-bottom: 0.85rem;
+  }
+  .pl-letter-cta-arrow {
+    transition: transform 0.25s ease;
+    font-style: normal;
+  }
+  .pl-letter-note {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-ink, #2a221c) 45%, transparent);
+    max-width: 28ch;
+    line-height: 1.5;
+    align-self: start;
+  }
+
+  @media (max-width: 900px) {
+    .pl-letters-grid {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+    .pl-letter + .pl-letter {
+      border-left: none;
+      border-top: 1px solid color-mix(in srgb, var(--color-ink, #2a221c) 18%, transparent);
+    }
+    .pl-letter { padding: 2.5rem 1.5rem; }
+    .pl-letter-rule { width: 2rem; }
+    .pl-letter-head { gap: 0.8rem; margin-bottom: 1.2rem; }
+  }
+
+  /* ============================================================
+     Drawer — slides in from the right with backdrop
+     ============================================================ */
+  .pl-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .pl-drawer.is-open {
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .pl-drawer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--color-ink, #2a221c) 50%, transparent);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .pl-drawer.is-open .pl-drawer-backdrop {
+    opacity: 1;
+  }
+
+  .pl-drawer-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: min(680px, 100%);
+    background: var(--color-cream, #f6efe4);
+    box-shadow: -16px 0 60px rgba(0, 0, 0, 0.18);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    outline: none;
+  }
+  .pl-drawer.is-open .pl-drawer-panel {
+    transform: translateX(0);
+  }
+
+  .pl-drawer-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.6rem 1.8rem 1.4rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink, #2a221c) 10%, transparent);
+    background: var(--color-cream, #f6efe4);
+  }
+
+  .pl-drawer-close {
+    appearance: none;
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--color-ink, #2a221c) 15%, transparent);
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-ink, #2a221c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+    flex-shrink: 0;
+  }
+  .pl-drawer-close:hover {
+    background: color-mix(in srgb, var(--color-ink, #2a221c) 8%, transparent);
+    transform: scale(1.05);
+  }
+
+  .pl-drawer-body {
+    flex: 1;
+    overflow: hidden;
+    background: white;
+    position: relative;
+  }
+  .pl-drawer-body iframe {
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .pl-drawer-panel {
+      width: 100%;
+    }
+    .pl-drawer-header {
+      padding: 1.2rem 1.2rem 1rem;
+    }
+  }
+</style>

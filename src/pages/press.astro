@@ -2,17 +2,24 @@
 import Layout from '../layouts/Layout.astro';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// Stub data — swap with real appearances when ready.
+// Real appearances pulled from paulaleech.com "Mentioned In" — newest first.
 const appearances = [
-  { date: "MAY 26",  title: "On the work of staying present in long-term partnerships", outlet: "Where Should We Begin?",   kind: "Podcast",   url: "#" },
-  { date: "MAR 26",  title: "Sexual anxiety after kids: what helps",                       outlet: "Sex With Emily",         kind: "Podcast",   url: "#" },
-  { date: "FEB 26",  title: "Why intimacy gets quieter — and how to bring it back",        outlet: "The Cut",                kind: "Article",   url: "#" },
-  { date: "JAN 26",  title: "What sex therapy actually looks like",                        outlet: "Modern Love",            kind: "Article",   url: "#" },
-  { date: "NOV 25",  title: "Treating sexual shame in the era of OnlyFans",                outlet: "Therapist Uncensored",   kind: "Podcast",   url: "#" },
-  { date: "OCT 25",  title: "AASECT annual conference keynote",                            outlet: "AASECT",                 kind: "Talk",      url: "#" },
-  { date: "AUG 25",  title: "Five things every sex therapist should know about anxiety",   outlet: "Psychology Today",       kind: "Article",   url: "#" },
-  { date: "JUN 25",  title: "When desire feels like obligation",                           outlet: "Foreplay Radio",         kind: "Podcast",   url: "#" },
-  { date: "APR 25",  title: "Book launch interview: Overcoming Anxiety in Sex & Relationships", outlet: "Goop",              kind: "Article",   url: "#" },
+  { date: "AUG 25", title: "From Tension to Trust: Healing Sexual Anxiety",                outlet: "Wise Body Sex Therapy Podcast", kind: "Podcast", url: "https://podcasts.apple.com/ca/podcast/from-tension-to-trust-paula-leech-on-healing-sexual-anxiety/id1833251163?i=1000721958902" },
+  { date: "MAR 25", title: "Overcoming Anxiety in Sex and Relationships",                  outlet: "The Natasha Helfer Podcast",    kind: "Podcast", url: "https://open.spotify.com/episode/3BHIOdjTLVDyO29Ft7WhBq?si=fe72e0d38a6a4b65" },
+  { date: "NOV 24", title: "Overcoming Anxiety in Sex",                                    outlet: "The Better Sex Podcast",        kind: "Podcast", url: "https://intimacywithease.com/269-overcoming-anxiety-in-sex-with-paula-leech/" },
+  { date: "APR 24", title: "The Importance of Embodiment in the Expression of Sexuality",  outlet: "In This Body Podcast",          kind: "Podcast", url: "https://in-this-body.com/episodes/paula-leech" },
+  { date: "JUL 22", title: "Vanilla or Kinky?",                                            outlet: "Female Pleasure Society",       kind: "Podcast", url: "https://twitter.com/i/spaces/1mnGedalEmAKX?s=20" },
+  { date: "JUN 22", title: "From Fantasy to Reality",                                      outlet: "Female Pleasure Society",       kind: "Podcast", url: "https://twitter.com/i/spaces/1mnxedzOEDRJX" },
+  { date: "MAY 22", title: "Postpartum Sexuality",                                         outlet: "Sex Therapy Podcast",           kind: "Podcast", url: "https://podcasts.apple.com/us/podcast/postpartum-sexuality-w-paula-leech-ep-73/id1489854551?i=1000554666651" },
+  { date: "MAY 22", title: "Paula's Story: Infertility, Grief, and Finding Spirituality",  outlet: "Sexvangelicals Podcast",        kind: "Podcast", url: "https://podcasts.apple.com/us/podcast/paulas-story-infertility-grief-and-finding-spirituality/id1541092846?i=1000559276583" },
+  { date: "APR 22", title: "The Danger of \u201CPremature Diagnosis\u201D",                outlet: "Our Two Cents Podcast",         kind: "Podcast", url: "https://www.ourtwocentspodcast.com/podcast/episode/1bc96911/134-paula-leech-the-danger-of-premature-diagnosis" },
+  { date: "FEB 22", title: "Pregnancy and Postpartum Challenges for Sex",                  outlet: "Better Sex Podcast",            kind: "Podcast", url: "https://intimacywithease.com/pregnancy-and-postpartum-challenges-for-sex-paula-leech/" },
+  { date: "MAY 21", title: "Sex, Sexuality, and Mental Health",                            outlet: "Beautiful Self Org",            kind: "Talk",    url: "https://www.facebook.com/1670418783187462/videos/190005119641928" },
+  { date: "APR 21", title: "Intimacy, Performance, and Desire",                            outlet: "Love and Healing Podcast",      kind: "Podcast", url: "https://www.loveandhealingpodcast.com/blog/intimacy-ed-female-pain-and-loss-of-desire-with-relationship-therapist-paula-leech" },
+  { date: "APR 21", title: "A Conversation with Sex Therapist, Paula Leech",               outlet: "Love and Healing Podcast",      kind: "Podcast", url: "https://www.loveandhealingpodcast.com/blog/a-conversation-with-sex-therapist-paula-leech" },
+  { date: "FEB 21", title: "Demystifying Desire",                                          outlet: "Beautiful Self Org",            kind: "Talk",    url: "https://www.instagram.com/p/CLGDeqJBTe4/" },
+  { date: "DEC 20", title: "Sex and the Survivor",                                         outlet: "Beautiful Self Org",            kind: "Talk",    url: "https://www.instagram.com/p/CJqtbsPAqA2/" },
+  { date: "SEP 20", title: "What is Sex Therapy Like?",                                    outlet: "Better Sex Podcast",            kind: "Podcast", url: "https://intimacywithease.com/what-is-sex-therapy-like-paula-leech/" },
 ];
 ---
 <Layout title="Press & Appearances — Paula Leech">
@@ -32,7 +39,7 @@ const appearances = [
       Where I've<br/><em style="font-weight: 400;">shown up.</em>
     </h1>
     <p class="mt-8 max-w-2xl" style="font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1.4; color: var(--color-ink-soft);">
-      Podcasts, articles, talks, and the occasional unhinged late-night television appearance.
+      Podcasts, articles, talks, and a handful of conversations I'm glad I said yes to.
     </p>
   </section>
 
@@ -62,7 +69,7 @@ const appearances = [
           Looking to interview Paula?
         </h2>
         <p class="mt-4 text-base" style="color: var(--color-ink-soft); max-width: 50ch; line-height: 1.6;">
-          Quick replies. Specialized in sex, anxiety, intimacy, and the messy bits of long-term relationships.
+          Available for interviews on sex, anxiety, intimacy, and the conversations most of us were never taught to have.
         </p>
       </div>
       <div class="col-span-12 md:col-span-4 mt-6 md:mt-0 md:text-right">
