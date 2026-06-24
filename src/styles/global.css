@@ -1085,10 +1085,10 @@
 .pl-course-past-summary {
   list-style: none;
   display: grid;
-  grid-template-columns: 0.9rem 8rem 1fr auto;
-  align-items: baseline;
+  grid-template-columns: 4.5rem 8rem 1fr auto;
+  align-items: center;
   gap: 1.5rem;
-  padding: 1.5rem 0.5rem;
+  padding: 1.25rem 0.5rem;
   cursor: pointer;
   transition: background 0.2s ease;
   position: relative;
@@ -1492,3 +1492,72 @@
 
 .pl-course-fade-cta svg { transition: transform 0.25s ease; }
 .pl-course-fade-group.is-open .pl-course-fade-cta svg { transform: rotate(180deg); }
+
+/* Past-training thumbnail — small circular vignette w/ blot-tinted halo */
+.pl-course-past-thumb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-cream) 90%, white);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
+  overflow: hidden;
+}
+.pl-course-past-thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(55% 55% at 35% 35%, var(--blot-color, var(--color-honey)) 0%, transparent 70%);
+  opacity: 0.45;
+  pointer-events: none;
+}
+.pl-course-past-thumb[data-blot="rose"] { --blot-color: #d18b8b; }
+.pl-course-past-thumb[data-blot="teal"] { --blot-color: #8ec8c8; }
+.pl-course-past-thumb[data-blot="tan"]  { --blot-color: #c9b489; }
+.pl-course-past-thumb img {
+  position: relative;
+  z-index: 1;
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+/* Match drawer offset to new column width: thumb(4.5) + date(8) + 2×gap(1.5) */
+.pl-course-past-drawer {
+  padding: 0.5rem 0.5rem 2rem calc(4.5rem + 8rem + 3rem);
+}
+@media (max-width: 720px) {
+  .pl-course-past-summary {
+    grid-template-columns: 3rem 1fr auto;
+    gap: 1rem;
+    padding: 1.25rem 0.25rem;
+    align-items: center;
+  }
+  .pl-course-past-thumb {
+    width: 3rem;
+    height: 3rem;
+  }
+  .pl-course-past-meta {
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.35rem;
+  }
+  .pl-course-past-body {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .pl-course-past-toggle {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+  .pl-course-past-drawer {
+    padding: 0 0.25rem 1.75rem 4rem;
+  }
+}

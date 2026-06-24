@@ -7,6 +7,11 @@ import mirroredHeads from '../../assets/illustrations/MirroredHeads.png';
 import groupSupervision from '../../assets/illustrations/GroupSupervisionHeads_transparent.png';
 import verticalHeads from '../../assets/illustrations/VerticalHeads_transparent.png';
 import armTouch from '../../assets/illustrations/armTouch_transparent.png';
+import headSage from '../../assets/illustrations/HeadSage.png';
+import headRose from '../../assets/illustrations/HeadRose.png';
+import waterColorLips from '../../assets/illustrations/WaterColorLips.png';
+import handsGraphic2 from '../../assets/illustrations/HandsGraphic2.png';
+import indiviualHeads from '../../assets/illustrations/indiviualHeads.png';
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -18,6 +23,11 @@ const artMap = {
   'GroupSupervisionHeads_transparent.png': groupSupervision,
   'VerticalHeads_transparent.png': verticalHeads,
   'armTouch_transparent.png': armTouch,
+  'HeadSage.png': headSage,
+  'HeadRose.png': headRose,
+  'WaterColorLips.png': waterColorLips,
+  'HandsGraphic2.png': handsGraphic2,
+  'indiviualHeads.png': indiviualHeads,
 };
 
 // Split by date: today or later = upcoming, before today = past.
@@ -223,7 +233,13 @@ const past = trainingsData
         {past.map((t) => (
           <details id={t.id} class="pl-course-past-row" data-blot={t.blot || 'rose'}>
             <summary class="pl-course-past-summary">
-              <span class={`pl-ledger-blot pl-ledger-blot--${t.blot || 'rose'}`} aria-hidden="true"></span>
+              {t.art && artMap[t.art] ? (
+                <span class="pl-course-past-thumb" data-blot={t.blot || 'rose'}>
+                  <img src={artMap[t.art].src} alt="" aria-hidden="true" />
+                </span>
+              ) : (
+                <span class={`pl-ledger-blot pl-ledger-blot--${t.blot || 'rose'}`} aria-hidden="true"></span>
+              )}
               <div class="pl-course-past-meta">
                 <span class="pl-course-past-date">{t.dateLabel}</span>
                 {t.ces && <span class="pl-course-past-ces">{t.ces}</span>}
