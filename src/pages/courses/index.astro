@@ -43,24 +43,20 @@ const past = trainingsData
 
 <Layout title="Courses & Trainings — Paula Leech">
 
-  <!-- HERO -->
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 pt-16 md:pt-24 pl-reveal">
-    <p class="pl-label">Courses &amp; Trainings</p>
-    <h1 style="
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-variation-settings: 'opsz' 144, 'SOFT' 60;
-      font-size: clamp(3rem, 9vw, 7rem);
-      line-height: 0.9;
-      letter-spacing: -0.04em;
-      margin-top: 1rem;
-      color: var(--color-ink);
-    ">
-      What I<br/><em style="font-weight: 400;">teach.</em>
-    </h1>
-    <p class="mt-8 max-w-2xl" style="font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1.4; color: var(--color-ink-soft);">
-      Cohorts, intensives, and group supervision for clinicians on the sex-therapy track — and the occasional workshop for everyone else.
-    </p>
+  <!-- HERO — full-bleed header graphic -->
+  <section class="pl-course-hero pl-reveal">
+    <div class="pl-course-hero-art" aria-hidden="true">
+      <img src={verticalHeads.src} alt="" />
+    </div>
+    <div class="pl-course-hero-inner">
+      <p class="pl-label pl-course-hero-kicker">Courses &amp; Trainings</p>
+      <h1 class="pl-course-hero-title">
+        What I<br/><em>teach.</em>
+      </h1>
+      <p class="pl-course-hero-sub">
+        Cohorts, intensives, and group supervision for clinicians on the sex-therapy track — and the occasional workshop for everyone else.
+      </p>
+    </div>
   </section>
 
   {/* ============================================================
