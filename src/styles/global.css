@@ -1620,8 +1620,14 @@
   pointer-events: none;
 }
 .pl-page-hero::after {
-  /* Hard bottom edge — no fade into page cream */
-  display: none;
+  /* soft bottom fade into page cream */
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--color-cream));
+  pointer-events: none;
+  z-index: 1;
 }
 .pl-page-hero-art {
   position: absolute;
