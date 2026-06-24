@@ -1731,14 +1731,16 @@
 
 /* About hero variant — portrait photo treatment */
 .pl-page-hero--about .pl-page-hero-art {
-  width: 38%;
-  max-width: 460px;
+  width: 52%;
+  max-width: 680px;
+  /* Pull image toward the page right edge */
+  right: calc(max(0px, (100vw - 1400px) / 2) - 50px);
 }
 .pl-page-hero--about .pl-page-hero-art img {
   border-radius: 0.5rem;
   /* Duotone-ish: warm photo through cream filter */
   filter: sepia(0.18) saturate(0.88) brightness(0.98);
-  /* Softer feathered edges than the illustration variant */
-  -webkit-mask-image: radial-gradient(85% 95% at 50% 50%, #000 70%, transparent 100%);
-          mask-image: radial-gradient(85% 95% at 50% 50%, #000 70%, transparent 100%);
+  /* Heavy feather all the way to ~60% — face stays solid on the right */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 18%, #000 62%, #000 100%);
+          mask-image: linear-gradient(to right, transparent 0%, transparent 18%, #000 62%, #000 100%);
 }
