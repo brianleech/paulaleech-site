@@ -1733,8 +1733,10 @@
 .pl-page-hero--about .pl-page-hero-art {
   width: 52%;
   max-width: 680px;
-  /* Pull image toward the page right edge */
-  right: calc(max(0px, (100vw - 1400px) / 2) - 50px);
+  /* Container snaps to grid's right edge (matches body content alignment) */
+  right: calc(max(0px, (100vw - 1400px) / 2) + 5rem);
+  /* Clip the image where it overflows past the grid edge */
+  overflow: hidden;
 }
 .pl-page-hero--about .pl-page-hero-art img {
   border-radius: 0.5rem;
@@ -1743,4 +1745,6 @@
   /* Heavy feather all the way to ~60% — face stays solid on the right */
   -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 18%, #000 62%, #000 100%);
           mask-image: linear-gradient(to right, transparent 0%, transparent 18%, #000 62%, #000 100%);
+  /* Push image past container's right edge so the face stays where it was */
+  transform: translateX(calc(5rem + 50px));
 }
