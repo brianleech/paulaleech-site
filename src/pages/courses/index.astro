@@ -117,20 +117,36 @@ const past = trainingsData
                   </div>
                 )}
 
-                {t.description && (
-                  <div class="pl-course-description">
-                    {t.description.map((p) => <p>{p}</p>)}
-                  </div>
-                )}
-
-                {t.questions && t.questions.length > 0 && (
-                  <div class="pl-course-questions">
-                    <span class="pl-label">{t.questionsPrompt || 'Questions we sit with'}</span>
-                    <ul>
-                      {t.questions.map((q) => <li>{q}</li>)}
-                    </ul>
-                  </div>
-                )}
+                {t.description && (() => {
+                  const cutoff = Math.max(1, Math.ceil(t.description.length / 3));
+                  const visible = t.description.slice(0, cutoff);
+                  const hidden = t.description.slice(cutoff);
+                  const hasMore = hidden.length > 0 || (t.questions && t.questions.length > 0);
+                  return (
+                    <div class="pl-course-description">
+                      {visible.map((p) => <p>{p}</p>)}
+                      {hasMore && (
+                        <details class="pl-course-readmore">
+                          <summary>
+                            <span class="pl-course-readmore-label">Read the full description</span>
+                            <svg class="pl-course-readmore-chev" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                          </summary>
+                          <div class="pl-course-readmore-body">
+                            {hidden.map((p) => <p>{p}</p>)}
+                            {t.questions && t.questions.length > 0 && (
+                              <div class="pl-course-questions">
+                                <span class="pl-label">{t.questionsPrompt || 'Questions we sit with'}</span>
+                                <ul>
+                                  {t.questions.map((q) => <li>{q}</li>)}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        </details>
+                      )}
+                    </div>
+                  );
+                })()}
 
                 {t.outcomes && t.outcomes.length > 0 && (
                   <div class="pl-course-outcomes">
@@ -276,6 +292,14 @@ const past = trainingsData
     d.addEventListener('toggle', () => {
       icon.textContent = d.open ? '−' : '+';
       if (label) label.textContent = d.open ? 'Less' : 'More';
+    });
+  });
+
+  // Toggle the read-more expander on upcoming spotlights — chevron rotates, label swaps.
+  document.querySelectorAll('details.pl-course-readmore').forEach((d) => {
+    const label = d.querySelector('.pl-course-readmore-label');
+    d.addEventListener('toggle', () => {
+      if (label) label.textContent = d.open ? 'Show less' : 'Read the full description';
     });
   });
 </script>

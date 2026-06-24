@@ -1346,3 +1346,56 @@
   letter-spacing: -0.02em;
   color: var(--color-ink);
 }
+
+/* Read-more expander for course descriptions */
+.pl-course-readmore {
+  margin-top: 0.25rem;
+}
+.pl-course-readmore > summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--color-plum);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-plum) 40%, transparent);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.pl-course-readmore > summary::-webkit-details-marker { display: none; }
+.pl-course-readmore > summary:hover {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-ink);
+}
+.pl-course-readmore-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: 1rem;
+  line-height: 1;
+}
+.pl-course-readmore[open] > summary .pl-course-readmore-icon { background: var(--color-plum); color: var(--color-cream); border-color: var(--color-plum); }
+.pl-course-readmore-body {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+/* Chevron variant for the read-more summary — rotates on open */
+.pl-course-readmore-chev {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+.pl-course-readmore[open] > summary .pl-course-readmore-chev {
+  transform: rotate(180deg);
+}
