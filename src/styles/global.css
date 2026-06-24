@@ -1736,9 +1736,20 @@
   border-radius: 0.5rem;
   /* Duotone-ish: warm photo through cream filter */
   filter: sepia(0.18) saturate(0.88) brightness(0.98);
-  /* Heavy feather all the way to ~60% — face stays solid on the right */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 35%, #000 100%);
-          mask-image: linear-gradient(to right, transparent 0%, #000 35%, #000 100%);
+  /* Organic left feather — multiple overlapping radial blobs compose a soft, lobed edge */
+  -webkit-mask-image:
+    radial-gradient(70% 55% at 80% 30%, #000 35%, transparent 75%),
+    radial-gradient(65% 60% at 70% 65%, #000 35%, transparent 75%),
+    radial-gradient(55% 45% at 60% 20%, #000 35%, transparent 75%),
+    radial-gradient(50% 40% at 55% 85%, #000 35%, transparent 75%),
+    radial-gradient(60% 100% at 95% 50%, #000 40%, transparent 80%);
+          mask-image:
+    radial-gradient(70% 55% at 80% 30%, #000 35%, transparent 75%),
+    radial-gradient(65% 60% at 70% 65%, #000 35%, transparent 75%),
+    radial-gradient(55% 45% at 60% 20%, #000 35%, transparent 75%),
+    radial-gradient(50% 40% at 55% 85%, #000 35%, transparent 75%),
+    radial-gradient(60% 100% at 95% 50%, #000 40%, transparent 80%);
+  /* default mask-composite is 'add' / source-over which is what we want — blobs union */
   /* Push image past container's right edge so the face stays where it was */
   transform: translateX(calc(5rem + 50px));
 }
