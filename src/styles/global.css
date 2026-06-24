@@ -869,8 +869,7 @@
 }
 
 .pl-course-spotlight-art {
-  position: sticky;
-  top: 6rem;
+  position: relative;
   /* Bleed toward page edge — negate the outer container padding */
   margin-left: -3rem;
   margin-right: -1rem;
@@ -885,7 +884,6 @@
 }
 @media (max-width: 880px) {
   .pl-course-spotlight-art {
-    position: static;
     margin-left: 0;
     margin-right: 0;
     align-items: center;
