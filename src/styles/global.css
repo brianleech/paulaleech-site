@@ -1408,7 +1408,7 @@
 .pl-course-fade-veil {
   position: relative;
   overflow: hidden;
-  max-height: 180px;            /* JS overrides — fallback peek */
+  max-height: 90px;             /* JS overrides — fallback peek */
   transition: max-height 0.45s ease;
   /* Cream-toned bottom fade — long feather, starts immediately */
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
