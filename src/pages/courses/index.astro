@@ -235,7 +235,9 @@ const past = trainingsData
             <summary class="pl-course-past-summary">
               {t.art && artMap[t.art] ? (
                 <span class="pl-course-past-thumb" data-blot={t.blot || 'rose'}>
-                  <img src={artMap[t.art].src} alt="" aria-hidden="true" />
+                  <span class="pl-course-past-thumb-inner">
+                    <img src={artMap[t.art].src} alt="" aria-hidden="true" />
+                  </span>
                 </span>
               ) : (
                 <span class={`pl-ledger-blot pl-ledger-blot--${t.blot || 'rose'}`} aria-hidden="true"></span>

@@ -1501,25 +1501,34 @@
   justify-content: center;
   width: 4rem;
   height: 4rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-cream) 90%, white);
-  border: 1px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
-  overflow: hidden;
 }
 .pl-course-past-thumb::before {
+  /* Halo bleeds well beyond the bubble — bigger, much softer, no clipping */
   content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(55% 55% at 35% 35%, var(--blot-color, var(--color-honey)) 0%, transparent 70%);
-  opacity: 0.45;
+  inset: -90%;
+  background: radial-gradient(50% 50% at 50% 50%, var(--blot-color, var(--color-honey)) 0%, transparent 75%);
+  opacity: 0.32;
   pointer-events: none;
+  z-index: 0;
 }
 .pl-course-past-thumb[data-blot="rose"] { --blot-color: #d18b8b; }
 .pl-course-past-thumb[data-blot="teal"] { --blot-color: #8ec8c8; }
 .pl-course-past-thumb[data-blot="tan"]  { --blot-color: #c9b489; }
-.pl-course-past-thumb img {
+.pl-course-past-thumb-inner {
   position: relative;
   z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-cream) 90%, white);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pl-course-past-thumb img {
   width: 78%;
   height: 78%;
   object-fit: contain;
