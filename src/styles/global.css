@@ -857,8 +857,8 @@
 .pl-course-spotlight-grid {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) 2.2fr;
-  gap: 3rem;
+  grid-template-columns: minmax(280px, 1.2fr) 2fr;
+  gap: 3.5rem;
   align-items: start;
 }
 @media (max-width: 880px) {
@@ -869,16 +869,38 @@
 }
 
 .pl-course-spotlight-art {
-  position: relative;
+  position: sticky;
+  top: 6rem;
+  /* Bleed toward page edge — negate the outer container padding */
+  margin-left: -3rem;
+  margin-right: -1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
 }
+@media (max-width: 1024px) {
+  .pl-course-spotlight-art {
+    margin-left: -1.5rem;
+  }
+}
+@media (max-width: 880px) {
+  .pl-course-spotlight-art {
+    position: static;
+    margin-left: 0;
+    margin-right: 0;
+    align-items: center;
+  }
+}
+
 .pl-course-spotlight-art img {
-  max-width: 100%;
+  width: 100%;
+  max-width: 520px;
   height: auto;
   display: block;
   mix-blend-mode: multiply;
+  /* Right-edge feather so the image dissolves into the body column */
+  -webkit-mask-image: radial-gradient(120% 95% at 30% 50%, #000 55%, transparent 95%);
+          mask-image: radial-gradient(120% 95% at 30% 50%, #000 55%, transparent 95%);
 }
 
 .pl-course-price-tag {
