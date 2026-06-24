@@ -307,7 +307,7 @@ const past = trainingsData
     const btn = group.querySelector('[data-fade-toggle]');
     const label = group.querySelector('[data-fade-label]');
     if (!veil || !inner || !btn) return;
-    const peek = 110; // px visible when collapsed
+    const peek = 180; // px visible when collapsed
     veil.style.maxHeight = peek + 'px';
     btn.addEventListener('click', () => {
       const open = group.classList.toggle('is-open');

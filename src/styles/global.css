@@ -1408,11 +1408,11 @@
 .pl-course-fade-veil {
   position: relative;
   overflow: hidden;
-  max-height: 110px;            /* JS overrides — fallback peek */
+  max-height: 180px;            /* JS overrides — fallback peek */
   transition: max-height 0.45s ease;
-  /* Cream-toned bottom fade */
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 15%, transparent 100%);
-          mask-image: linear-gradient(to bottom, #000 0%, #000 15%, transparent 100%);
+  /* Cream-toned bottom fade — long feather, starts immediately */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
 }
 .pl-course-fade-group.is-open .pl-course-fade-veil {
   -webkit-mask-image: none;
