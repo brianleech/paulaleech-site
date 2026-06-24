@@ -1632,14 +1632,15 @@
 .pl-course-hero-art {
   position: absolute;
   top: 50%;
-  right: -4%;
+  /* Anchor to grid's right edge: viewport edge + (viewport-1400)/2 + 5rem padding */
+  right: calc(max(0px, (100vw - 1400px) / 2) + 5rem);
   transform: translateY(-48%);
-  width: 58%;
-  max-width: 820px;
+  width: 48%;
+  max-width: 640px;
   z-index: 0;
   pointer-events: none;
-  -webkit-mask-image: radial-gradient(75% 85% at 60% 50%, #000 45%, transparent 90%);
-          mask-image: radial-gradient(75% 85% at 60% 50%, #000 45%, transparent 90%);
+  -webkit-mask-image: radial-gradient(75% 85% at 50% 50%, #000 55%, transparent 95%);
+          mask-image: radial-gradient(75% 85% at 50% 50%, #000 55%, transparent 95%);
 }
 .pl-course-hero-art img {
   width: 100%;
