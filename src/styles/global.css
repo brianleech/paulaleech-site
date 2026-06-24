@@ -1307,3 +1307,42 @@
   max-width: 32ch;
   line-height: 1.4;
 }
+
+/* Session date chips — torn calendar tiles */
+.pl-course-session-chips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.pl-course-session-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.6rem;
+  padding: 0.55rem 0.65rem 0.65rem;
+  background: color-mix(in srgb, var(--color-cream) 92%, white);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
+  border-top: 3px solid var(--color-plum);
+  border-radius: 0.35rem;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--color-ink) 8%, transparent);
+  line-height: 1;
+}
+.pl-course-session-chip-mo {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-plum);
+  margin-bottom: 0.3rem;
+}
+.pl-course-session-chip-day {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}

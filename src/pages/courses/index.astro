@@ -97,8 +97,16 @@ const past = trainingsData
                 {t.sessions && t.sessions.length > 0 && (
                   <div class="pl-course-detail-row">
                     <span class="pl-label">Sessions</span>
-                    <ul class="pl-course-sessions-list">
-                      {t.sessions.map((s) => <li>{s}</li>)}
+                    <ul class="pl-course-session-chips">
+                      {t.sessions.map((s) => {
+                        const parts = s.split(' ');
+                        return (
+                          <li class="pl-course-session-chip">
+                            <span class="pl-course-session-chip-mo">{parts[0]}</span>
+                            <span class="pl-course-session-chip-day">{parts.slice(1).join(' ')}</span>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 )}
