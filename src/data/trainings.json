@@ -5,8 +5,33 @@
     "tag": "5-week cohort · Group Supervision · 10 hrs",
     "date": "2026-09-08",
     "dateLabel": "Sep 8, 2026",
-    "price": "Limited seats",
-    "url": "/courses#intuitive-sex-therapist",
+    "format": "Virtual · 5 weekly sessions · Tuesdays 1–3pm PST",
+    "ces": "10 AASECT CE",
+    "audience": "AASECT-track therapists, sex therapy supervisees, and clinicians ready to deepen their work with intuition.",
+    "price": "$895",
+    "priceNote": "Limited to 12 seats",
+    "summary": "A 5-week cohort for clinicians who want to develop the part of their practice that doesn't live in textbooks — intuition, embodied sensing, the wisdom underneath the words.",
+    "description": [
+      "We're trained to listen with our minds. This cohort is about everything else — the gut tug, the visual that surfaces uninvited, the memory that wants in on the session, the body's quiet 'yes' or 'not yet.' These channels carry information, and most clinical training programs teach us to filter them out as counter-transference. This cohort teaches you to read them.",
+      "Across five weekly sessions, you'll bring real cases, develop a vocabulary for the non-verbal data your nervous system is already collecting, and learn to differentiate problematic counter-transference from the intuitive signal that actually moves a session forward."
+    ],
+    "outcomes": [
+      "Distinguish intuitive signal from personal counter-transference in session",
+      "Develop a reliable practice for tracking embodied data alongside verbal content",
+      "Hold material that surfaces from memory, image, or sensation with clinical clarity",
+      "Bring intuition into client-facing language without losing your therapeutic frame"
+    ],
+    "instructors": [
+      {
+        "name": "Paula Leech",
+        "pronouns": "she/her",
+        "credentials": "LMFT, CST-S",
+        "bio": "AASECT-certified Sex Therapist & Supervisor with 10+ years in private practice. Author of Overcoming Anxiety in Sex and Relationships (2024). Featured by CNN Health and Women's Health."
+      }
+    ],
+    "bookUrl": "https://buy.stripe.com/REPLACE_WITH_REAL_STRIPE_LINK",
+    "bookCta": "Reserve your seat",
+    "art": "MultiHeads.png",
     "blot": "rose"
   },
   {
@@ -15,22 +40,47 @@
     "tag": "3-part AASECT Special Group Supervision · w/ Jared Boot-Haury",
     "date": "2025-09-26",
     "dateLabel": "Sep 2025",
+    "format": "Virtual · 3 sessions · 6 hrs total",
+    "ces": "Endorsement-eligible for AASECT sex therapy certification",
+    "summary": "A closed cohort for clinicians examining the personal responses that shape how they meet clients in mixed-orientation, transition-touched, and non-monogamy work.",
+    "description": [
+      "This supervision group was designed for clinicians who want to reflect on the countertransference that arises in complex relational and sexual scenarios — mixed-orientation partnerships, partner transition, opening conversations about non-monogamy, and the moments where 'neutral therapeutic stance' breaks down.",
+      "Therapy isn't a neutral process. Our internal landscape shapes the questions we ask, the topics we pursue or avoid, and the ways we understand each client's sexuality. This group offered space to look behind the curtain of our own work — to name our biases, sit with them, and become better equipped to show up with integrity for our clients.",
+      "Co-facilitated with Dr. Jared Boot-Haury, PsyD, ABPP, CST-S — queer licensed clinical psychologist, AASECT-certified Sex Therapist & Supervisor, kink- and poly-affirming clinician. Featured in AskMen, Scientific American, and Newsweek."
+    ],
+    "sessions": [
+      "Sep 26 · Mixed-Orientation Relationships",
+      "Oct 3 · Couples and Gender Transition",
+      "Oct 10 · Opening Conversations: Partner Desire for Non-Monogamy"
+    ],
     "blot": "teal"
   },
   {
-    "id": "theramedium-2025-mar",
+    "id": "theramedium-2025",
     "title": "Thera…medium? Intuition Development for the Multi-Dimensional Sex Therapist",
     "tag": "2-session intensive · 6 AASECT CE",
-    "date": "2025-03-25",
+    "date": "2025-03-11",
     "dateLabel": "Mar 2025",
+    "format": "Virtual · 2 sessions · 2–5pm PST",
+    "ces": "6 AASECT CE",
+    "summary": "Two sessions on the non-cognitive channels — memory, sensation, mental image, gut — that clinicians use without naming and rarely learn to trust.",
+    "description": [
+      "We receive communication from much more than our thoughts in the therapy room. Memories, sensations, gut instincts, mental imagery — these channels carry wisdom we already partner with as we make connections and find break-through moments. The question is how deeply we can trust them, especially in clinical training programs that frame this kind of information as intrusion or counter-transference to be managed.",
+      "This course aided clinicians in tapping into and gleaning utility from the information other aspects of 'self' communicate outside of theoretical scaffolding. Through personal reflection and case examination, participants linked intuition back to the art of sex therapy — learning to differentiate the memories that block client connection from the ones that illuminate pathways toward healing."
+    ],
     "blot": "rose"
   },
   {
-    "id": "pressure-off-2025-apr",
+    "id": "pressure-off-2025",
     "title": "Pressure Off, Pleasure On: Ditching \"Performance\" for Sexual Liberation",
     "tag": "SheBop · Portland",
     "date": "2025-04-22",
     "dateLabel": "Apr 2025",
+    "format": "In-person workshop · Portland, OR",
+    "summary": "A public workshop on rewriting the performance scripts that get in the way of pleasure.",
+    "description": [
+      "Hosted at SheBop in Portland — a workshop on how performance pressure shapes desire, arousal, and partnered sex, and what it looks like to step out of it. Designed for the curious public, not clinicians."
+    ],
     "blot": "teal"
   },
   {
@@ -39,6 +89,14 @@
     "tag": "Weekend intensive · 10 AASECT CE",
     "date": "2024-11-01",
     "dateLabel": "Recurring",
+    "format": "Weekend intensive · dates announced annually",
+    "ces": "10 AASECT CE",
+    "summary": "An intensive grounding in Sensate Focus — Masters & Johnson's foundational technique for treating dysfunction, embodiment loss, and the after-effects of sexual trauma.",
+    "description": [
+      "How do we treat erectile dysfunction, sexual pain, vaginismus, rapid ejaculation, low desire, difficulties with arousal and orgasm? How do we bring clients out of performance narratives and into their bodies? How do we unravel clients from sexual trauma into greater emotional and physical safety, embodiment, and freedom?",
+      "Training to become a Sex Therapist means learning the intimate relationship between body and mind. Day-to-day stress, deep trauma, attachment wounds, sociocultural factors, insecurity, and relational discord can all interfere with arousal and lead to sexual discomfort or dysfunction. Sensate Focus aids the clinician in identifying these barriers and engaging them through prescribed at-home touch exercises — each building on the next, bringing the client into closer contact with themselves, their partner, and possibility.",
+      "Students learn the origins of Sensate Focus as a game-changing technique, gain an in-depth understanding of its conceptual underpinnings and usefulness as a diagnostic tool, and leave equipped to fit it into their practice and prescribe the exercises effectively."
+    ],
     "blot": "tan"
   },
   {
@@ -47,6 +105,14 @@
     "tag": "2-day · 18 AASECT CE",
     "date": "2024-08-01",
     "dateLabel": "Recurring",
+    "format": "2-day immersive · hosted by SSSHealthCenter",
+    "ces": "18 AASECT CE",
+    "summary": "A two-day immersive that exposes participants to a wide range of sexual material so they can identify their own biases, ease into greater comfort, and bring more confidence to the work.",
+    "description": [
+      "Our thoughts and feelings about sex play a huge role in how we approach clients — and our personal relationships. As a culture, we're constantly internalizing and reacting to a wide range of sexual behavior, prejudice, preference, and lifestyle. A SAR is designed to inundate participants with sexual material in order to bring awareness to areas of discomfort or bias, and through exploration and discussion, ease the participants into greater comfort and confidence.",
+      "Guest speakers, experiential exercises, media, and journaling are all included. The two-day course is not only educational but emotional — participants connect with parts of themselves that can bring up vulnerability in all forms. It's a tremendous experience of learning and growth for therapists, partners, educators, medical professionals, or anyone interested in expanding their sexual self-awareness.",
+      "Hosted at SSSHealthCenter — visit ssshealthcenter.com to purchase a seat."
+    ],
     "blot": "rose"
   },
   {
@@ -55,6 +121,13 @@
     "tag": "For parents, caregivers & educators",
     "date": "2024-06-01",
     "dateLabel": "Recurring",
+    "format": "Workshop · in-person and virtual cohorts",
+    "summary": "A judgment-free workshop helping parents, caregivers, and educators feel confident around children's sexual development — co-led by Kristin Hambridge, LICSW.",
+    "description": [
+      "Struggling to manage the fear, anxiety, and confusion that comes with a child's sexual development? Or an educator or therapist noticing the body curiosity that accompanies early childhood? Not sure how to begin the lifelong conversation about sexual health and wellness?",
+      "Kristin Hambridge LICSW and Paula Leech LMFT-CST are sex therapists and educators — with children of their own — who help you take back 'the talk' through comprehensive sex education, tools for navigating caregiver modeling, and judgment-free space for any and all questions.",
+      "Take back: the power to understand sexual development at each stage · your own sex education and fill the gaps · the ability to connect with your child over uncomfortable topics · your own fears around masturbation, nudity, pornography, unsafe touch, and peer sex-play · your anxiety, and the ability to respond in-the-moment with a clear head and open heart · your partnered relationship as a model of healthy intimacy · the ability to unconditionally support your child's gender expression and sexual orientation."
+    ],
     "blot": "teal"
   }
 ]

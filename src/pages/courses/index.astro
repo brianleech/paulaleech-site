@@ -1,9 +1,255 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import trainingsData from '../../data/trainings.json';
+import multiHeads from '../../assets/illustrations/MultiHeads.png';
+import handsCrossed from '../../assets/illustrations/HandsCrossed.png';
+import mirroredHeads from '../../assets/illustrations/MirroredHeads.png';
+import groupSupervision from '../../assets/illustrations/GroupSupervisionHeads_transparent.png';
+import verticalHeads from '../../assets/illustrations/VerticalHeads_transparent.png';
+import armTouch from '../../assets/illustrations/armTouch_transparent.png';
+
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Map art filenames -> imported assets so the JSON stays declarative
+const artMap = {
+  'MultiHeads.png': multiHeads,
+  'HandsCrossed.png': handsCrossed,
+  'MirroredHeads.png': mirroredHeads,
+  'GroupSupervisionHeads_transparent.png': groupSupervision,
+  'VerticalHeads_transparent.png': verticalHeads,
+  'armTouch_transparent.png': armTouch,
+};
+
+// Split by date: today or later = upcoming, before today = past.
+// Hard-coded date threshold so SSG is deterministic.
+const today = new Date().toISOString().slice(0, 10);
+const upcoming = trainingsData
+  .filter((t) => t.date >= today)
+  .sort((a, b) => a.date.localeCompare(b.date));
+const past = trainingsData
+  .filter((t) => t.date < today)
+  .sort((a, b) => b.date.localeCompare(a.date));
 ---
-<Layout title="Courses — Paula Leech">
-  <section class="mx-auto max-w-3xl px-6 py-24">
-    <h1 class="text-4xl font-serif mb-6">Courses</h1>
-    <p class="text-stone-600">Scheduled + on-demand. TODO.</p>
+
+<Layout title="Courses & Trainings — Paula Leech">
+
+  <!-- HERO -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 pt-16 md:pt-24 pl-reveal">
+    <p class="pl-label">Courses &amp; Trainings</p>
+    <h1 style="
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-variation-settings: 'opsz' 144, 'SOFT' 60;
+      font-size: clamp(3rem, 9vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      margin-top: 1rem;
+      color: var(--color-ink);
+    ">
+      What I<br/><em style="font-weight: 400;">teach.</em>
+    </h1>
+    <p class="mt-8 max-w-2xl" style="font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1.4; color: var(--color-ink-soft);">
+      Cohorts, intensives, and group supervision for clinicians on the sex-therapy track — and the occasional workshop for everyone else.
+    </p>
   </section>
+
+  {/* ============================================================
+       UPCOMING — full spotlight, all info exposed, clear CTA
+     ============================================================ */}
+  {upcoming.length > 0 && (
+    <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-24 md:mt-32 pl-reveal">
+      <div class="pl-course-section-head">
+        <span class="pl-label">Now Booking</span>
+        <h2 class="pl-course-section-title">
+          What's<br/><em>running now.</em>
+        </h2>
+      </div>
+
+      <div class="pl-course-spotlight-stack">
+        {upcoming.map((t) => (
+          <article id={t.id} class="pl-course-spotlight" data-blot={t.blot || 'rose'}>
+            <div class="pl-course-spotlight-grid">
+              {/* Art column */}
+              <div class="pl-course-spotlight-art">
+                {t.art && artMap[t.art] && (
+                  <img src={artMap[t.art].src} alt="" aria-hidden="true" />
+                )}
+                {t.price && (
+                  <div class="pl-course-price-tag">
+                    <span class="pl-course-price">{t.price}</span>
+                    {t.priceNote && <span class="pl-course-price-note">{t.priceNote}</span>}
+                  </div>
+                )}
+              </div>
+
+              {/* Content column */}
+              <div class="pl-course-spotlight-body">
+                <div class="pl-course-meta-row">
+                  <span class="pl-course-date">{t.dateLabel}</span>
+                  {t.ces && <span class="pl-course-ces">{t.ces}</span>}
+                </div>
+
+                <h3 class="pl-course-spotlight-title">{t.title}</h3>
+
+                {t.summary && <p class="pl-course-summary">{t.summary}</p>}
+
+                {t.format && (
+                  <div class="pl-course-detail-row">
+                    <span class="pl-label">Format</span>
+                    <span class="pl-course-detail-text">{t.format}</span>
+                  </div>
+                )}
+                {t.audience && (
+                  <div class="pl-course-detail-row">
+                    <span class="pl-label">For</span>
+                    <span class="pl-course-detail-text">{t.audience}</span>
+                  </div>
+                )}
+
+                {t.description && (
+                  <div class="pl-course-description">
+                    {t.description.map((p) => <p>{p}</p>)}
+                  </div>
+                )}
+
+                {t.outcomes && t.outcomes.length > 0 && (
+                  <div class="pl-course-outcomes">
+                    <span class="pl-label">What you'll leave with</span>
+                    <ul>
+                      {t.outcomes.map((o) => <li>{o}</li>)}
+                    </ul>
+                  </div>
+                )}
+
+                {t.instructors && t.instructors.length > 0 && (
+                  <div class="pl-course-instructors">
+                    <span class="pl-label">Led by</span>
+                    {t.instructors.map((i) => (
+                      <div class="pl-course-instructor">
+                        <div class="pl-course-instructor-name">
+                          {i.name}
+                          {i.pronouns && <span class="pl-course-instructor-pronouns"> ({i.pronouns})</span>}
+                          {i.credentials && <span class="pl-course-instructor-creds"> · {i.credentials}</span>}
+                        </div>
+                        {i.bio && <p class="pl-course-instructor-bio">{i.bio}</p>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div class="pl-course-cta-row">
+                  <a
+                    href={t.bookUrl || '#'}
+                    class="pl-pill pl-course-cta"
+                    target={t.bookUrl && t.bookUrl.startsWith('http') ? '_blank' : undefined}
+                    rel={t.bookUrl && t.bookUrl.startsWith('http') ? 'noopener' : undefined}
+                  >
+                    {t.bookCta || 'Reserve →'}
+                  </a>
+                  <a href={`mailto:paula@paulaleech.com?subject=${encodeURIComponent(t.title)}`} class="pl-course-cta-secondary">
+                    Questions? Email Paula →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {/* ============================================================
+       PAST TRAININGS — collapsed ledger w/ summary + drawer
+     ============================================================ */}
+  {past.length > 0 && (
+    <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-32 md:mt-40 pl-reveal">
+      <div class="pl-course-section-head">
+        <span class="pl-label">Past Trainings</span>
+        <h2 class="pl-course-section-title">
+          What I've<br/><em>taught before.</em>
+        </h2>
+        <p class="pl-course-section-sub">
+          A running record. Many of these recur — if one catches your eye, email and I'll let you know when it's next on the calendar.
+        </p>
+      </div>
+
+      <div class="pl-course-past-list">
+        {past.map((t) => (
+          <details id={t.id} class="pl-course-past-row" data-blot={t.blot || 'rose'}>
+            <summary class="pl-course-past-summary">
+              <span class={`pl-ledger-blot pl-ledger-blot--${t.blot || 'rose'}`} aria-hidden="true"></span>
+              <div class="pl-course-past-meta">
+                <span class="pl-course-past-date">{t.dateLabel}</span>
+                {t.ces && <span class="pl-course-past-ces">{t.ces}</span>}
+              </div>
+              <div class="pl-course-past-body">
+                <h3 class="pl-course-past-title">{t.title}</h3>
+                {t.summary && <p class="pl-course-past-blurb">{t.summary}</p>}
+              </div>
+              <span class="pl-course-past-toggle" aria-hidden="true">
+                <span class="pl-course-past-toggle-label">More</span>
+                <span class="pl-course-past-toggle-icon">+</span>
+              </span>
+            </summary>
+
+            <div class="pl-course-past-drawer">
+              {t.format && (
+                <div class="pl-course-detail-row">
+                  <span class="pl-label">Format</span>
+                  <span class="pl-course-detail-text">{t.format}</span>
+                </div>
+              )}
+              {t.sessions && t.sessions.length > 0 && (
+                <div class="pl-course-detail-row">
+                  <span class="pl-label">Sessions</span>
+                  <ul class="pl-course-sessions-list">
+                    {t.sessions.map((s) => <li>{s}</li>)}
+                  </ul>
+                </div>
+              )}
+              {t.description && (
+                <div class="pl-course-description">
+                  {t.description.map((p) => <p>{p}</p>)}
+                </div>
+              )}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {/* ============================================================
+       INQUIRY — mailto CTA for custom / co-facilitated trainings
+     ============================================================ */}
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-32 md:mt-40 mb-32 pl-reveal">
+    <div class="pl-grid items-center" style="padding: 3rem 2rem; background: color-mix(in srgb, var(--color-honey) 35%, transparent); border-radius: 1rem;">
+      <div class="col-span-12 md:col-span-8">
+        <span class="pl-label">For Programs &amp; Institutions</span>
+        <h2 style="font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.75rem, 3.4vw, 2.75rem); line-height: 1.1; margin-top: 0.5rem; letter-spacing: -0.015em;">
+          Want Paula to teach for your group?
+        </h2>
+        <p class="mt-4 text-base" style="color: var(--color-ink-soft); max-width: 50ch; line-height: 1.6;">
+          Custom trainings, guest lectures, and co-facilitated cohorts for graduate programs, agencies, and clinical communities.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-4 mt-6 md:mt-0 md:text-right">
+        <a href="mailto:paula@paulaleech.com?subject=Training%20inquiry" class="pl-pill" style="padding: 0.95rem 1.8rem;">Send an inquiry →</a>
+      </div>
+    </div>
+  </section>
+
 </Layout>
+
+<script is:inline>
+  // Toggle the "+" / "−" icon when a past-training drawer opens.
+  document.querySelectorAll('details.pl-course-past-row').forEach((d) => {
+    const icon = d.querySelector('.pl-course-past-toggle-icon');
+    const label = d.querySelector('.pl-course-past-toggle-label');
+    if (!icon) return;
+    d.addEventListener('toggle', () => {
+      icon.textContent = d.open ? '−' : '+';
+      if (label) label.textContent = d.open ? 'Less' : 'More';
+    });
+  });
+</script>

@@ -1,6 +1,6 @@
 ---
-// WebGL fBm cloud background. Feature-flagged: only renders when ?bg=clouds.
-// Fixed, full-viewport, behind everything. Cream base w/ soft drifting forms.
+// WebGL fBm watercolor cloud background. Fixed, full-viewport, behind everything.
+// Cream paper base w/ soft drifting pigment blooms (rose / teal / tan).
 ---
 <canvas id="clouds-bg" aria-hidden="true"></canvas>
 
@@ -12,9 +12,8 @@
     height: 100vh;
     z-index: -1;
     pointer-events: none;
-    display: none; /* opt-in via ?bg=clouds */
+    display: block;
   }
-  #clouds-bg.is-on { display: block; }
   /* When clouds are on, let body show the canvas through */
   html.has-clouds, html.has-clouds body { background: transparent !important; }
 </style>
@@ -28,7 +27,6 @@
     if (!gl) { console.warn('[clouds] no webgl'); return; }
 
     document.documentElement.classList.add('has-clouds');
-    canvas.classList.add('is-on');
 
     const isGL2 = !!gl.createVertexArray;
     const VERT = isGL2
