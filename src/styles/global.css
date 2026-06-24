@@ -1737,8 +1737,8 @@
   /* Duotone-ish: warm photo through cream filter */
   filter: sepia(0.18) saturate(0.88) brightness(0.98);
   /* Heavy feather all the way to ~60% — face stays solid on the right */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 18%, #000 62%, #000 100%);
-          mask-image: linear-gradient(to right, transparent 0%, transparent 18%, #000 62%, #000 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 35%, #000 100%);
+          mask-image: linear-gradient(to right, transparent 0%, #000 35%, #000 100%);
   /* Push image past container's right edge so the face stays where it was */
   transform: translateX(calc(5rem + 50px));
 }
