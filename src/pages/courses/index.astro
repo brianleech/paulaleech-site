@@ -126,23 +126,27 @@ const past = trainingsData
                     <div class="pl-course-description">
                       {visible.map((p) => <p>{p}</p>)}
                       {hasMore && (
-                        <details class="pl-course-readmore">
-                          <summary>
-                            <span class="pl-course-readmore-label">Read the full description</span>
-                            <svg class="pl-course-readmore-chev" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                          </summary>
-                          <div class="pl-course-readmore-body">
-                            {hidden.map((p) => <p>{p}</p>)}
-                            {t.questions && t.questions.length > 0 && (
-                              <div class="pl-course-questions">
-                                <span class="pl-label">{t.questionsPrompt || 'Questions we sit with'}</span>
-                                <ul>
-                                  {t.questions.map((q) => <li>{q}</li>)}
-                                </ul>
-                              </div>
-                            )}
+                        <div class="pl-course-fade-group" data-fade-group>
+                          <div class="pl-course-fade-veil" data-fade-veil>
+                            <div class="pl-course-fade-inner">
+                              {hidden.map((p) => <p>{p}</p>)}
+                              {t.questions && t.questions.length > 0 && (
+                                <div class="pl-course-questions">
+                                  <span class="pl-label">{t.questionsPrompt || 'Questions we sit with'}</span>
+                                  <ul>
+                                    {t.questions.map((q) => <li>{q}</li>)}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
                           </div>
-                        </details>
+                          <div class="pl-course-fade-cta-wrap">
+                            <button type="button" class="pl-pill pl-course-fade-cta" data-fade-toggle>
+                              <span data-fade-label>Read the full description</span>
+                              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button>
+                          </div>
+                        </div>
                       )}
                     </div>
                   );
@@ -295,11 +299,26 @@ const past = trainingsData
     });
   });
 
-  // Toggle the read-more expander on upcoming spotlights — chevron rotates, label swaps.
-  document.querySelectorAll('details.pl-course-readmore').forEach((d) => {
-    const label = d.querySelector('.pl-course-readmore-label');
-    d.addEventListener('toggle', () => {
-      if (label) label.textContent = d.open ? 'Show less' : 'Read the full description';
+  // Fade-veil expander on upcoming spotlights: button toggles `is-open`,
+  // veil height transitions from a peek to full content height.
+  document.querySelectorAll('[data-fade-group]').forEach((group) => {
+    const veil = group.querySelector('[data-fade-veil]');
+    const inner = group.querySelector('.pl-course-fade-inner');
+    const btn = group.querySelector('[data-fade-toggle]');
+    const label = group.querySelector('[data-fade-label]');
+    if (!veil || !inner || !btn) return;
+    const peek = 110; // px visible when collapsed
+    veil.style.maxHeight = peek + 'px';
+    btn.addEventListener('click', () => {
+      const open = group.classList.toggle('is-open');
+      if (open) {
+        veil.style.maxHeight = inner.scrollHeight + 'px';
+        if (label) label.textContent = 'Show less';
+      } else {
+        veil.style.maxHeight = peek + 'px';
+        if (label) label.textContent = 'Read the full description';
+        group.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     });
   });
 </script>

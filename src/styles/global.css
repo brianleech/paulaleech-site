@@ -1399,3 +1399,50 @@
 .pl-course-readmore[open] > summary .pl-course-readmore-chev {
   transform: rotate(180deg);
 }
+
+/* Fade-veil expander — peek + gradient mask + reveal button */
+.pl-course-fade-group {
+  position: relative;
+  margin-top: 0.4rem;
+}
+.pl-course-fade-veil {
+  position: relative;
+  overflow: hidden;
+  max-height: 110px;            /* JS overrides — fallback peek */
+  transition: max-height 0.45s ease;
+  /* Cream-toned bottom fade */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 15%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 0%, #000 15%, transparent 100%);
+}
+.pl-course-fade-group.is-open .pl-course-fade-veil {
+  -webkit-mask-image: none;
+          mask-image: none;
+}
+.pl-course-fade-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.pl-course-fade-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: -0.5rem;
+  position: relative;
+  z-index: 1;
+}
+.pl-course-fade-cta {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 1.5rem !important;
+  font-size: 0.9rem !important;
+  background: var(--color-cream) !important;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent) !important;
+  color: var(--color-ink) !important;
+}
+.pl-course-fade-cta svg {
+  transition: transform 0.25s ease;
+}
+.pl-course-fade-group.is-open .pl-course-fade-cta svg {
+  transform: rotate(180deg);
+}
