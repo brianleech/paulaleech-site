@@ -1594,7 +1594,7 @@
 /* ────────────────────────────────────────────────────────────
    COURSES HERO — full-bleed editorial header graphic
    ──────────────────────────────────────────────────────────── */
-.pl-course-hero {
+.pl-page-hero {
   position: relative;
   isolation: isolate;
   /* full-bleed, sits behind nav */
@@ -1607,7 +1607,7 @@
     radial-gradient(50% 90% at 15% 80%, color-mix(in srgb, #8ec8c8 22%, transparent) 0%, transparent 70%),
     color-mix(in srgb, var(--color-cream-deep) 75%, var(--color-cream));
 }
-.pl-course-hero::before {
+.pl-page-hero::before {
   /* paper grain — subtle */
   content: "";
   position: absolute;
@@ -1619,7 +1619,7 @@
   z-index: 0;
   pointer-events: none;
 }
-.pl-course-hero::after {
+.pl-page-hero::after {
   /* soft bottom fade into page cream */
   content: "";
   position: absolute;
@@ -1629,7 +1629,7 @@
   pointer-events: none;
   z-index: 1;
 }
-.pl-course-hero-art {
+.pl-page-hero-art {
   position: absolute;
   top: 50%;
   /* Anchor to grid's right edge: viewport edge + (viewport-1400)/2 + 5rem padding */
@@ -1642,24 +1642,24 @@
   -webkit-mask-image: radial-gradient(75% 85% at 50% 50%, #000 55%, transparent 95%);
           mask-image: radial-gradient(75% 85% at 50% 50%, #000 55%, transparent 95%);
 }
-.pl-course-hero-art img {
+.pl-page-hero-art img {
   width: 100%;
   height: auto;
   display: block;
   mix-blend-mode: multiply;
   opacity: 0.95;
 }
-.pl-course-hero-inner {
+.pl-page-hero-inner {
   position: relative;
   z-index: 2;
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 5rem;
 }
-.pl-course-hero-kicker {
+.pl-page-hero-kicker {
   color: var(--color-plum) !important;
 }
-.pl-course-hero-title {
+.pl-page-hero-title {
   font-family: var(--font-display);
   font-weight: 500;
   font-variation-settings: 'opsz' 144, 'SOFT' 60;
@@ -1670,11 +1670,11 @@
   color: var(--color-ink);
   max-width: 12ch;
 }
-.pl-course-hero-title em {
+.pl-page-hero-title em {
   font-weight: 400;
   color: var(--color-plum);
 }
-.pl-course-hero-sub {
+.pl-page-hero-sub {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
@@ -1685,21 +1685,21 @@
   margin-top: 2rem;
 }
 @media (max-width: 880px) {
-  .pl-course-hero {
+  .pl-page-hero {
     padding-bottom: 4rem;
   }
-  .pl-course-hero-art {
+  .pl-page-hero-art {
     width: 95%;
     right: -10%;
     opacity: 0.55;
   }
-  .pl-course-hero-inner {
+  .pl-page-hero-inner {
     padding: 0 1.5rem;
   }
 }
 
 /* Hero offerings — numbered editorial chips */
-.pl-course-hero-offerings {
+.pl-page-hero-offerings {
   list-style: none;
   padding: 0;
   margin: 2rem 0 0 0;
@@ -1708,7 +1708,7 @@
   gap: 1.25rem 2rem;
   max-width: 42rem;
 }
-.pl-course-hero-offerings li {
+.pl-page-hero-offerings li {
   display: inline-flex;
   align-items: baseline;
   gap: 0.6rem;
@@ -1716,15 +1716,29 @@
   border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent);
   min-width: 9rem;
 }
-.pl-course-hero-off-num {
+.pl-page-hero-off-num {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.14em;
   color: var(--color-plum);
 }
-.pl-course-hero-off-label {
+.pl-page-hero-off-label {
   font-family: var(--font-display);
   font-style: italic;
   font-size: clamp(1.1rem, 1.6vw, 1.35rem);
   color: var(--color-ink);
+}
+
+/* About hero variant — portrait photo treatment */
+.pl-page-hero--about .pl-page-hero-art {
+  width: 38%;
+  max-width: 460px;
+}
+.pl-page-hero--about .pl-page-hero-art img {
+  border-radius: 0.5rem;
+  /* Duotone-ish: warm photo through cream filter */
+  filter: sepia(0.18) saturate(0.88) brightness(0.98);
+  /* Softer feathered edges than the illustration variant */
+  -webkit-mask-image: radial-gradient(85% 95% at 50% 50%, #000 70%, transparent 100%);
+          mask-image: radial-gradient(85% 95% at 50% 50%, #000 70%, transparent 100%);
 }
