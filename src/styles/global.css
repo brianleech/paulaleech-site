@@ -1281,3 +1281,29 @@
 .pl-course-spotlight-body .pl-course-sessions-list li {
   font-size: 0.97rem;
 }
+
+/* Inline price next to the Reserve CTA */
+.pl-course-price-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  margin-right: 0.25rem;
+}
+.pl-course-price-inline-num {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+.pl-course-price-inline-note {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-stone);
+  max-width: 32ch;
+  line-height: 1.4;
+}

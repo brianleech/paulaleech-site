@@ -74,12 +74,6 @@ const past = trainingsData
                 {t.art && artMap[t.art] && (
                   <img src={artMap[t.art].src} alt="" aria-hidden="true" />
                 )}
-                {(t.price || t.priceNote) && (
-                  <div class="pl-course-price-tag">
-                    {t.price && <span class="pl-course-price">{t.price}</span>}
-                    {t.priceNote && <span class="pl-course-price-note">{t.priceNote}</span>}
-                  </div>
-                )}
               </div>
 
               {/* Content column */}
@@ -156,6 +150,12 @@ const past = trainingsData
                 )}
 
                 <div class="pl-course-cta-row">
+                  {(t.price || t.priceNote) && (
+                    <div class="pl-course-price-inline">
+                      {t.price && <span class="pl-course-price-inline-num">{t.price}</span>}
+                      {t.priceNote && <span class="pl-course-price-inline-note">{t.priceNote}</span>}
+                    </div>
+                  )}
                   <a
                     href={t.bookUrl || '#'}
                     class="pl-pill pl-course-cta"
