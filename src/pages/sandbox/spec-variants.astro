@@ -1,0 +1,250 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Categorized for variant 1
+const categories = [
+  {
+    label: "Identity & orientation",
+    items: ["LGBTQ+", "Gender identity & sexual orientation"],
+  },
+  {
+    label: "Desire & arousal",
+    items: ["Low / no desire", "Desire discrepancy", "Difficulty reaching orgasm"],
+  },
+  {
+    label: "Function",
+    items: ['Erectile dysfunction', '"Premature" / early ejaculation', "Delayed ejaculation"],
+  },
+  {
+    label: "Pain & the body",
+    items: ["Vaginismus", "Sexual pain"],
+  },
+  {
+    label: "Relational",
+    items: ["Infidelity", "Non-monogamy", "Kink & BDSM"],
+  },
+  {
+    label: "Behavior & history",
+    items: ['"Sex addiction," porn "addiction" or compulsivity', "Sexual trauma"],
+  },
+  {
+    label: "Across the lifespan",
+    items: ["Developmental sexuality (children & teens)"],
+  },
+];
+
+// Flat for variants 2 & 3
+const flat = [
+  "LGBTQ+",
+  "Gender Identity & Sexual Orientation",
+  "Erectile Dysfunction",
+  '"Premature" or Early Ejaculation',
+  "Delayed Ejaculation",
+  '"Sex Addiction," Porn "Addiction" or Compulsivity',
+  "Vaginismus",
+  "Sexual Pain",
+  "Low/No Desire & Desire Discrepancy",
+  "Difficulty Reaching Orgasm",
+  "Sexual Trauma",
+  "Non-Monogamy",
+  "Kink & BDSM",
+  "Infidelity",
+  "Developmental Sexuality (children & teens)",
+];
+const coda = "And the things between, alongside, and underneath these.";
+---
+<Layout title="Spec variants — sandbox">
+  <main style="padding: 4rem 0;">
+
+    <!-- =================================================================
+         VARIANT 1 — Categorized chip clusters
+         ================================================================= -->
+    <section class="mx-auto max-w-[1100px] px-12 lg:px-20 pl-reveal" style="padding-bottom: 6rem; border-bottom: 1px dashed color-mix(in srgb, var(--color-ink) 30%, transparent);">
+      <p class="pl-label" style="color: var(--color-plum); margin-bottom: 0.5rem;">Option 1 — Categorized chip clusters</p>
+      <header class="pl-spec-header">
+        <span class="pl-spec-rule" aria-hidden="true"></span>
+        <h2 class="pl-spec-headline"><em>What I work with.</em></h2>
+        <span class="pl-spec-rule" aria-hidden="true"></span>
+      </header>
+      <div class="v1-grid">
+        {categories.map(cat => (
+          <div class="v1-cat">
+            <p class="v1-cat-label">{cat.label}</p>
+            <ul class="v1-chip-list">
+              {cat.items.map(item => <li class="v1-chip">{item}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p class="pl-spec-note" style="margin-top: 3rem;">{coda}</p>
+    </section>
+
+    <!-- =================================================================
+         VARIANT 2 — Numbered catalog w/ hairline rules
+         ================================================================= -->
+    <section class="mx-auto max-w-[1100px] px-12 lg:px-20 pl-reveal" style="padding-top: 6rem; padding-bottom: 6rem; border-bottom: 1px dashed color-mix(in srgb, var(--color-ink) 30%, transparent);">
+      <p class="pl-label" style="color: var(--color-plum); margin-bottom: 0.5rem;">Option 2 — Numbered catalog</p>
+      <header class="pl-spec-header">
+        <span class="pl-spec-rule" aria-hidden="true"></span>
+        <h2 class="pl-spec-headline"><em>What I work with.</em></h2>
+        <span class="pl-spec-rule" aria-hidden="true"></span>
+      </header>
+      <div class="v2-catalog">
+        <ul class="v2-col">
+          {flat.slice(0, Math.ceil(flat.length / 2)).map((item, i) => (
+            <li class="v2-row">
+              <span class="v2-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="v2-text">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <ul class="v2-col">
+          {flat.slice(Math.ceil(flat.length / 2)).map((item, i) => (
+            <li class="v2-row">
+              <span class="v2-num">{String(i + 1 + Math.ceil(flat.length / 2)).padStart(2, '0')}</span>
+              <span class="v2-text">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <p class="pl-spec-note" style="margin-top: 3rem;">{coda}</p>
+    </section>
+
+    <!-- =================================================================
+         VARIANT 3 — Tag cloud / chip mosaic
+         ================================================================= -->
+    <section class="mx-auto max-w-[1100px] px-12 lg:px-20 pl-reveal" style="padding-top: 6rem; padding-bottom: 6rem;">
+      <p class="pl-label" style="color: var(--color-plum); margin-bottom: 0.5rem;">Option 3 — Chip mosaic</p>
+      <header class="pl-spec-header">
+        <span class="pl-spec-rule" aria-hidden="true"></span>
+        <h2 class="pl-spec-headline"><em>What I work with.</em></h2>
+        <span class="pl-spec-rule" aria-hidden="true"></span>
+      </header>
+      <ul class="v3-cloud">
+        {flat.map((item, i) => (
+          <li class={`v3-chip v3-chip--w${i % 3}`}>{item}</li>
+        ))}
+      </ul>
+      <p class="pl-spec-note" style="margin-top: 3rem;">{coda}</p>
+    </section>
+
+  </main>
+</Layout>
+
+<style>
+  /* ============================================================
+     V1 — Categorized chip clusters
+     ============================================================ */
+  .v1-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem 3rem;
+  }
+  .v1-cat-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-plum);
+    margin: 0 0 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent);
+  }
+  .v1-chip-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .v1-chip {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    line-height: 1.3;
+    color: var(--color-ink);
+    padding: 0.4rem 0.85rem;
+    background: color-mix(in srgb, var(--color-ink) 5%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
+    border-radius: 999px;
+  }
+
+  /* ============================================================
+     V2 — Numbered catalog w/ hairline rules
+     ============================================================ */
+  .v2-catalog {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 4rem;
+  }
+  .v2-col {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .v2-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+  }
+  .v2-row:last-child { border-bottom: none; }
+  .v2-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--color-plum);
+  }
+  .v2-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    line-height: 1.4;
+    color: var(--color-ink);
+  }
+  @media (max-width: 800px) {
+    .v2-catalog { grid-template-columns: 1fr; }
+  }
+
+  /* ============================================================
+     V3 — Tag cloud / chip mosaic w/ varied weight
+     ============================================================ */
+  .v3-cloud {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  .v3-chip {
+    font-family: var(--font-display);
+    line-height: 1.3;
+    padding: 0.65rem 1.15rem;
+    border-radius: 999px;
+  }
+  .v3-chip--w0 {
+    font-weight: 500;
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    color: var(--color-ink);
+    background: color-mix(in srgb, var(--color-plum) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-plum) 22%, transparent);
+  }
+  .v3-chip--w1 {
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+    color: var(--color-ink-soft);
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+  }
+  .v3-chip--w2 {
+    font-weight: 400;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    color: var(--color-ink);
+    background: color-mix(in srgb, var(--color-honey) 25%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-honey) 50%, transparent);
+  }
+</style>

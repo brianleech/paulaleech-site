@@ -1723,6 +1723,16 @@
   color: var(--color-ink);
 }
 
+/* Work-with-me hero variant — 10% smaller artwork.
+   Uses top offset (not translateY) for centering because .pl-momentum's
+   inline transform would clobber translateY(-48%) and drop the image. */
+.pl-page-hero--work .pl-page-hero-art {
+  width: 43%;
+  max-width: 576px;
+  top: 8%;
+  transform: none;
+}
+
 /* About hero variant — portrait photo treatment */
 .pl-page-hero--about .pl-page-hero-art {
   width: 52%;
@@ -1736,36 +1746,106 @@
   border-radius: 0.5rem;
   /* Duotone-ish: warm photo through cream filter */
   filter: sepia(0.18) saturate(0.88) brightness(0.98);
-  /* Organic left feather — overlapping radial blobs + solid base.
-     Base linear-gradient guarantees hard top/right/bottom edges; blobs feather only the left.
-     Blob centers baked at shifted positions (was -100px via mask-position, now another -100px). */
+  /* Organic left feather — overlapping radial blobs compose a soft, lobed edge */
   -webkit-mask-image:
-    radial-gradient(70% 55% at 42% 30%, #000 28%, transparent 84%),
-    radial-gradient(65% 60% at 32% 65%, #000 28%, transparent 84%),
-    radial-gradient(55% 45% at 22% 18%, #000 28%, transparent 86%),
-    radial-gradient(50% 40% at 18% 88%, #000 28%, transparent 86%),
-    radial-gradient(22% 18% at 28% 46%, #000 30%, transparent 90%),
-    radial-gradient(16% 14% at 24% 78%, #000 32%, transparent 92%),
-    radial-gradient(14% 12% at 38% 8%, #000 32%, transparent 92%),
-    radial-gradient(60% 100% at 58% 50%, #000 38%, transparent 80%),
-    linear-gradient(to right, transparent 0%, transparent 18%, #000 56%, #000 100%);
+    radial-gradient(70% 55% at 80% 30%, #000 35%, transparent 75%),
+    radial-gradient(65% 60% at 70% 65%, #000 35%, transparent 75%),
+    radial-gradient(55% 45% at 60% 20%, #000 35%, transparent 75%),
+    radial-gradient(50% 40% at 55% 85%, #000 35%, transparent 75%),
+    radial-gradient(60% 100% at 95% 50%, #000 40%, transparent 80%);
           mask-image:
-    radial-gradient(70% 55% at 42% 30%, #000 28%, transparent 84%),
-    radial-gradient(65% 60% at 32% 65%, #000 28%, transparent 84%),
-    radial-gradient(55% 45% at 22% 18%, #000 28%, transparent 86%),
-    radial-gradient(50% 40% at 18% 88%, #000 28%, transparent 86%),
-    radial-gradient(22% 18% at 28% 46%, #000 30%, transparent 90%),
-    radial-gradient(16% 14% at 24% 78%, #000 32%, transparent 92%),
-    radial-gradient(14% 12% at 38% 8%, #000 32%, transparent 92%),
-    radial-gradient(60% 100% at 58% 50%, #000 38%, transparent 80%),
-    linear-gradient(to right, transparent 0%, transparent 18%, #000 56%, #000 100%);
-  /* default mask-composite is 'add' / source-over — all layers union */
+    radial-gradient(70% 55% at 80% 30%, #000 35%, transparent 75%),
+    radial-gradient(65% 60% at 70% 65%, #000 35%, transparent 75%),
+    radial-gradient(55% 45% at 60% 20%, #000 35%, transparent 75%),
+    radial-gradient(50% 40% at 55% 85%, #000 35%, transparent 75%),
+    radial-gradient(60% 100% at 95% 50%, #000 40%, transparent 80%);
   -webkit-mask-size: 100% 100%;
           mask-size: 100% 100%;
-  -webkit-mask-position: 0 0;
-          mask-position: 0 0;
+  /* Shift mask 100px left so more of the image is exposed on its left side */
+  -webkit-mask-position: -100px 0;
+          mask-position: -100px 0;
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
   /* Push image past container's right edge so the face stays where it was */
   transform: translateX(calc(5rem + 50px));
+}
+
+/* ============================================================
+   Drawer — slides in from the right with backdrop
+   Lifted from contact.astro so any page can render a .pl-drawer
+   ============================================================ */
+.pl-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  visibility: hidden;
+}
+.pl-drawer.is-open {
+  pointer-events: auto;
+  visibility: visible;
+}
+.pl-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--color-ink, #2a221c) 50%, transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.pl-drawer.is-open .pl-drawer-backdrop { opacity: 1; }
+.pl-drawer-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(680px, 100%);
+  background: var(--color-cream, #f6efe4);
+  box-shadow: -16px 0 60px rgba(0, 0, 0, 0.18);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+.pl-drawer.is-open .pl-drawer-panel { transform: translateX(0); }
+.pl-drawer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.6rem 1.8rem 1.4rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink, #2a221c) 10%, transparent);
+  background: var(--color-cream, #f6efe4);
+}
+.pl-drawer-close {
+  appearance: none;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--color-ink, #2a221c) 15%, transparent);
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-ink, #2a221c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+.pl-drawer-close:hover {
+  background: color-mix(in srgb, var(--color-ink, #2a221c) 8%, transparent);
+  transform: scale(1.05);
+}
+.pl-drawer-body {
+  flex: 1;
+  overflow: hidden;
+  background: white;
+  position: relative;
+}
+.pl-drawer-body iframe { display: block; }
+@media (max-width: 640px) {
+  .pl-drawer-panel { width: 100%; }
+  .pl-drawer-header { padding: 1.2rem 1.2rem 1rem; }
 }

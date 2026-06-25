@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import armTouch from '../assets/illustrations/indiviualHeads.png';
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -12,82 +13,116 @@ function acuityEmbedUrl(selector: string) {
   return `https://app.acuityscheduling.com/schedule.php?${params.toString()}`;
 }
 
-const specializations = [
-  "LGBTQ+",
-  "Gender Identity & Sexual Orientation",
-  "Erectile Dysfunction",
-  "\"Premature\" or Early Ejaculation",
-  "Delayed Ejaculation",
-  "\"Sex Addiction,\" Porn \"Addiction\" or Compulsivity",
-  "Vaginismus",
-  "Sexual Pain",
-  "Low/No Desire & Desire Discrepancy",
-  "Difficulty Reaching Orgasm",
-  "Sexual Trauma",
-  "Non-Monogamy",
-  "Kink & BDSM",
-  "Infidelity",
-  "Developmental Sexuality (children & teens)",
-  "And the things between, alongside, and underneath these.",
+const specializationCategories = [
+  {
+    label: "Identity & orientation",
+    items: ["LGBTQ+", "Gender identity & sexual orientation"],
+  },
+  {
+    label: "Desire & arousal",
+    items: ["Low / no desire", "Desire discrepancy", "Difficulty reaching orgasm"],
+  },
+  {
+    label: "Function",
+    items: ["Erectile dysfunction", '"Premature" / early ejaculation', "Delayed ejaculation"],
+  },
+  {
+    label: "Pain & the body",
+    items: ["Vaginismus", "Sexual pain"],
+  },
+  {
+    label: "Relational",
+    items: ["Infidelity", "Non-monogamy", "Kink & BDSM"],
+  },
+  {
+    label: "Behavior & history",
+    items: ['"Sex addiction," porn "addiction" or compulsivity', "Sexual trauma"],
+  },
+  {
+    label: "Across the lifespan",
+    items: ["Developmental sexuality (children & teens)"],
+  },
 ];
+const specializationCoda = "And the things between, alongside, and underneath these.";
 ---
 <Layout title="Sex Therapy — Paula Leech">
 
-  <!-- Hero -->
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 pt-16 md:pt-24 pl-reveal">
-    <p class="pl-label">Sex Therapy</p>
-    <h1 style="
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-variation-settings: 'opsz' 144, 'SOFT' 60;
-      font-size: clamp(3rem, 9vw, 7rem);
-      line-height: 0.9;
-      letter-spacing: -0.04em;
-      margin-top: 1rem;
-      color: var(--color-ink);
-    ">
-      Work with<br/><em style="font-weight: 400;">me.</em>
-    </h1>
-    <p class="mt-8 max-w-2xl" style="font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1.4; color: var(--color-ink-soft);">
-      Therapy for the parts of intimacy nobody taught us how to talk about.
-    </p>
+  <!-- HERO — full-bleed editorial header (matches About / Courses) -->
+  <section class="pl-page-hero pl-page-hero--work pl-reveal">
+    <div class="pl-page-hero-art pl-momentum" data-scroll="-0.12" data-resize="-0.3" aria-hidden="true">
+      <img src={armTouch.src} alt="" class="pl-float-slow-rev" />
+    </div>
+    <div class="pl-page-hero-inner">
+      <p class="pl-label pl-page-hero-kicker">Sex Therapy</p>
+      <h1 class="pl-page-hero-title">
+        Work with<br/><em>me.</em>
+      </h1>
+      <p class="pl-page-hero-sub">
+        Therapy for the parts of intimacy nobody handed us a script for.
+        <span class="pl-page-hero-sub-meta">Portland in person · MA · OR · NY virtual.</span>
+      </p>
+    </div>
   </section>
 
-  <!-- Long-form opening: Paula's verbatim copy -->
-  <section class="mx-auto max-w-[820px] px-6 lg:px-0 mt-20 md:mt-28 pl-reveal">
-    <p style="
-      font-family: var(--font-display);
-      font-weight: 400;
-      font-size: clamp(1.15rem, 1.5vw, 1.35rem);
-      line-height: 1.65;
-      color: var(--color-ink);
-      margin: 0 0 2rem;
-    ">
-      Our sexuality is completely and inextricably interwoven into all other facets of ourselves. It is something we get to know, and attempt to make sense of, our entire lives in the midst of silence and a sex-negative world. It is an immensely complex space that is particularly susceptible to shame, feelings of pressure/performance, and "shoulds." Yet sex is one of the ways — or even the primary way for some — that we express and receive love, both for ourselves and others. It IS connection, play, sharing, expression, and release.
-    </p>
-    <p style="
-      font-family: var(--font-display);
-      font-weight: 400;
-      font-style: italic;
-      font-size: clamp(1.35rem, 1.9vw, 1.65rem);
-      line-height: 1.5;
-      color: var(--color-plum);
-      margin: 2.5rem 0;
-      text-align: center;
-      letter-spacing: -0.015em;
-    ">
-      Therapy is a way to tap into the freedom and joy that comes with unraveling ourselves from shame, trauma, misinformation, repression and oppression.
-    </p>
-    <p style="
-      font-family: var(--font-display);
-      font-weight: 400;
-      font-size: clamp(1.15rem, 1.5vw, 1.35rem);
-      line-height: 1.65;
-      color: var(--color-ink);
-      margin: 0;
-    ">
-      Sex therapy can look very similar to more traditional models of therapy, but often with the added element of take-home experiences and exercises. It is a mind/body method of transformation and change, where the behavioral at-home component allows for clients to track their progress around sexual struggles concretely. The aim is to help clients reach the goals they came in with while also having expanded their sexual repertoire, connected with the evolving nuances of pleasure and eroticism, gained a sense of comfort communicating their sexual wants and needs, and cultivated a much deeper sense of connection to sensation, pleasure, self and other.
-    </p>
+  <!-- Long-form opening with sidebar logistics -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-20 md:mt-28 pl-reveal">
+    <div class="pl-grid items-start gap-y-12">
+      <!-- Copy column -->
+      <div class="col-span-12 lg:col-span-7 pl-essay">
+        <div class="pl-essay-section">
+          <span class="pl-essay-marker">I. The terrain</span>
+          <p class="pl-essay-para pl-essay-para--lead">
+            Our sexuality is completely and inextricably interwoven into all other facets of ourselves. It is something we get to know, and attempt to make sense of, our entire lives in the midst of silence and a sex-negative world. It is an immensely complex space that is particularly susceptible to shame, feelings of pressure/performance, and "shoulds." Yet sex is one of the ways — or even the primary way for some — that we express and receive love, both for ourselves and others. It IS connection, play, sharing, expression, and release.
+          </p>
+        </div>
+
+        <span class="pl-essay-rule" aria-hidden="true"></span>
+
+        <p class="pl-essay-pullquote">
+          Therapy is a way to tap into the freedom and joy that comes with unraveling ourselves from shame, trauma, misinformation, repression and oppression.
+        </p>
+
+        <span class="pl-essay-rule" aria-hidden="true"></span>
+
+        <div class="pl-essay-section">
+          <span class="pl-essay-marker">II. The approach</span>
+          <p class="pl-essay-para">
+            Sex therapy can look very similar to more traditional models of therapy, but often with the added element of take-home experiences and exercises. It is a mind/body method of transformation and change, where the behavioral at-home component allows for clients to track their progress around sexual struggles concretely. The aim is to help clients reach the goals they came in with while also having expanded their sexual repertoire, connected with the evolving nuances of pleasure and eroticism, gained a sense of comfort communicating their sexual wants and needs, and cultivated a much deeper sense of connection to sensation, pleasure, self and other.
+          </p>
+        </div>
+      </div>
+
+      <!-- Logistics sidebar — stacked tiles + consult CTA -->
+      <aside class="col-span-12 lg:col-span-5 lg:pl-16 pl-logistics-stack-wrap">
+        <div class="pl-logistics-stack">
+          <div class="pl-logistics-item pl-logistics-item--stack">
+            <span class="pl-label">Rate</span>
+            <p class="pl-logistics-value">$285<span style="font-size: 0.55em; color: var(--color-ink-soft); font-style: italic; margin-left: 0.25rem;">/ session</span></p>
+            <p class="pl-logistics-meta">55-minute session · out-of-pocket</p>
+          </div>
+          <div class="pl-logistics-item pl-logistics-item--stack">
+            <span class="pl-label">Where</span>
+            <p class="pl-logistics-value"><em>Virtual</em> &amp; <em>Portland.</em></p>
+            <p class="pl-logistics-meta">Telehealth for MA · OR · NY · In-person in PDX</p>
+          </div>
+          <div class="pl-logistics-item pl-logistics-item--stack">
+            <span class="pl-label">Begin</span>
+            <p class="pl-logistics-value"><em>Free</em> 15-min consult.</p>
+            <p class="pl-logistics-meta">Phone or Zoom · no payment required</p>
+          </div>
+        </div>
+        <div class="pl-logistics-cta">
+          <button
+            type="button"
+            class="pl-primary-cta pl-drawer-trigger"
+            data-drawer-target="consult"
+          >
+            Schedule a free consult
+            <span aria-hidden="true" style="margin-left: 0.6rem;">→</span>
+          </button>
+        </div>
+      </aside>
+    </div>
   </section>
 
   <!-- Specializations -->
@@ -99,43 +134,17 @@ const specializations = [
       </h2>
       <span class="pl-spec-rule" aria-hidden="true"></span>
     </header>
-    <ul class="pl-spec-list">
-      {specializations.map((s, i) => (
-        <li class={`pl-spec-item ${i === specializations.length - 1 ? 'pl-spec-item--coda' : ''}`}>{s}</li>
+    <ul class="pl-spec-clusters">
+      {specializationCategories.map(cat => (
+        <li class="pl-spec-cluster">
+          <p class="pl-spec-cluster-label">{cat.label}</p>
+          <ul class="pl-spec-chip-list">
+            {cat.items.map(item => <li class="pl-spec-chip">{item}</li>)}
+          </ul>
+        </li>
       ))}
     </ul>
-  </section>
-
-  <!-- Logistics + primary CTA -->
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-28 md:mt-36 pl-reveal">
-    <div class="pl-logistics">
-      <div class="pl-logistics-item">
-        <span class="pl-label">Rate</span>
-        <p class="pl-logistics-value">$285<span style="font-size: 0.55em; color: var(--color-ink-soft); font-style: italic; margin-left: 0.25rem;">/ session</span></p>
-        <p class="pl-logistics-meta">50-minute session · out-of-pocket</p>
-      </div>
-      <div class="pl-logistics-item">
-        <span class="pl-label">Where</span>
-        <p class="pl-logistics-value"><em>Virtual</em> &amp; <em>Portland.</em></p>
-        <p class="pl-logistics-meta">Telehealth for MA · OR · NY · In-person in PDX</p>
-      </div>
-      <div class="pl-logistics-item">
-        <span class="pl-label">Begin</span>
-        <p class="pl-logistics-value"><em>Free</em> 15-min consult.</p>
-        <p class="pl-logistics-meta">Phone or Zoom · no payment required</p>
-      </div>
-    </div>
-
-    <div class="pl-primary-cta-wrap">
-      <button
-        type="button"
-        class="pl-primary-cta pl-drawer-trigger"
-        data-drawer-target="consult"
-      >
-        Schedule a free consult
-        <span aria-hidden="true" style="margin-left: 0.6rem;">→</span>
-      </button>
-    </div>
+    <p class="pl-spec-note">{specializationCoda}</p>
   </section>
 
   <!-- Secondary: Supervision door -->
@@ -154,17 +163,6 @@ const specializations = [
         See supervision &amp; trainings
         <span class="pl-secondary-door-arrow" aria-hidden="true">→</span>
       </span>
-    </a>
-  </section>
-
-  <!-- Tertiary: Press door -->
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-12 mb-32 pl-reveal">
-    <a href={`${BASE}/press/`} class="pl-tertiary-door">
-      <span class="pl-label">Press, speaking &amp; podcasts</span>
-      <span class="pl-tertiary-door-text">
-        <em>Where I've shown up</em> — and where to invite me next.
-      </span>
-      <span class="pl-tertiary-door-arrow" aria-hidden="true">→</span>
     </a>
   </section>
 
@@ -268,6 +266,106 @@ const specializations = [
 </Layout>
 
 <style>
+  /* ============================================================
+     Essay — lettered section markers, hairline rules, drop cap
+     ============================================================ */
+  .pl-essay {
+    /* No vertical rhythm overrides; section spacing handles it */
+  }
+  .pl-essay-section + .pl-essay-section { margin-top: 0; }
+  .pl-essay-marker {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-plum);
+    margin-bottom: 1rem;
+  }
+  .pl-essay-para {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+    line-height: 1.65;
+    color: var(--color-ink);
+    margin: 0;
+  }
+  /* Drop cap on the lead paragraph */
+  .pl-essay-para--lead::first-letter {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-style: italic;
+    color: var(--color-plum);
+    float: left;
+    font-size: 4.5rem;
+    line-height: 0.85;
+    padding: 0.4rem 0.75rem 0 0;
+    margin-top: 0.2rem;
+  }
+  .pl-essay-rule {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: color-mix(in srgb, var(--color-ink) 18%, transparent);
+    margin: 2.75rem 0;
+  }
+  .pl-essay-pullquote {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(1.5rem, 2.1vw, 1.85rem);
+    line-height: 1.4;
+    color: var(--color-plum);
+    letter-spacing: -0.015em;
+    margin: 0;
+    padding: 0 0.5rem;
+    /* Slight hanging punctuation feel */
+    text-indent: -0.4rem;
+  }
+
+  /* ============================================================
+     Specializations — categorized chip clusters (variant 1)
+     ============================================================ */
+  .pl-spec-clusters {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem 3rem;
+  }
+  .pl-spec-cluster {
+    margin: 0;
+  }
+  .pl-spec-cluster-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-plum);
+    margin: 0 0 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent);
+  }
+  .pl-spec-chip-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .pl-spec-chip {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    line-height: 1.3;
+    color: var(--color-ink);
+    padding: 0.4rem 0.85rem;
+    background: color-mix(in srgb, var(--color-ink) 5%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
+    border-radius: 999px;
+  }
+
   /* ============================================================
      Specializations — centered editorial list w/ rules + 2-col grid
      ============================================================ */
@@ -383,6 +481,58 @@ const specializations = [
       border-top: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
     }
     .pl-logistics-item { padding: 2rem 1rem; }
+  }
+
+  /* Hero sub — meta line (location/scope) on its own row, smaller + muted */
+  .pl-page-hero-sub-meta {
+    display: block;
+    margin-top: 1.25rem;
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-plum);
+  }
+
+  /* Stacked variant — used as a sidebar next to the intro copy.
+     Mirrors the bottom-of-page row, rotated: vertical rules on the L/R of the
+     whole column, horizontal divider between each cell. */
+  .pl-logistics-stack {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+    border-right: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+    padding-top: 0;
+  }
+  .pl-logistics-item--stack {
+    padding: 3.25rem 1.75rem;
+    text-align: center;
+    /* Reset the grid variant's left-border rule */
+    border-left: none !important;
+  }
+  .pl-logistics-item--stack + .pl-logistics-item--stack {
+    border-left: none !important;
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+  }
+  .pl-logistics-value {
+    /* Slight breathing room inside each tile in the sidebar variant */
+  }
+  .pl-logistics-item--stack .pl-logistics-value {
+    margin: 1rem 0 1rem;
+  }
+  .pl-logistics-item--stack .pl-logistics-meta {
+    margin-top: 0.25rem;
+  }
+  .pl-logistics-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+  .pl-logistics-cta .pl-primary-cta {
+    /* Sidebar context — slightly smaller than the full-width center CTA */
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    padding: 1.05rem 1.9rem;
   }
 
   /* Primary CTA — big editorial button */

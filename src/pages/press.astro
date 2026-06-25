@@ -1,6 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import lipsClosed from '../assets/illustrations/LipsClosed.webp';
+import lipsOpen from '../assets/illustrations/LipsOpen.webp';
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Featured podcast episodes — mirror the homepage apothecary carousel.
+// Keeping the shelf identical to /home means visitors who land here directly
+// still see the four "headliner" episodes with inline players.
+const featuredEpisodeUrls = new Set([
+  "https://podcasts.apple.com/ca/podcast/from-tension-to-trust-paula-leech-on-healing-sexual-anxiety/id1833251163?i=1000721958902",
+  "https://open.spotify.com/episode/3BHIOdjTLVDyO29Ft7WhBq?si=fe72e0d38a6a4b65",
+  "https://intimacywithease.com/pregnancy-and-postpartum-challenges-for-sex-paula-leech/", // Feb 22 Better Sex
+  "https://in-this-body.com/episodes/paula-leech",
+]);
 
 // Real appearances pulled from paulaleech.com "Mentioned In" — newest first.
 const appearances = [
@@ -21,32 +33,140 @@ const appearances = [
   { date: "DEC 20", title: "Sex and the Survivor",                                         outlet: "Beautiful Self Org",            kind: "Talk",    url: "https://www.instagram.com/p/CJqtbsPAqA2/" },
   { date: "SEP 20", title: "What is Sex Therapy Like?",                                    outlet: "Better Sex Podcast",            kind: "Podcast", url: "https://intimacywithease.com/what-is-sex-therapy-like-paula-leech/" },
 ];
+const otherAppearances = appearances.filter(a => !featuredEpisodeUrls.has(a.url));
 ---
 <Layout title="Press & Appearances — Paula Leech">
 
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 pt-16 md:pt-24 pl-reveal">
-    <p class="pl-label">Press &amp; Appearances</p>
-    <h1 style="
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-variation-settings: 'opsz' 144, 'SOFT' 60;
-      font-size: clamp(3rem, 9vw, 7rem);
-      line-height: 0.9;
-      letter-spacing: -0.04em;
-      margin-top: 1rem;
-      color: var(--color-ink);
-    ">
-      Where I've<br/><em style="font-weight: 400;">shown up.</em>
-    </h1>
-    <p class="mt-8 max-w-2xl" style="font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1.4; color: var(--color-ink-soft);">
-      Podcasts, articles, talks, and a handful of conversations I'm glad I said yes to.
-    </p>
+  <!-- HERO — full-bleed editorial header, matches About / Courses / Work With Me / Supervision -->
+  <section class="pl-page-hero pl-page-hero--press pl-reveal">
+    <div class="pl-page-hero-art pl-momentum" data-scroll="-0.1" data-resize="-0.3" aria-hidden="true">
+      <img src={lipsClosed.src} alt="" class="pl-press-lips pl-press-lips--top pl-float-slow" />
+      <img src={lipsOpen.src} alt="" class="pl-press-lips pl-press-lips--bottom pl-float-slow-rev" />
+    </div>
+    <div class="pl-page-hero-inner">
+      <p class="pl-label pl-page-hero-kicker">Press &amp; Appearances</p>
+      <h1 class="pl-page-hero-title">
+        Where I've<br/><em>shown up.</em>
+      </h1>
+      <p class="pl-page-hero-sub">
+        Podcasts, articles, talks, and a handful of conversations I'm glad I said yes to.
+      </p>
+    </div>
   </section>
 
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-20 md:mt-32 pl-reveal">
+  <!-- FEATURED — apothecary shelf, mirrors the homepage carousel -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-16 md:mt-24 pl-reveal">
+    <p class="pl-label" style="margin-bottom: 1.25rem;">Featured episodes</p>
+    <div class="pl-apothecary-wrap">
+      <div class="pl-apothecary-shelf pl-apothecary-shelf--scroll" id="press-shelf-archive">
+        <div class="pl-bottle">
+          <span class="pl-bottle-audio-mark" aria-hidden="true">♪</span>
+          <div class="pl-bottle-header">
+            <span class="pl-bottle-kicker">No. I · Podcast</span>
+          </div>
+          <div class="pl-bottle-spacer"></div>
+          <div class="pl-bottle-title">Overcoming Anxiety in Sex &amp; Relationships.</div>
+          <div class="pl-bottle-tincture">An hour with Natasha Helfer on the quiet panic that reshapes desire.</div>
+          <div class="pl-bottle-spacer"></div>
+          <div class="pl-bottle-meta">Mar 2025 · 1h 17m</div>
+          <div class="pl-bottle-player">
+            <iframe
+              src="https://open.spotify.com/embed/episode/3BHIOdjTLVDyO29Ft7WhBq?utm_source=generator"
+              width="100%"
+              height="152"
+              frameborder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title="The Natasha Helfer Podcast — Overcoming Anxiety in Sex and Relationships with Paula Leech"
+            ></iframe>
+          </div>
+          <a href="https://open.spotify.com/episode/3BHIOdjTLVDyO29Ft7WhBq" target="_blank" rel="noopener" class="pl-bottle-cork">Open on Spotify →</a>
+        </div>
+
+        <div class="pl-bottle">
+          <span class="pl-bottle-audio-mark" aria-hidden="true">♪</span>
+          <div class="pl-bottle-header">
+            <span class="pl-bottle-kicker">No. II · Podcast</span>
+          </div>
+          <div class="pl-bottle-spacer"></div>
+          <div class="pl-bottle-title">Pregnancy &amp; postpartum challenges for sex.</div>
+          <div class="pl-bottle-tincture">A look at what shifts in desire and the body after kids — and what to do with it.</div>
+          <div class="pl-bottle-spacer"></div>
+          <div class="pl-bottle-meta">Apr 2022 · Better Sex</div>
+          <div class="pl-bottle-player">
+            <iframe
+              src="https://open.spotify.com/embed/episode/0Ll8mexApKVOWvxQiUYNwo?utm_source=generator"
+              width="100%"
+              height="152"
+              frameborder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title="Better Sex Podcast — Pregnancy and Postpartum Challenges for Sex with Paula Leech"
+            ></iframe>
+          </div>
+          <a href="https://open.spotify.com/episode/0Ll8mexApKVOWvxQiUYNwo" target="_blank" rel="noopener" class="pl-bottle-cork">Open on Spotify →</a>
+        </div>
+
+        <div class="pl-bottle">
+          <span class="pl-bottle-audio-mark" aria-hidden="true">♪</span>
+          <div class="pl-bottle-header">
+            <span class="pl-bottle-kicker">No. III · Podcast</span>
+          </div>
+          <div class="pl-bottle-spacer"></div>
+          <div class="pl-bottle-title">Embodiment &amp; the expression of sexuality.</div>
+          <div class="pl-bottle-tincture">A conversation on what living in the body really asks of us.</div>
+          <div class="pl-bottle-spacer"></div>
+          <div class="pl-bottle-meta">Jul 2024 · 58 min</div>
+          <div class="pl-bottle-player">
+            <iframe
+              src="https://open.spotify.com/embed/episode/0Py55ILnVqRoXEvP0eCmQY?utm_source=generator"
+              width="100%"
+              height="152"
+              frameborder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title="In This Body — The Importance of Embodiment in the Expression of Sexuality with Paula Leech"
+            ></iframe>
+          </div>
+          <a href="https://open.spotify.com/episode/0Py55ILnVqRoXEvP0eCmQY" target="_blank" rel="noopener" class="pl-bottle-cork">Open on Spotify →</a>
+        </div>
+
+        <div class="pl-bottle">
+          <span class="pl-bottle-audio-mark" aria-hidden="true">♪</span>
+          <div class="pl-bottle-header">
+            <span class="pl-bottle-kicker">No. IV · Podcast</span>
+          </div>
+          <div class="pl-bottle-spacer"></div>
+          <div class="pl-bottle-title">From tension to trust: healing sexual anxiety.</div>
+          <div class="pl-bottle-tincture">A practical conversation on how anxiety lodges in the body — and how it loosens.</div>
+          <div class="pl-bottle-spacer"></div>
+          <div class="pl-bottle-meta">Aug 2025 · Wise Body Sex Therapy</div>
+          <div class="pl-bottle-player">
+            <iframe
+              src="https://embed.podcasts.apple.com/ca/podcast/from-tension-to-trust-paula-leech-on-healing-sexual-anxiety/id1833251163?i=1000721958902&theme=light"
+              height="175"
+              style="width:100%;overflow:hidden;border-radius:12px;"
+              frameborder="0"
+              sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+              allow="autoplay *; encrypted-media *; clipboard-write"
+              loading="lazy"
+              title="Wise Body Sex Therapy — From Tension to Trust with Paula Leech"
+            ></iframe>
+          </div>
+          <a href="https://podcasts.apple.com/ca/podcast/from-tension-to-trust-paula-leech-on-healing-sexual-anxiety/id1833251163?i=1000721958902" target="_blank" rel="noopener" class="pl-bottle-cork">Open on Apple →</a>
+        </div>
+      </div>
+      <button class="pl-shelf-prev" type="button" aria-label="Previous press item" data-target="press-shelf-archive">←</button>
+      <button class="pl-shelf-next" type="button" aria-label="Next press item" data-target="press-shelf-archive">→</button>
+    </div>
+  </section>
+
+  <!-- OTHER — full chronological archive -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-24 md:mt-32 pl-reveal">
+    <p class="pl-label" style="margin-bottom: 1.25rem;">Other places I've shown up</p>
     <div class="pl-grid">
       <div class="col-span-12 md:col-span-12">
-        {appearances.map(a => (
+        {otherAppearances.map(a => (
           <a href={a.url} target="_blank" rel="noopener" class="pl-ledger" style="cursor: pointer; text-decoration: none;">
             <span class="pl-label" style="min-width: 5.5rem;">{a.date}</span>
             <span style="font-family: var(--font-display); font-size: clamp(1.15rem, 2vw, 1.5rem);">
@@ -79,3 +199,69 @@ const appearances = [
   </section>
 
 </Layout>
+
+<style>
+  /* Press hero variant — two lips illustrations stacked in the art column.
+     Mirrors .pl-page-hero--work positioning; uses top:N% (not transform)
+     so .pl-momentum's per-frame transform writes don't drop them.
+     aspect-ratio gives the art column real height (children are absolute,
+     so without this the container collapses to 0px and the global
+     mask-image swallows the layer).                                      */
+  .pl-page-hero--press .pl-page-hero-art {
+    width: 44%;
+    max-width: 600px;
+    top: 6%;
+    transform: none;
+    aspect-ratio: 5 / 6;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .pl-press-lips {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    display: block;
+    left: 0;
+  }
+  .pl-press-lips--top    { top: 0;    left: -14%; width: 90%;  transform: rotate(-6deg); }
+  .pl-press-lips--bottom { top: 34%;  left: 26%;  width: 92%;  transform: rotate(4deg); }
+
+  @media (max-width: 900px) {
+    .pl-page-hero--press .pl-page-hero-art {
+      width: 60%;
+      top: auto;
+      bottom: -2rem;
+    }
+  }
+</style>
+
+<script>
+  // Press shelf — advance / rewind one card per click. Mirrors index.astro.
+  document.querySelectorAll('.pl-shelf-next, .pl-shelf-prev').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-target');
+      const shelf = id ? document.getElementById(id) : null;
+      if (!shelf) return;
+      const card = shelf.querySelector('.pl-bottle');
+      const step = card ? card.getBoundingClientRect().width + 24 : 320;
+      const dir = btn.classList.contains('pl-shelf-prev') ? -1 : 1;
+      if (dir > 0) {
+        const atEnd = shelf.scrollLeft + shelf.clientWidth >= shelf.scrollWidth - 8;
+        shelf.scrollTo({ left: atEnd ? 0 : shelf.scrollLeft + step, behavior: 'smooth' });
+      } else {
+        const atStart = shelf.scrollLeft <= 8;
+        shelf.scrollTo({ left: atStart ? shelf.scrollWidth : shelf.scrollLeft - step, behavior: 'smooth' });
+      }
+      updatePrev(shelf);
+    });
+  });
+  function updatePrev(shelf) {
+    const prev = document.querySelector('.pl-shelf-prev[data-target="' + shelf.id + '"]');
+    if (!prev) return;
+    prev.classList.toggle('is-hidden', shelf.scrollLeft <= 8);
+  }
+  document.querySelectorAll('.pl-apothecary-shelf--scroll').forEach((shelf) => {
+    updatePrev(shelf);
+    shelf.addEventListener('scroll', () => updatePrev(shelf), { passive: true });
+  });
+</script>
