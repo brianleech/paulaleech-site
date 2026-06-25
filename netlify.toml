@@ -1,14 +1,8 @@
-# Netlify config for paulaleech-site preview deploys
+# Netlify config for paulaleech-site preview/production deploys.
 #
-# Astro's astro.config.mjs sets site=brianleech.github.io and base=/paulaleech-site
-# for the GitHub Pages production target. On Netlify previews we want the same
-# base path so internal links work identically to local dev (which uses /paulaleech-site/).
-#
-# Each push to a non-main branch creates a unique preview URL like:
-#   https://<branch-or-deploy-id>--paulaleech-site.netlify.app/paulaleech-site/
-#
-# Production builds (main branch) are also produced if you ever switch DNS,
-# but for now treat Netlify as preview-only.
+# Astro's astro.config.mjs detects NETLIFY=true and drops the /paulaleech-site
+# subdirectory used for GitHub Pages — Netlify serves at the apex, so pages
+# live at /, /contact/, /press/, etc. This file just runs the standard build.
 
 [build]
   command = "npm run build"
@@ -17,16 +11,8 @@
 [build.environment]
   NODE_VERSION = "22.12.0"
 
-# Pretty URLs: trailing slash on /contact -> /contact/index.html etc.
-# Astro outputs nested index.html files by default; this matches.
-[[redirects]]
-  from = "/paulaleech-site/*"
-  to = "/paulaleech-site/:splat"
-  status = 200
-
-# Helpful headers for the preview environment
+# Don't index preview deploys
 [[headers]]
   for = "/*"
   [headers.values]
-    # Don't index preview deploys
     X-Robots-Tag = "noindex, nofollow"
