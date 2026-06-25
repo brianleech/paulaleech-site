@@ -1,9 +1,612 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Acuity drawer for the free consult — same wiring as /contact
+const ACUITY_OWNER = "16569176";
+const CONSULT_SELECTOR = "94919917"; // New Client Consult
+function acuityEmbedUrl(selector: string) {
+  const params = new URLSearchParams({ owner: ACUITY_OWNER, ref: "embedded_booking" });
+  if (selector) params.set("appointmentType", selector);
+  return `https://app.acuityscheduling.com/schedule.php?${params.toString()}`;
+}
+
+const specializations = [
+  "LGBTQ+",
+  "Gender Identity & Sexual Orientation",
+  "Erectile Dysfunction",
+  "\"Premature\" or Early Ejaculation",
+  "Delayed Ejaculation",
+  "\"Sex Addiction,\" Porn \"Addiction\" or Compulsivity",
+  "Vaginismus",
+  "Sexual Pain",
+  "Low/No Desire & Desire Discrepancy",
+  "Difficulty Reaching Orgasm",
+  "Sexual Trauma",
+  "Non-Monogamy",
+  "Kink & BDSM",
+  "Infidelity",
+  "Developmental Sexuality (children & teens)",
+  "And the things between, alongside, and underneath these.",
+];
 ---
-<Layout title="Work with Paula — Paula Leech">
-  <section class="mx-auto max-w-3xl px-6 py-24">
-    <h1 class="text-4xl font-serif mb-6">Work with Paula</h1>
-    <p class="text-stone-600">Therapy (MA/OR) + Supervision + fees. TODO.</p>
+<Layout title="Sex Therapy — Paula Leech">
+
+  <!-- Hero -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 pt-16 md:pt-24 pl-reveal">
+    <p class="pl-label">Sex Therapy</p>
+    <h1 style="
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-variation-settings: 'opsz' 144, 'SOFT' 60;
+      font-size: clamp(3rem, 9vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      margin-top: 1rem;
+      color: var(--color-ink);
+    ">
+      Work with<br/><em style="font-weight: 400;">me.</em>
+    </h1>
+    <p class="mt-8 max-w-2xl" style="font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1.4; color: var(--color-ink-soft);">
+      Therapy for the parts of intimacy nobody taught us how to talk about.
+    </p>
   </section>
+
+  <!-- Long-form opening: Paula's verbatim copy -->
+  <section class="mx-auto max-w-[820px] px-6 lg:px-0 mt-20 md:mt-28 pl-reveal">
+    <p style="
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+      line-height: 1.65;
+      color: var(--color-ink);
+      margin: 0 0 2rem;
+    ">
+      Our sexuality is completely and inextricably interwoven into all other facets of ourselves. It is something we get to know, and attempt to make sense of, our entire lives in the midst of silence and a sex-negative world. It is an immensely complex space that is particularly susceptible to shame, feelings of pressure/performance, and "shoulds." Yet sex is one of the ways — or even the primary way for some — that we express and receive love, both for ourselves and others. It IS connection, play, sharing, expression, and release.
+    </p>
+    <p style="
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(1.35rem, 1.9vw, 1.65rem);
+      line-height: 1.5;
+      color: var(--color-plum);
+      margin: 2.5rem 0;
+      text-align: center;
+      letter-spacing: -0.015em;
+    ">
+      Therapy is a way to tap into the freedom and joy that comes with unraveling ourselves from shame, trauma, misinformation, repression and oppression.
+    </p>
+    <p style="
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+      line-height: 1.65;
+      color: var(--color-ink);
+      margin: 0;
+    ">
+      Sex therapy can look very similar to more traditional models of therapy, but often with the added element of take-home experiences and exercises. It is a mind/body method of transformation and change, where the behavioral at-home component allows for clients to track their progress around sexual struggles concretely. The aim is to help clients reach the goals they came in with while also having expanded their sexual repertoire, connected with the evolving nuances of pleasure and eroticism, gained a sense of comfort communicating their sexual wants and needs, and cultivated a much deeper sense of connection to sensation, pleasure, self and other.
+    </p>
+  </section>
+
+  <!-- Specializations -->
+  <section class="mx-auto max-w-[1100px] px-12 lg:px-20 mt-28 md:mt-36 pl-reveal">
+    <header class="pl-spec-header">
+      <span class="pl-spec-rule" aria-hidden="true"></span>
+      <h2 class="pl-spec-headline">
+        <em>What I work with.</em>
+      </h2>
+      <span class="pl-spec-rule" aria-hidden="true"></span>
+    </header>
+    <ul class="pl-spec-list">
+      {specializations.map((s, i) => (
+        <li class={`pl-spec-item ${i === specializations.length - 1 ? 'pl-spec-item--coda' : ''}`}>{s}</li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Logistics + primary CTA -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-28 md:mt-36 pl-reveal">
+    <div class="pl-logistics">
+      <div class="pl-logistics-item">
+        <span class="pl-label">Rate</span>
+        <p class="pl-logistics-value">$285<span style="font-size: 0.55em; color: var(--color-ink-soft); font-style: italic; margin-left: 0.25rem;">/ session</span></p>
+        <p class="pl-logistics-meta">50-minute session · out-of-pocket</p>
+      </div>
+      <div class="pl-logistics-item">
+        <span class="pl-label">Where</span>
+        <p class="pl-logistics-value"><em>Virtual</em> &amp; <em>Portland.</em></p>
+        <p class="pl-logistics-meta">Telehealth for MA · OR · NY · In-person in PDX</p>
+      </div>
+      <div class="pl-logistics-item">
+        <span class="pl-label">Begin</span>
+        <p class="pl-logistics-value"><em>Free</em> 15-min consult.</p>
+        <p class="pl-logistics-meta">Phone or Zoom · no payment required</p>
+      </div>
+    </div>
+
+    <div class="pl-primary-cta-wrap">
+      <button
+        type="button"
+        class="pl-primary-cta pl-drawer-trigger"
+        data-drawer-target="consult"
+      >
+        Schedule a free consult
+        <span aria-hidden="true" style="margin-left: 0.6rem;">→</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Secondary: Supervision door -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-32 md:mt-40 pl-reveal">
+    <a href={`${BASE}/courses/`} class="pl-secondary-door pl-secondary-door--supervision">
+      <div class="pl-secondary-door-text">
+        <span class="pl-label">Are you a clinician?</span>
+        <h2 class="pl-secondary-door-headline">
+          <em>I also work with therapists.</em>
+        </h2>
+        <p class="pl-secondary-door-body">
+          Group supervision for AASECT-track clinicians and those building toward sex-therapy practice. Plus trainings — closed cohorts, on-demand, and the occasional intensive.
+        </p>
+      </div>
+      <span class="pl-secondary-door-cta">
+        See supervision &amp; trainings
+        <span class="pl-secondary-door-arrow" aria-hidden="true">→</span>
+      </span>
+    </a>
+  </section>
+
+  <!-- Tertiary: Press door -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-12 mb-32 pl-reveal">
+    <a href={`${BASE}/press/`} class="pl-tertiary-door">
+      <span class="pl-label">Press, speaking &amp; podcasts</span>
+      <span class="pl-tertiary-door-text">
+        <em>Where I've shown up</em> — and where to invite me next.
+      </span>
+      <span class="pl-tertiary-door-arrow" aria-hidden="true">→</span>
+    </a>
+  </section>
+
+  <!-- ============================================================
+       Consult drawer (reuses the .pl-drawer pattern from /contact)
+       ============================================================ -->
+  <div class="pl-drawer" data-drawer-id="consult" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="drawer-title-consult">
+    <div class="pl-drawer-backdrop" data-drawer-close></div>
+    <aside class="pl-drawer-panel" tabindex="-1">
+      <header class="pl-drawer-header">
+        <div>
+          <p class="pl-label" style="margin-bottom: 0.35rem;">Schedule a consult</p>
+          <h3 id="drawer-title-consult" style="
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-style: italic;
+            font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+            line-height: 1.15;
+            letter-spacing: -0.015em;
+            color: var(--color-ink);
+            margin: 0;
+          ">Schedule a free consult</h3>
+          <p style="
+            color: var(--color-ink-soft);
+            font-size: 0.95rem;
+            margin: 0.4rem 0 0;
+          ">15 minutes · phone or Zoom · no payment required</p>
+        </div>
+        <button type="button" class="pl-drawer-close" data-drawer-close aria-label="Close booking">
+          <span aria-hidden="true">×</span>
+        </button>
+      </header>
+      <div class="pl-drawer-body">
+        <iframe
+          data-src={acuityEmbedUrl(CONSULT_SELECTOR)}
+          title="Schedule a free consult"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          allowtransparency="true"
+          loading="lazy"
+          style="border: 0; width: 100%; height: 100%; min-height: 600px; background: white;"
+        ></iframe>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Acuity embed helper -->
+  <script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript"></script>
+
+  <!-- Drawer logic (same pattern as /contact) -->
+  <script>
+    (function () {
+      const drawers = new Map();
+      document.querySelectorAll('.pl-drawer').forEach(d => {
+        const id = d.getAttribute('data-drawer-id');
+        if (id) drawers.set(id, d);
+      });
+      let lastFocus = null;
+
+      function openDrawer(id) {
+        const d = drawers.get(id);
+        if (!d) return;
+        lastFocus = document.activeElement;
+        const iframe = d.querySelector('iframe[data-src]');
+        if (iframe && !iframe.src) iframe.src = iframe.getAttribute('data-src');
+        d.setAttribute('aria-hidden', 'false');
+        d.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        const panel = d.querySelector('.pl-drawer-panel');
+        if (panel) panel.focus();
+      }
+
+      function closeDrawer(d) {
+        d.setAttribute('aria-hidden', 'true');
+        d.classList.remove('is-open');
+        document.body.style.overflow = '';
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      }
+
+      function closeAll() { drawers.forEach(closeDrawer); }
+
+      document.querySelectorAll('.pl-drawer-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-drawer-target');
+          if (id) openDrawer(id);
+        });
+      });
+      document.querySelectorAll('[data-drawer-close]').forEach(el => {
+        el.addEventListener('click', e => {
+          const d = e.target.closest('.pl-drawer');
+          if (d) closeDrawer(d);
+        });
+      });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeAll();
+      });
+    })();
+  </script>
+
 </Layout>
+
+<style>
+  /* ============================================================
+     Specializations — centered editorial list w/ rules + 2-col grid
+     ============================================================ */
+  .pl-spec-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .pl-spec-rule {
+    display: block;
+    width: 3rem;
+    height: 1px;
+    background: color-mix(in srgb, var(--color-ink) 30%, transparent);
+  }
+  .pl-spec-headline {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--color-ink);
+    margin: 0;
+  }
+  .pl-spec-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 4rem;
+    row-gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .pl-spec-item {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    line-height: 1.5;
+    color: var(--color-ink);
+    padding: 1.1rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+  }
+  .pl-spec-item--coda {
+    grid-column: 1 / -1;
+    font-style: italic;
+    color: var(--color-ink-soft);
+    text-align: center;
+    padding: 2rem 0 0.4rem;
+    border-bottom: none;
+    font-size: clamp(1rem, 1.15vw, 1.1rem);
+  }
+  .pl-spec-note {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1rem, 1.15vw, 1.1rem);
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    text-align: center;
+    margin: 2.5rem auto 0;
+    max-width: 50ch;
+  }
+  @media (max-width: 700px) {
+    .pl-spec-list { grid-template-columns: 1fr; }
+    .pl-spec-header { gap: 1rem; }
+    .pl-spec-rule { width: 2rem; }
+  }
+
+  /* ============================================================
+     Logistics row — three columns, editorial label/value/meta
+     ============================================================ */
+  .pl-logistics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: stretch;
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+  }
+  .pl-logistics-item {
+    padding: 2.75rem 2rem;
+    text-align: center;
+  }
+  .pl-logistics-item + .pl-logistics-item {
+    border-left: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+  }
+  .pl-logistics-value {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2rem, 3.2vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--color-ink);
+    margin: 0.6rem 0 0.65rem;
+  }
+  .pl-logistics-value em {
+    font-style: italic;
+    font-weight: 400;
+  }
+  .pl-logistics-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-ink) 50%, transparent);
+    margin: 0;
+    line-height: 1.5;
+  }
+  @media (max-width: 800px) {
+    .pl-logistics { grid-template-columns: 1fr; }
+    .pl-logistics-item + .pl-logistics-item {
+      border-left: none;
+      border-top: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+    }
+    .pl-logistics-item { padding: 2rem 1rem; }
+  }
+
+  /* Primary CTA — big editorial button */
+  .pl-primary-cta-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+  .pl-primary-cta {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.3rem, 1.9vw, 1.65rem);
+    line-height: 1;
+    color: var(--color-cream);
+    background: var(--color-ink);
+    padding: 1.3rem 2.4rem;
+    border-radius: 999px;
+    transition: background 0.25s ease, transform 0.25s ease, padding 0.25s ease;
+  }
+  .pl-primary-cta:hover {
+    background: var(--color-plum);
+    transform: translateY(-1px);
+    padding-right: 2.7rem;
+  }
+
+  /* ============================================================
+     Secondary door — supervision
+     ============================================================ */
+  .pl-secondary-door {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 3rem;
+    padding: 3rem 2.5rem;
+    background: color-mix(in srgb, var(--color-honey) 28%, transparent);
+    border-radius: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .pl-secondary-door:hover {
+    background: color-mix(in srgb, var(--color-honey) 45%, transparent);
+    transform: translateY(-2px);
+  }
+  .pl-secondary-door-text { max-width: 65ch; }
+  .pl-secondary-door-headline {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0.4rem 0 0.8rem;
+  }
+  .pl-secondary-door-headline em {
+    font-style: italic;
+    font-weight: 400;
+  }
+  .pl-secondary-door-body {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    margin: 0;
+    max-width: 60ch;
+  }
+  .pl-secondary-door-cta {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    color: var(--color-plum);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-plum) 30%, transparent);
+    padding-bottom: 0.25rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    transition: border-color 0.25s ease, gap 0.25s ease;
+  }
+  .pl-secondary-door:hover .pl-secondary-door-cta {
+    border-bottom-color: var(--color-plum);
+    gap: 0.85rem;
+  }
+  .pl-secondary-door-arrow {
+    transition: transform 0.25s ease;
+    font-style: normal;
+  }
+  .pl-secondary-door:hover .pl-secondary-door-arrow {
+    transform: translateX(3px);
+  }
+  @media (max-width: 800px) {
+    .pl-secondary-door {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  /* ============================================================
+     Tertiary door — press strip, lighter weight
+     ============================================================ */
+  .pl-tertiary-door {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 1.6rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.25s ease, padding-left 0.25s ease;
+  }
+  .pl-tertiary-door:hover {
+    background: color-mix(in srgb, var(--color-honey) 18%, transparent);
+    padding-left: 0.75rem;
+  }
+  .pl-tertiary-door-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    color: var(--color-ink);
+  }
+  .pl-tertiary-door-text em {
+    font-style: italic;
+  }
+  .pl-tertiary-door-arrow {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+    color: var(--color-plum);
+    transition: transform 0.25s ease;
+  }
+  .pl-tertiary-door:hover .pl-tertiary-door-arrow {
+    transform: translateX(4px);
+  }
+  @media (max-width: 700px) {
+    .pl-tertiary-door {
+      grid-template-columns: 1fr auto;
+      gap: 0.8rem;
+    }
+    .pl-tertiary-door .pl-label { grid-column: 1 / -1; }
+  }
+
+  /* ============================================================
+     Drawer (mirrors /contact — same pattern, scoped here too)
+     ============================================================ */
+  .pl-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .pl-drawer.is-open {
+    pointer-events: auto;
+    visibility: visible;
+  }
+  .pl-drawer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--color-ink) 50%, transparent);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .pl-drawer.is-open .pl-drawer-backdrop { opacity: 1; }
+  .pl-drawer-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: min(680px, 100%);
+    background: var(--color-cream);
+    box-shadow: -16px 0 60px rgba(0, 0, 0, 0.18);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    outline: none;
+  }
+  .pl-drawer.is-open .pl-drawer-panel { transform: translateX(0); }
+  .pl-drawer-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.6rem 1.8rem 1.4rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
+    background: var(--color-cream);
+  }
+  .pl-drawer-close {
+    appearance: none;
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+    flex-shrink: 0;
+  }
+  .pl-drawer-close:hover {
+    background: color-mix(in srgb, var(--color-ink) 8%, transparent);
+    transform: scale(1.05);
+  }
+  .pl-drawer-body {
+    flex: 1;
+    overflow: hidden;
+    background: white;
+    position: relative;
+  }
+  .pl-drawer-body iframe { display: block; }
+  @media (max-width: 640px) {
+    .pl-drawer-panel { width: 100%; }
+    .pl-drawer-header { padding: 1.2rem 1.2rem 1rem; }
+  }
+</style>
