@@ -440,18 +440,21 @@ const past = trainingsData
         </p>
       </div>
       <div class="pl-newsletter-form">
-        <form data-newsletter="inline" class="flex flex-col gap-3" style="min-width: 0;" onsubmit="event.preventDefault(); event.target.querySelector('[data-msg]').textContent = 'Thanks. Will let you know when this is wired up.';">
+        <form data-newsletter="kit" class="flex flex-col gap-3" style="min-width: 0;" novalidate>
           <input
             type="email"
             required
-            name="email"
+            name="email_address"
             placeholder="you@example.com"
             aria-label="Email address"
+            autocomplete="email"
             class="px-5 py-4 rounded-full"
             style="background: var(--color-cream); border: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent); color: var(--color-ink); font-size: 1.05rem; width: 100%; min-width: 0; box-sizing: border-box;"
           />
+          <!-- Honeypot: real users leave this blank; bots fill it. -->
+          <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;" />
           <button type="submit" class="pl-pill self-start" style="padding: 0.95rem 1.8rem; font-size: 0.95rem;">Subscribe</button>
-          <span data-msg class="text-sm" style="color: var(--color-plum);"></span>
+          <span data-msg class="text-sm" role="status" aria-live="polite" style="color: var(--color-plum); min-height: 1.2em;"></span>
         </form>
       </div>
     </div>
@@ -556,3 +559,91 @@ const past = trainingsData
     requestAnimationFrame(() => requestAnimationFrame(scaleTarotCards));
   });
 </script>
+
+<!--
+  Newsletter signup → Kit (ConvertKit).
+  is:inline so the handler attaches reliably in page-component context
+  (see paula-site-conventions: Astro hoists default <script> async and
+  click/submit handlers can fail to attach).
+
+  SETUP: replace KIT_FORM_ID with the numeric Form ID from Paula's Kit
+  account. Find it at: Kit → Grow → Landing Pages & Forms → (the form) →
+  Embed → HTML. The endpoint shown looks like
+  https://app.kit.com/forms/8217364/subscriptions
+  The 7-digit number is the Form ID.
+-->
+<script is:inline>
+  (function () {
+    // ─── Drop Paula's Kit Form ID here (the number in the embed URL) ───
+    const KIT_FORM_ID = 'REPLACE_WITH_KIT_FORM_ID';
+    // ──────────────────────────────────────────────────────────────────
+
+    const form = document.querySelector('form[data-newsletter="kit"]');
+    if (!form) return;
+
+    const msg = form.querySelector('[data-msg]');
+    const emailInput = form.querySelector('input[name="email_address"]');
+    const honeypot = form.querySelector('input[name="hp"]');
+    const button = form.querySelector('button[type="submit"]');
+
+    function setMsg(text, isError) {
+      if (!msg) return;
+      msg.textContent = text;
+      msg.style.color = isError ? '#9a3b3b' : 'var(--color-plum)';
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // Honeypot tripped → silently pretend success, don't hit Kit.
+      if (honeypot && honeypot.value.trim() !== '') {
+        setMsg('Thank you — you\u2019re on the list.', false);
+        form.reset();
+        return;
+      }
+
+      const email = (emailInput && emailInput.value || '').trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setMsg('Please enter a valid email address.', true);
+        if (emailInput) emailInput.focus();
+        return;
+      }
+
+      if (KIT_FORM_ID === 'REPLACE_WITH_KIT_FORM_ID') {
+        setMsg('Newsletter signup isn\u2019t live yet — check back soon.', true);
+        return;
+      }
+
+      setMsg('One moment\u2026', false);
+      if (button) button.disabled = true;
+
+      try {
+        const res = await fetch(
+          'https://app.kit.com/forms/' + KIT_FORM_ID + '/subscriptions',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({ email_address: email }),
+          }
+        );
+
+        if (res.ok) {
+          // Kit returns 200 with { status: "quarantined" | "success" } etc.
+          // Treat any 2xx as "we received it"; Kit sends the double-opt-in email.
+          setMsg('Thank you — check your inbox to confirm.', false);
+          form.reset();
+        } else {
+          setMsg('Something went wrong. Please try again.', true);
+        }
+      } catch (err) {
+        setMsg('Network error. Please try again.', true);
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
+  })();
+</script>
+

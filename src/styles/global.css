@@ -708,9 +708,19 @@
 
 .pl-mobile-nav {
   background: var(--color-cream);
+  background-color: #faf1d8;
   border-top: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
   position: relative;
   z-index: 1;
+}
+/* When the menu is open, kill the header's feather mask so the panel renders
+   fully opaque instead of fading to transparent toward the bottom. */
+.site-header.nav-open {
+  -webkit-mask-image: none !important;
+          mask-image: none !important;
+}
+.site-header.nav-open::before {
+  background: #faf1d8 !important;
 }
 .pl-mobile-nav nav { padding-left: 1.5rem; padding-right: 1.5rem; }
 .pl-mobile-nav a {
