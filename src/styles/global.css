@@ -425,6 +425,44 @@
     color: var(--color-ink);
   }
 
+  /* Home/courses flat ledger — mobile: drop dot col, stack date over title,
+     keep price/arrow pinned right so each row reads as a clean record */
+  @media (max-width: 720px) {
+    .pl-ledger-row {
+      grid-template-columns: 1fr auto;
+      column-gap: 1rem;
+      row-gap: 0.35rem;
+      align-items: baseline;
+      padding: 1rem 0.25rem;
+    }
+    /* Hide the color dots on mobile */
+    .pl-ledger-row > .pl-ledger-blot { display: none; }
+    .pl-ledger-date {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .pl-ledger-title {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .pl-ledger-tag {
+      display: block;
+      margin-left: 0;
+      margin-top: 0.3rem;
+    }
+    .pl-ledger-price {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: center;
+      white-space: nowrap;
+    }
+    /* hover padding-shift would jiggle the 2-col grid on tap — neutralize it */
+    a.pl-ledger-row:hover {
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+  }
+
   /* ─────────────────────────────────────────────────────────
      §3 PRESS — Apothecary labels w/ inline media
      ───────────────────────────────────────────────────────── */
@@ -1356,29 +1394,56 @@
   gap: 0.5rem;
 }
 @media (max-width: 720px) {
+  /* Drop the dot/thumb column entirely — reclaim full width for text */
   .pl-course-past-summary {
-    grid-template-columns: 0.6rem 1fr auto;
-    gap: 1rem;
-    padding: 1.25rem 0.25rem;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 0.75rem;
+    padding: 1.1rem 0.25rem;
+  }
+  /* Hide the color dots + art thumbs on mobile */
+  .pl-course-past-summary > .pl-ledger-blot,
+  .pl-course-past-summary > .pl-course-past-thumb {
+    display: none;
   }
   .pl-course-past-meta {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 1;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    margin-bottom: 0.35rem;
+    align-items: baseline;
+    gap: 0.4rem 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+  .pl-course-past-date {
+    font-size: 1.05rem;
+  }
+  .pl-course-past-ces {
+    color: color-mix(in srgb, var(--color-stone) 80%, transparent);
   }
   .pl-course-past-body {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 2;
   }
+  /* Collapsed blurb clamps to 2 lines; full text lives in the drawer */
+  .pl-course-past-row:not([open]) .pl-course-past-blurb {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  /* Toggle: bare circular "+" pinned top-right, label hidden */
   .pl-course-past-toggle {
-    grid-column: 3;
-    grid-row: 1 / span 2;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    gap: 0;
+    padding-left: 0.75rem;
+  }
+  .pl-course-past-toggle-label {
+    display: none;
   }
   .pl-course-past-drawer {
-    padding: 0 0.25rem 1.75rem 1.6rem;
+    padding: 0 0.25rem 1.75rem 0;
   }
   .pl-course-detail-row {
     grid-template-columns: 1fr;
