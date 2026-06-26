@@ -1927,6 +1927,32 @@
   color: var(--color-ink);
 }
 
+/* Mobile: keep all three offerings on one row under the headline.
+   Drop the 9rem min-width, tighten gaps, and shrink the label so
+   "Group Supervision" stops wrapping to its own line. */
+@media (max-width: 768px) {
+  .pl-page-hero-offerings {
+    flex-wrap: nowrap;
+    gap: 0.75rem;
+    max-width: none;
+  }
+  .pl-page-hero-offerings li {
+    min-width: 0;
+    flex: 1 1 auto;
+    gap: 0.35rem;
+    padding-bottom: 0.45rem;
+  }
+  .pl-page-hero-off-num {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+  .pl-page-hero-off-label {
+    font-size: 0.95rem;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+}
+
 /* Work-with-me hero variant — 10% smaller artwork.
    Uses top offset (not translateY) for centering because .pl-momentum's
    inline transform would clobber translateY(-48%) and drop the image. */
