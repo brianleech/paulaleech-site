@@ -50,7 +50,7 @@ const specializationCoda = "And the things between, alongside, and underneath th
   <!-- HERO — full-bleed editorial header (matches About / Courses) -->
   <section class="pl-page-hero pl-page-hero--work pl-reveal">
     <div class="pl-page-hero-art pl-momentum" data-scroll="-0.12" data-resize="-0.3" aria-hidden="true">
-      <img src={armTouch.src} alt="" class="pl-float-slow-rev" />
+      <img src={armTouch.src} alt="" class="pl-wwm-hero-img" />
     </div>
     <div class="pl-page-hero-inner">
       <p class="pl-label pl-page-hero-kicker">Sex Therapy</p>
@@ -266,6 +266,33 @@ const specializationCoda = "And the things between, alongside, and underneath th
 </Layout>
 
 <style>
+  /* Local override — make the work-with-me hero artwork much larger than the
+     global .pl-page-hero--work default (43% / 576px). Page-scoped so other
+     pages using --work (supervision) are unaffected. */
+  .pl-page-hero--work .pl-page-hero-art {
+    width: 64% !important;
+    max-width: 880px !important;
+    top: 50% !important;
+    right: calc(max(0px, (100vw - 1400px) / 2) + 5rem) !important;
+    transform: translateY(-50%) !important;
+    -webkit-mask-image: none !important;
+            mask-image: none !important;
+    /* Source PNG has ~23% transparent padding on the right — let the img
+       overflow the container so the visible right edge aligns with the
+       Email button line. */
+    overflow: visible !important;
+  }
+  /* Custom keyframe — bakes the +23% translateX shift into both endpoints
+     so the breathing motion doesn't snap the artwork back to center. */
+  .pl-wwm-hero-img {
+    animation: pl-wwm-hero-breathe 13s ease-in-out infinite;
+    will-change: transform;
+  }
+  @keyframes pl-wwm-hero-breathe {
+    0%, 100% { transform: translate(23%, 0)        rotate(0deg); }
+    50%      { transform: translate(calc(23% + 6px), -8px) rotate(1deg); }
+  }
+
   /* ============================================================
      Essay — lettered section markers, hairline rules, drop cap
      ============================================================ */

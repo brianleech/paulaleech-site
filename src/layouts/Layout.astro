@@ -20,6 +20,9 @@ const nav = [
   { label: 'Contact & Scheduling',  href: '/contact' },
 ];
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+// Force https for OG image URL — cloudflared tunnels and proxies hand us http internally
+// but the page is served over https, and iMessage/social cards reject mixed-protocol URLs.
+const ogOrigin = Astro.url.origin.replace(/^http:/, 'https:');
 ---
 <!doctype html>
 <html lang="en">
@@ -27,6 +30,20 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <!-- Social / link previews (Open Graph + Twitter Card).
+         Use Astro.url.origin so previews work on whatever host is serving the page
+         (production, branch deploys, cloudflared tunnels) rather than hardcoding Astro.site. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${ogOrigin}${BASE}/og/share-image.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={`${ogOrigin}${Astro.url.pathname}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${ogOrigin}${BASE}/og/share-image.png`} />
     <link rel="icon" type="image/svg+xml" href={`${BASE}/favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,16 +53,16 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
   <body>
     <CloudsBG />
     <header class="site-header sticky top-0 z-30" style="overflow: visible;">
-      <div class="mx-auto max-w-[1400px] px-12 lg:px-20 py-5 flex items-center justify-between" style="position: relative;">
-        <a href={`${BASE}/`} class="flex items-center gap-3" aria-label="Paula Leech — Home" style="position: relative;">
-          <img src={headerMark.src} alt="Paula Leech" style="height: 132px; width: auto; display: block; margin-top: -39px; margin-bottom: -45px;" />
+      <div class="mx-auto max-w-[1400px] px-12 lg:px-20 py-5 flex items-center justify-between gap-4" style="position: relative;">
+        <a href={`${BASE}/`} class="flex items-center gap-3 shrink-0" aria-label="Paula Leech — Home" style="position: relative;">
+          <img src={headerMark.src} alt="Paula Leech" style="height: 132px; width: auto; max-width: none; display: block; margin-top: -39px; margin-bottom: -45px; flex-shrink: 0;" />
           {headerCredentials && (
-            <span class="pl-label hidden lg:inline" style="font-size: 0.7rem; line-height: 1.3; white-space: nowrap;">
+            <span class="pl-label hidden xl:inline" style="font-size: 0.7rem; line-height: 1.3; white-space: nowrap;">
               LMFT · CST · CSTS
             </span>
           )}
         </a>
-        <nav class="hidden md:flex items-center gap-8">
+        <nav class="hidden md:flex items-center gap-6 lg:gap-8">
           {nav.map(n => {
             const fullHref = `${BASE}${n.href}`;
             const hrefPath = n.href.split('#')[0];
@@ -54,17 +71,27 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
             // Active if current path equals the nav path, OR (for hash-anchor entries) starts with it.
             const isActive = hrefPath !== '/' && (curPath === navPath || curPath.startsWith(navPath + '/'));
             return (
-              <a href={fullHref} class={`text-sm relative group ${isActive ? 'is-active' : ''}`} aria-current={isActive ? 'page' : undefined} style="color: var(--color-ink);">
+              <a href={fullHref} class={`text-sm relative group whitespace-nowrap ${isActive ? 'is-active' : ''}`} aria-current={isActive ? 'page' : undefined} style="color: var(--color-ink);">
                 <span class="transition-colors group-hover:text-[var(--color-plum)]" style={isActive ? 'color: var(--color-plum);' : undefined}>{n.label}</span>
                 <span class={`absolute -bottom-1 left-0 h-px bg-[var(--color-plum)] transition-all duration-300 group-hover:w-full ${isActive ? 'w-full' : 'w-0'}`}></span>
               </a>
             );
           })}
         </nav>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 shrink-0">
+          <button id="pl-mobile-nav-toggle" class="md:hidden pl-mobile-nav-btn" aria-label="Open menu" aria-expanded="false" aria-controls="pl-mobile-nav">
+            <span></span><span></span><span></span>
+          </button>
           <a href="tel:+16025706657" class="pl-pill" aria-label="Call Paula">Call</a>
           <a href="mailto:paula@paulaleech.com" class="pl-pill" style="background: var(--color-plum);">Email</a>
         </div>
+      </div>
+      <div id="pl-mobile-nav" class="pl-mobile-nav md:hidden" hidden>
+        <nav class="flex flex-col px-12 py-2">
+          {nav.map(n => (
+            <a href={`${BASE}${n.href}`} class="block py-4 text-lg" style="color: var(--color-ink); border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);">{n.label}</a>
+          ))}
+        </nav>
       </div>
     </header>
 
@@ -136,6 +163,20 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
         }
       }, { threshold: 0.12 });
       document.querySelectorAll('.pl-reveal').forEach(el => io.observe(el));
+
+      // Mobile nav toggle
+      (function () {
+        const btn = document.getElementById('pl-mobile-nav-toggle');
+        const panel = document.getElementById('pl-mobile-nav');
+        if (!btn || !panel) return;
+        const close = () => { panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); btn.classList.remove('is-open'); document.body.style.overflow=''; };
+        const open  = () => { panel.hidden = false; btn.setAttribute('aria-expanded', 'true');  btn.classList.add('is-open');    document.body.style.overflow='hidden'; };
+        btn.addEventListener('click', () => panel.hidden ? open() : close());
+        panel.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+        // Close if resized into desktop range
+        window.matchMedia('(min-width: 768px)').addEventListener('change', e => { if (e.matches) close(); });
+      })();
 
       // Fit heads vertically between header and the next section (e.g. #in-short).
       // Centers each .pl-fit-vertical wrapper in that gap; scales the inner img

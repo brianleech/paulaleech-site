@@ -195,9 +195,6 @@ const past = trainingsData
         <h2 style="font-family: var(--font-display); font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 0.95; margin-top: 0.75rem; letter-spacing: -0.025em;">
           Let's work<br/><em style="font-weight: 400;">together.</em>
         </h2>
-        <p class="mt-6 text-base" style="color: var(--color-ink-soft); max-width: 30ch; line-height: 1.6;">
-          Three doors in. Pick the one for where you are.
-        </p>
         <a href={`${BASE}/work-with-paula`} class="pl-pill mt-8 inline-flex">See all →</a>
       </div>
       <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
@@ -253,7 +250,7 @@ const past = trainingsData
       <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
         <div class="pl-ledger-manuscript">
           {upcoming.map(t => (
-            <a href={`${BASE}${t.url || '/courses'}`} class="pl-ledger-row" style="text-decoration:none;">
+            <a href={`${BASE}${t.url || `/courses#${t.id}`}`} class="pl-ledger-row" style="text-decoration:none;">
               <span class={`pl-ledger-blot pl-ledger-blot--${t.blot || 'rose'}`} aria-hidden="true"></span>
               <span class="pl-ledger-date">{t.dateLabel}</span>
               <span class="pl-ledger-title">{t.title}<span class="pl-ledger-tag">{t.tag}</span></span>
@@ -290,7 +287,7 @@ const past = trainingsData
           Where I've<br/><em style="font-weight: 400;">shown up.</em>
         </h2>
         <p class="mt-6 text-base" style="color: var(--color-ink-soft); max-width: 32ch; line-height: 1.6;">
-          A small shelf of tinctures. Press the cork to listen, or pour the full archive.
+          Podcasts, articles, talks, and a handful of conversations I'm glad I said yes to.
         </p>
         <a href={`${BASE}/press`} class="pl-pill mt-8 inline-flex">Full archive →</a>
       </div>
@@ -401,8 +398,44 @@ const past = trainingsData
     </div>
   </section>
 
+  <!-- BOOK CLOSING -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 pl-reveal relative">
+    <div class="pl-grid items-stretch">
+      <div class="col-span-12 md:col-span-6">
+        <div class="pl-parallax pl-book-frame h-full rounded-sm" data-speed="-0.05" style="background: #44754d; box-shadow: 0 30px 60px -20px rgba(42,56,24,0.3); overflow: hidden; min-height: calc(100% + 100px);">
+          <img src={bookMockup.src} alt="Overcoming Anxiety in Sex and Relationships — book mockup" class="w-full h-full" style="object-fit: contain; object-position: center center; display: block; transform: scale(1.7); transform-origin: center center;" />
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-6 mt-10 md:mt-0">
+        <span class="pl-label">The Book</span>
+        <h2 style="
+          font-family: var(--font-display);
+          font-style: italic;
+          font-weight: 400;
+          font-size: clamp(2.25rem, 4.2vw, 3.75rem);
+          line-height: 1.05;
+          letter-spacing: -0.02em;
+          margin-top: 0.75rem;
+        ">
+          Overcoming Anxiety<br/>in Sex and Relationships.
+        </h2>
+        <p class="mt-5" style="color: var(--color-plum); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;">
+          A Comprehensive Guide for Individuals, Couples &amp; Therapists
+        </p>
+        <div class="pl-book-copy mt-8" style="color: var(--color-ink-soft); max-width: 54ch; line-height: 1.7;">
+          <p>Learn how anxiety, stress, and pressure affect pleasure, connection, and sexual functioning. This book explores how anxiety shapes our physiology, understanding of ourselves, and our interactions with the world. Paula Leech guides readers to identify key sources of anxiety &mdash; from family and culture to relationship dynamics and sexual trauma.</p>
+          <p>Offering practical tips and techniques, Leech encourages readers to rethink their definitions of sex, sexuality, and intimacy. Through mindfulness and embodiment exercises, she provides tools to release tension, work through sexual struggles, and reconnect with the body.</p>
+          <p>Accessible and comprehensive, this guide is ideal for sex therapists and anyone facing anxiety-related challenges with themselves and/or their partners.</p>
+        </div>
+        <div class="mt-9">
+          <a href="https://www.amazon.com/Overcoming-Anxiety-Sex-Relationships-Comprehensive/dp/1032438398" class="pl-pill" style="background: var(--color-blue);" target="_blank" rel="noopener">Buy the book →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- INLINE NEWSLETTER -->
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 pl-reveal">
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 mb-32 pl-reveal">
     <div class="pl-grid items-center" style="padding: 3.5rem 2rem; background: color-mix(in srgb, var(--color-honey) 35%, transparent); border-radius: 1rem;">
       <div class="col-span-12 md:col-span-6">
         <p class="pl-label">The Newsletter</p>
@@ -435,38 +468,6 @@ const past = trainingsData
           <button type="submit" class="pl-pill self-start" style="padding: 0.95rem 1.8rem; font-size: 0.95rem;">Subscribe</button>
           <span data-msg class="text-sm" style="color: var(--color-plum);"></span>
         </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- BOOK CLOSING -->
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 mb-32 pl-reveal relative">
-    <div class="pl-grid items-center">
-      <div class="col-span-12 md:col-span-6">
-        <div class="pl-parallax" data-speed="-0.05">
-          <img src={bookMockup.src} alt="Overcoming Anxiety in Sex and Relationships — book mockup" class="w-full max-w-lg rounded-sm" style="box-shadow: 0 30px 60px -20px rgba(42,56,24,0.3);" />
-        </div>
-      </div>
-      <div class="col-span-12 md:col-span-6 mt-10 md:mt-0">
-        <span class="pl-label">The Book</span>
-        <h2 style="
-          font-family: var(--font-display);
-          font-style: italic;
-          font-weight: 400;
-          font-size: clamp(2.25rem, 4.2vw, 3.75rem);
-          line-height: 1.05;
-          letter-spacing: -0.02em;
-          margin-top: 0.75rem;
-        ">
-          Overcoming Anxiety<br/>in Sex and Relationships.
-        </h2>
-        <p class="mt-6 text-base" style="color: var(--color-ink-soft); max-width: 50ch; line-height: 1.65;">
-          A comprehensive guide to intimate and emotional freedom. Tools, scripts, and the kind of permission most of us didn't grow up with.
-        </p>
-        <div class="mt-8 flex gap-3 flex-wrap">
-          <a href={`${BASE}/book`} class="pl-pill">Read more →</a>
-          <a href="https://www.amazon.com/Overcoming-Anxiety-Sex-Relationships-Comprehensive/dp/1032438398" class="pl-pill" style="background: var(--color-blue);" target="_blank" rel="noopener">Buy the book</a>
-        </div>
       </div>
     </div>
   </section>

@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import individualHeads from '../assets/illustrations/indiviualHeads.png';
 import groupHeads from '../assets/illustrations/Group_Heads.png';
 import twoHeads from '../assets/illustrations/twoHeads.png';
+import openHandLeft from '../assets/illustrations/OpenHand_Left.png';
+import openHandRight from '../assets/illustrations/OpenHand_Right.png';
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -23,8 +25,9 @@ function acuityEmbedUrl(selector: string) {
 
   <!-- HERO — full-bleed editorial header, matches About / Courses / Work With Me -->
   <section class="pl-page-hero pl-page-hero--work pl-reveal">
-    <div class="pl-page-hero-art pl-momentum" data-scroll="-0.1" data-resize="-0.3" aria-hidden="true">
-      <img src={individualHeads.src} alt="" class="pl-float-slow-rev" />
+    <div class="pl-page-hero-art pl-momentum pl-sup-hero-hands" data-scroll="-0.1" data-resize="-0.3" aria-hidden="true">
+      <img src={openHandLeft.src}  alt="" class="pl-sup-hand pl-sup-hand--left" />
+      <img src={openHandRight.src} alt="" class="pl-sup-hand pl-sup-hand--right" />
     </div>
     <div class="pl-page-hero-inner">
       <p class="pl-label pl-page-hero-kicker">Clinical Supervision</p>
@@ -482,6 +485,61 @@ function acuityEmbedUrl(selector: string) {
   .pl-sup-block--reverse .pl-sup-block-art { order: 2; }
   .pl-sup-block--reverse .pl-sup-block-body { order: 1; margin-left: auto; margin-right: 0; }
 
+  /* Hero — two-hand split. The .pl-page-hero-art container's mask is killed
+     so the two PNGs read as their own floating elements. Each hand gets its
+     OWN keyframes that bake the off-axis rotation into both endpoints (using
+     pl-float-slow would reset transform to rotate(0) and flatten the tilt).
+     Different durations + reversed sway keep the two hands out of phase. */
+  .pl-page-hero--work.pl-page-hero .pl-sup-hero-hands {
+    -webkit-mask-image: none;
+            mask-image: none;
+    aspect-ratio: 5 / 4;
+    width: 48%;
+    max-width: 720px;
+    top: 4%;
+    transform: none;
+  }
+  .pl-sup-hand {
+    position: absolute;
+    height: auto;
+    display: block;
+    width: 52%;
+    will-change: transform;
+  }
+  .pl-sup-hand--left  {
+    left: calc(2% + 100px);
+    top: 10%;
+    transform-origin: 60% 80%;
+    animation: pl-sup-hand-left 11s ease-in-out infinite;
+    z-index: 1;
+  }
+  .pl-sup-hand--right {
+    right: calc(2% - 100px);
+    top: -2%;
+    transform-origin: 40% 80%;
+    animation: pl-sup-hand-right 13.5s ease-in-out infinite;
+    z-index: 2;
+  }
+  @keyframes pl-sup-hand-left {
+    0%, 100% { transform: translate(0, 0)        rotate(-7deg); }
+    50%      { transform: translate(-7px, -12px) rotate(-9deg); }
+  }
+  @keyframes pl-sup-hand-right {
+    0%, 100% { transform: translate(0, 0)       rotate(6deg); }
+    50%      { transform: translate(8px, -10px) rotate(8deg); }
+  }
+
+  @media (max-width: 900px) {
+    .pl-page-hero--work.pl-page-hero .pl-sup-hero-hands {
+      width: 72%;
+      /* Keep top-anchored positioning at all breakpoints.
+         Switching to bottom:-2rem here caused the hands to
+         visually jump ~700px when resizing through 900px. */
+      top: 8%;
+      bottom: auto;
+    }
+  }
+
   /* Kill footer top-margin AND the newsletter band's own top-padding on pages
      that end in a full-bleed .pl-sup-block, so the dark slab butts directly
      up against the "Occasional letters" headline with zero gap. */
@@ -531,17 +589,11 @@ function acuityEmbedUrl(selector: string) {
   /* Inverted CTA — for visibility on art blocks if ever needed (kept for parity) */
   .pl-primary-cta--invert { background: var(--color-ink); color: var(--color-cream); }
 
-  /* Solidify the sticky header backdrop on this page so the feathered
-     cream-gradient doesn't bleed onto the dark color blocks.
-     :global wrapper is required because Astro scopes <style> by default
-     and we need to touch the header rendered by Layout.astro. */
-  :global(body:has(.pl-sup-block) .site-header) {
-    -webkit-mask-image: none !important;
-            mask-image: none !important;
-  }
-  :global(body:has(.pl-sup-block) .site-header::before) {
-    background: var(--color-cream) !important;
-  }
+  /* NOTE: previously this block also killed the header's mask-image to keep
+     the nav legible against the dark .pl-sup-block sections scrolled below.
+     That made the entire 228px sticky-header strip opaque cream and hid the
+     hero hands behind it. Mask is left intact; revisit the dark-slab nav
+     legibility issue separately if it actually shows up in real use. */
 
   /* Tablet+ collapse */
   @media (max-width: 900px) {
