@@ -549,6 +549,15 @@ function acuityEmbedUrl(selector: string) {
   :global(body:has(.pl-sup-block) footer.mt-40 > div:first-child) {
     padding-top: 0 !important;
   }
+  /* On mobile the .pl-sup-block collapses to a single cream-background column,
+     so the zero-gap desktop "dark slab butts the newsletter" look just reads as
+     the "Let's talk" button cramped against THE NEWSLETTER. Restore breathing
+     room below the collapse breakpoint. */
+  @media (max-width: 900px) {
+    :global(body:has(.pl-sup-block) footer.mt-40 > div:first-child) {
+      padding-top: 3.5rem !important;
+    }
+  }
 
   /* Color variants — art on color block, body on cream.
      The section itself ALSO gets the art color as its background, so on
