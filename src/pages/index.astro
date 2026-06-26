@@ -575,7 +575,7 @@ const past = trainingsData
 <script is:inline>
   (function () {
     // ─── Drop Paula's Kit Form ID here (the number in the embed URL) ───
-    const KIT_FORM_ID = 'REPLACE_WITH_KIT_FORM_ID';
+    const KIT_FORM_ID = '9614992';
     // ──────────────────────────────────────────────────────────────────
 
     const form = document.querySelector('form[data-newsletter="kit"]');
@@ -631,9 +631,9 @@ const past = trainingsData
         );
 
         if (res.ok) {
-          // Kit returns 200 with { status: "quarantined" | "success" } etc.
-          // Treat any 2xx as "we received it"; Kit sends the double-opt-in email.
-          setMsg('Thank you — check your inbox to confirm.', false);
+          // Double opt-in is OFF in Kit, so the subscriber is added directly
+          // (no confirmation email). Message reflects that.
+          setMsg('Thank you — you\u2019re on the list.', false);
           form.reset();
         } else {
           setMsg('Something went wrong. Please try again.', true);
