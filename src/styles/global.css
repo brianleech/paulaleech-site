@@ -427,7 +427,7 @@
 
   /* Home/courses flat ledger — mobile: drop dot col, stack date over title,
      keep price/arrow pinned right so each row reads as a clean record */
-  @media (max-width: 720px) {
+  @media (max-width: 900px) {
     .pl-ledger-row {
       grid-template-columns: 1fr auto;
       column-gap: 1rem;
@@ -1393,7 +1393,7 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   /* Drop the dot/thumb column entirely — reclaim full width for text */
   .pl-course-past-summary {
     grid-template-columns: 1fr auto;
