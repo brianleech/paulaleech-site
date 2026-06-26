@@ -419,15 +419,53 @@ const past = trainingsData
     </div>
   </section>
 
+  <!-- INLINE NEWSLETTER -->
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 pl-reveal">
+    <div class="pl-newsletter-box" style="background: color-mix(in srgb, var(--color-honey) 35%, transparent); border-radius: 1rem;">
+      <div class="pl-newsletter-copy">
+        <p class="pl-label">The Newsletter</p>
+        <h2 style="
+          font-family: var(--font-display);
+          font-style: italic;
+          font-weight: 400;
+          font-size: clamp(2rem, 4vw, 3.25rem);
+          line-height: 1.05;
+          letter-spacing: -0.02em;
+          margin-top: 0.75rem;
+        ">
+          Occasional letters.
+        </h2>
+        <p class="mt-4 text-base" style="color: var(--color-ink-soft); max-width: 42ch; line-height: 1.6;">
+          Writing on intimacy, anxiety, and the work in between &mdash; sent when I have something worth saying.
+        </p>
+      </div>
+      <div class="pl-newsletter-form">
+        <form data-newsletter="inline" class="flex flex-col gap-3" style="min-width: 0;" onsubmit="event.preventDefault(); event.target.querySelector('[data-msg]').textContent = 'Thanks. Will let you know when this is wired up.';">
+          <input
+            type="email"
+            required
+            name="email"
+            placeholder="you@example.com"
+            aria-label="Email address"
+            class="px-5 py-4 rounded-full"
+            style="background: var(--color-cream); border: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent); color: var(--color-ink); font-size: 1.05rem; width: 100%; min-width: 0; box-sizing: border-box;"
+          />
+          <button type="submit" class="pl-pill self-start" style="padding: 0.95rem 1.8rem; font-size: 0.95rem;">Subscribe</button>
+          <span data-msg class="text-sm" style="color: var(--color-plum);"></span>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- BOOK CLOSING -->
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 pl-reveal relative">
-    <div class="pl-grid items-stretch">
-      <div class="col-span-12 md:col-span-6">
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 mb-32 pl-reveal relative">
+    <div class="pl-book-row items-stretch">
+      <div class="pl-book-col-img">
         <div class="pl-parallax pl-book-frame h-full rounded-sm" data-speed="-0.05" style="background: #44754d; box-shadow: 0 30px 60px -20px rgba(42,56,24,0.3); overflow: hidden; min-height: calc(100% + 100px);">
           <img src={bookMockup.src} alt="Overcoming Anxiety in Sex and Relationships — book mockup" class="w-full h-full" style="object-fit: contain; object-position: center center; display: block; transform: scale(1.7); transform-origin: center center;" />
         </div>
       </div>
-      <div class="col-span-12 md:col-span-6 mt-10 md:mt-0">
+      <div class="pl-book-col-copy mt-10 md:mt-0">
         <span class="pl-label">The Book</span>
         <h2 style="
           font-family: var(--font-display);
@@ -451,44 +489,6 @@ const past = trainingsData
         <div class="mt-9">
           <a href="https://www.amazon.com/Overcoming-Anxiety-Sex-Relationships-Comprehensive/dp/1032438398" class="pl-pill" style="background: var(--color-blue);" target="_blank" rel="noopener">Buy the book →</a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INLINE NEWSLETTER -->
-  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 mb-32 pl-reveal">
-    <div class="pl-grid items-center" style="padding: 3.5rem 2rem; background: color-mix(in srgb, var(--color-honey) 35%, transparent); border-radius: 1rem;">
-      <div class="col-span-12 md:col-span-6">
-        <p class="pl-label">The Newsletter</p>
-        <h2 style="
-          font-family: var(--font-display);
-          font-style: italic;
-          font-weight: 400;
-          font-size: clamp(2rem, 4vw, 3.25rem);
-          line-height: 1.05;
-          letter-spacing: -0.02em;
-          margin-top: 0.75rem;
-        ">
-          Occasional letters.
-        </h2>
-        <p class="mt-4 text-base" style="color: var(--color-ink-soft); max-width: 42ch; line-height: 1.6;">
-          Writing on intimacy, anxiety, and the work in between &mdash; sent when I have something worth saying.
-        </p>
-      </div>
-      <div class="col-span-12 md:col-span-6 mt-8 md:mt-0">
-        <form data-newsletter="inline" class="flex flex-col gap-3" onsubmit="event.preventDefault(); event.target.querySelector('[data-msg]').textContent = 'Thanks. Will let you know when this is wired up.';">
-          <input
-            type="email"
-            required
-            name="email"
-            placeholder="you@example.com"
-            aria-label="Email address"
-            class="px-5 py-4 rounded-full"
-            style="background: var(--color-cream); border: 1px solid color-mix(in srgb, var(--color-ink) 25%, transparent); color: var(--color-ink); font-size: 1.05rem;"
-          />
-          <button type="submit" class="pl-pill self-start" style="padding: 0.95rem 1.8rem; font-size: 0.95rem;">Subscribe</button>
-          <span data-msg class="text-sm" style="color: var(--color-plum);"></span>
-        </form>
       </div>
     </div>
   </section>
