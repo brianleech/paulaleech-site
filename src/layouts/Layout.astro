@@ -163,8 +163,22 @@ const ogOrigin = Astro.url.origin.replace(/^http:/, 'https:');
         for (const e of entries) {
           if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
         }
-      }, { threshold: 0.12 });
-      document.querySelectorAll('.pl-reveal').forEach(el => io.observe(el));
+      }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
+      const reveals = document.querySelectorAll('.pl-reveal');
+      reveals.forEach(el => io.observe(el));
+
+      // Immediately reveal anything already in (or peeking into) the viewport on
+      // load, so above-the-fold tiles don't sit as blank holes until you scroll.
+      requestAnimationFrame(() => {
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        reveals.forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top < vh && r.bottom > 0) {
+            el.classList.add('is-in');
+            io.unobserve(el);
+          }
+        });
+      });
 
       // Mobile nav toggle
       (function () {
