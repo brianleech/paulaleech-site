@@ -322,9 +322,15 @@ const past = trainingsData
         <a href="mailto:paula@paulaleech.com?subject=Training%20inquiry" class="pl-pill" style="padding: 0.95rem 1.8rem; max-width: 100%;">Send an inquiry →</a>
       </div>
     </div>
+  </section>
 
   <!-- ============================================================
        BOOKING DRAWERS — one per training with an Acuity bookUrl
+       Rendered at PAGE ROOT (outside any .pl-reveal/transformed
+       section) so the off-canvas .pl-drawer-panel resolves its
+       position:fixed against the viewport and stays clipped.
+       (A transformed ancestor would make it leak into scrollWidth
+       and cause horizontal overflow — see /contact for the pattern.)
        ============================================================ -->
   {trainingsData.filter(t => t.bookUrl && t.bookUrl.includes('acuityscheduling.com')).map(t => {
     // Re-use Acuity URL but add ref param for embed analytics
@@ -479,7 +485,6 @@ const past = trainingsData
       .pl-drawer-header { padding: 1.2rem 1.2rem 1rem; }
     }
   </style>
-  </section>
 
 </Layout>
 

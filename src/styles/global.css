@@ -19,7 +19,7 @@
 }
 
 @layer base {
-  html { background: var(--color-cream); color: var(--color-ink); }
+  html { background: var(--color-cream); color: var(--color-ink); overflow-x: hidden; }
   body {
     font-family: var(--font-sans);
     font-size: 1rem;
