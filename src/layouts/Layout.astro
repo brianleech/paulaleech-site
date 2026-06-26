@@ -110,20 +110,22 @@ const ogOrigin = Astro.url.origin.replace(/^http:/, 'https:');
             </h3>
           </div>
           <div class="col-span-12 md:col-span-6 mt-6 md:mt-0">
-            <form data-newsletter="footer" class="flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault(); event.target.querySelector('[data-msg]').textContent = 'Thanks. Will let you know when this is wired up.';">
+            <form data-newsletter="kit-footer" class="flex flex-col sm:flex-row gap-3" novalidate>
               <input
                 type="email"
                 required
-                name="email"
+                name="email_address"
                 placeholder="you@example.com"
                 aria-label="Email address"
+                autocomplete="email"
                 class="flex-1 px-4 py-3 rounded-full"
-                style="background: transparent; border: 1px solid color-mix(in srgb, var(--color-ink) 30%, transparent); color: var(--color-ink); font-size: 1rem;"
+                style="background: transparent; border: 1px solid color-mix(in srgb, var(--color-ink) 30%, transparent); color: var(--color-ink); font-size: 1rem; min-width: 0; box-sizing: border-box;"
               />
+              <!-- Honeypot: real users leave this blank; bots fill it. -->
+              <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;" />
               <button type="submit" class="pl-pill" style="padding: 0.85rem 1.6rem;">Subscribe</button>
-              <span data-msg class="text-sm self-center" style="color: var(--color-plum);"></span>
+              <span data-msg class="text-sm self-center" role="status" aria-live="polite" style="color: var(--color-plum);"></span>
             </form>
-            <p class="pl-label mt-3" style="font-size: 0.65rem; opacity: 0.7;">Backend pending — stub form for layout only.</p>
           </div>
         </div>
       </div>
@@ -297,6 +299,72 @@ const ogOrigin = Astro.url.origin.replace(/^http:/, 'https:');
           requestAnimationFrame(tick);
         }
         requestAnimationFrame(tick);
+      })();
+
+      // ─── Newsletter signup → Kit (ConvertKit) ───
+      // Shared handler for every Kit form on the site (home inline + footer).
+      // Form ID lives here once. Find it at: Kit → Grow → Landing Pages &
+      // Forms → (the form) → Embed → HTML — the number in
+      // https://app.kit.com/forms/XXXXXXX/subscriptions
+      (function () {
+        const KIT_FORM_ID = '9614992';
+        const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        document.querySelectorAll('form[data-newsletter^="kit"]').forEach((form) => {
+          const msg = form.querySelector('[data-msg]');
+          const emailInput = form.querySelector('input[name="email_address"]');
+          const honeypot = form.querySelector('input[name="hp"]');
+          const button = form.querySelector('button[type="submit"]');
+
+          function setMsg(text, isError) {
+            if (!msg) return;
+            msg.textContent = text;
+            msg.style.color = isError ? '#9a3b3b' : 'var(--color-plum)';
+          }
+
+          form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Honeypot tripped → silently pretend success, don't hit Kit.
+            if (honeypot && honeypot.value.trim() !== '') {
+              setMsg('Thank you — you\u2019re on the list.', false);
+              form.reset();
+              return;
+            }
+
+            const email = ((emailInput && emailInput.value) || '').trim();
+            if (!email || !EMAIL_RE.test(email)) {
+              setMsg('Please enter a valid email address.', true);
+              if (emailInput) emailInput.focus();
+              return;
+            }
+
+            setMsg('One moment\u2026', false);
+            if (button) button.disabled = true;
+
+            try {
+              const res = await fetch(
+                'https://app.kit.com/forms/' + KIT_FORM_ID + '/subscriptions',
+                {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                  body: JSON.stringify({ email_address: email }),
+                }
+              );
+              if (res.ok) {
+                // Double opt-in is OFF in Kit, so subscriber is added directly.
+                setMsg('Thank you — you\u2019re on the list.', false);
+                form.reset();
+              } else {
+                setMsg('Something went wrong. Please try again.', true);
+              }
+            } catch (err) {
+              setMsg('Network error. Please try again.', true);
+            } finally {
+              if (button) button.disabled = false;
+            }
+          });
+        });
       })();
     </script>
   </body>
