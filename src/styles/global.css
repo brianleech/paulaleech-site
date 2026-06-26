@@ -2126,3 +2126,35 @@
     border-radius: 0.125rem;
   }
 }
+
+/* Contact general strip — explicit flex (avoids Tailwind v4 col-span gap). */
+.pl-contact-strip {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.pl-contact-strip-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.pl-contact-strip-cta {
+  flex: 0 0 auto;
+  text-align: right;
+  min-width: 0;
+}
+.pl-contact-strip-cta .pl-pill {
+  max-width: 100%;
+  word-break: break-word;
+}
+@media (max-width: 768px) {
+  .pl-contact-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .pl-contact-strip-copy,
+  .pl-contact-strip-cta {
+    width: 100%;
+    text-align: left;
+  }
+}
