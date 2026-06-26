@@ -148,7 +148,78 @@
     perspective: 1200px;
   }
   @media (max-width: 768px) {
-    .pl-tarot-deck { grid-template-columns: 1fr; }
+    .pl-tarot-deck {
+      display: flex;
+      grid-template-columns: none;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 1.5rem;
+      margin: 0 -1.5rem;
+      perspective: none;
+      scrollbar-width: none;
+    }
+    .pl-tarot-deck::-webkit-scrollbar { display: none; }
+    .pl-tarot-card {
+      flex-shrink: 0;
+      width: 78vw;
+      max-width: 300px;
+      scroll-snap-align: center;
+      /* Do NOT use a fixed aspect-ratio on mobile. The card's content height is
+         em-driven (em = 1% of card width via JS), so the natural content height
+         already scales with width. iOS Safari treats `aspect-ratio` as a hard
+         height cap and CLIPS overflowing content (sub + CTA), while desktop
+         Chrome lets content grow — that's why skinny-desktop looked fine but the
+         real iPhone clipped. Let content define the height; no min-height —
+         a vw-based min-height balloons when the card is max-width-clamped
+         (78vw outruns the 300px cap on narrow desktop windows → card too long). */
+      aspect-ratio: auto;
+      height: auto;
+      transform: none !important;
+      background: color-mix(in srgb, var(--color-cream) 80%, white) !important;
+      border: 1.5px solid color-mix(in srgb, var(--color-ink) 35%, transparent) !important;
+      box-shadow: 0 8px 24px -12px rgba(42,56,24,0.3) !important;
+    }
+    .pl-tarot-card:nth-child(1),
+    .pl-tarot-card:nth-child(2),
+    .pl-tarot-card:nth-child(3) {
+      transform: none;
+    }
+    .pl-tarot-card:hover {
+      transform: none !important;
+    }
+    .pl-tarot-card::before {
+      opacity: 0.4 !important;
+    }
+    /* iOS Safari flex-collapse fix: on real iOS the card has no resolved height
+       (no aspect-ratio, no min-height), and `flex: 1; min-height: 0` on the art
+       img collapses toward 0 while the card's `justify-content: space-between`
+       can't distribute — so the box computes shorter than content and clips at
+       the rounded `overflow: hidden` edge. Make the layout deterministic top-down:
+       stack from the top, give the art a FIXED em height, and let the img fill
+       that height instead of flexing. */
+    .pl-tarot-card {
+      justify-content: flex-start !important;
+    }
+    .pl-tarot-art {
+      height: 60em !important;
+      flex: 0 0 auto !important;
+      margin-top: 4em !important;
+    }
+    .pl-tarot-art img {
+      width: 65em !important;
+      height: 100% !important;
+      flex: 0 0 auto !important;
+      object-fit: contain !important;
+      opacity: 1 !important;
+    }
+    .pl-tarot-title {
+      margin-top: 3.5em !important;
+    }
+    .pl-tarot-meta {
+      margin-top: 1em !important;
+    }
   }
   .pl-tarot-card {
     position: relative;
@@ -156,7 +227,7 @@
     flex-direction: column;
     justify-content: space-between;
     aspect-ratio: 3 / 4.6;
-    padding: 1.5rem 1.4rem 1.4rem;
+    padding: 8em 8em 7em;
     background: color-mix(in srgb, var(--color-cream) 92%, white);
     border: 1px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
     border-radius: 6px;
@@ -201,31 +272,35 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
+    height: 65em;
+    justify-content: flex-end;
+    margin-top: 4em;
   }
   .pl-tarot-art img {
     display: block;
-    width: clamp(110px, 11vw, 170px);
-    height: auto;
+    width: 63em;
+    flex: 1;
+    min-height: 0;
+    object-fit: contain;
     mix-blend-mode: multiply;
     opacity: 0.85;
   }
-  .pl-tarot-meta { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-stone); margin-top: 0.5rem; }
+  .pl-tarot-meta { font-family: var(--font-mono); font-size: 3.8em; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-stone); margin-top: 1em; }
   .pl-tarot-title {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: clamp(1.4rem, 2vw, 1.85rem);
+    font-size: 8.8em;
     line-height: 1.05;
     letter-spacing: -0.02em;
     color: var(--color-ink);
     margin-top: auto;
   }
-  .pl-tarot-sub { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-ink-soft); margin-top: 0.5rem; }
+  .pl-tarot-sub { font-family: var(--font-mono); font-size: 4em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-ink-soft); margin-top: 1em; }
   .pl-tarot-cta {
-    margin-top: 1.1rem;
+    margin-top: 3em;
     align-self: flex-start;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 4em;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     border-bottom: 1px solid var(--color-ink);
