@@ -10,9 +10,3 @@
 
 [build.environment]
   NODE_VERSION = "22.12.0"
-
-# Don't index preview deploys
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
