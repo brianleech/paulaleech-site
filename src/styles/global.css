@@ -1967,11 +1967,11 @@
 .pl-page-hero--about .pl-page-hero-art {
   width: 52%;
   max-width: 680px;
-  /* Container right edge extends 100px past the Email button's right edge
-     to compensate for the mask-position: -100px 0 shift, which pulls the
-     visible (masked) image content ~100px to the left of the container edge.
-     This aligns the image's solid right edge with the Email button. */
-  right: max(-36px, calc((100vw - 1400px) / 2 + 80px - 100px));
+  /* Pin the container's right edge to the text column (same formula as the body
+     grid: viewport edge − 5rem padding). Previously this overshot the column by
+     100px to compensate for an old mask shift; with the hard right-edge mask we
+     align directly to the column instead. */
+  right: calc(max(0px, (100vw - 1400px) / 2) + 5rem);
   /* Fill the full hero height so the image always spans top→bottom */
   top: 0;
   height: 100%;
@@ -1986,28 +1986,38 @@
   border-radius: 0.5rem;
   /* Duotone-ish: warm photo through cream filter */
   filter: sepia(0.18) saturate(0.88) brightness(0.98);
-  /* Organic left feather — overlapping radial blobs compose a soft, lobed edge */
+  /* Organic left feather — overlapping radial blobs compose a soft, lobed edge.
+     The 5th layer is a left-to-right linear (NOT a radial) so the RIGHT edge stays
+     fully opaque and reads as a hard, crisp edge against the text column, while the
+     four blobs keep the left side organically feathered. */
   -webkit-mask-image:
-    radial-gradient(70% 55% at 80% 30%, #000 35%, transparent 75%),
-    radial-gradient(65% 60% at 70% 65%, #000 35%, transparent 75%),
-    radial-gradient(55% 45% at 60% 20%, #000 35%, transparent 75%),
-    radial-gradient(50% 40% at 55% 85%, #000 35%, transparent 75%),
-    radial-gradient(60% 100% at 95% 50%, #000 40%, transparent 80%);
+    radial-gradient(70% 55% at 60% 30%, #000 35%, transparent 75%),
+    radial-gradient(65% 60% at 50% 65%, #000 35%, transparent 75%),
+    radial-gradient(55% 45% at 40% 20%, #000 35%, transparent 75%),
+    radial-gradient(50% 40% at 35% 85%, #000 35%, transparent 75%),
+    linear-gradient(to right, transparent 10%, #000 50%, #000 100%);
           mask-image:
-    radial-gradient(70% 55% at 80% 30%, #000 35%, transparent 75%),
-    radial-gradient(65% 60% at 70% 65%, #000 35%, transparent 75%),
-    radial-gradient(55% 45% at 60% 20%, #000 35%, transparent 75%),
-    radial-gradient(50% 40% at 55% 85%, #000 35%, transparent 75%),
-    radial-gradient(60% 100% at 95% 50%, #000 40%, transparent 80%);
+    radial-gradient(70% 55% at 60% 30%, #000 35%, transparent 75%),
+    radial-gradient(65% 60% at 50% 65%, #000 35%, transparent 75%),
+    radial-gradient(55% 45% at 40% 20%, #000 35%, transparent 75%),
+    radial-gradient(50% 40% at 35% 85%, #000 35%, transparent 75%),
+    linear-gradient(to right, transparent 10%, #000 50%, #000 100%);
   -webkit-mask-size: 100% 100%;
           mask-size: 100% 100%;
-  /* Shift mask 100px left so more of the image is exposed on its left side */
-  -webkit-mask-position: -100px 0;
-          mask-position: -100px 0;
+  /* Mask aligned to the image (no horizontal shift) now that the container
+     right edge sits on the column directly. */
+  -webkit-mask-position: 0 0;
+          mask-position: 0 0;
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
-  /* Push image past container's right edge so the face stays where it was */
-  transform: translateX(calc(5rem + 50px));
+  /* Pin the image's right edge to the container's right edge (which sits on the
+     text column). Absolute + right:0 is width-robust — the image's solid right
+     edge always lands on the column regardless of hero height or viewport width.
+     overflow:hidden on the container clips the organic left feather. */
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: none;
 }
 
 /* ============================================================
