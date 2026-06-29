@@ -1,0 +1,12 @@
+{
+  "name": "Paula Leech",
+  "short_name": "Paula Leech",
+  "icons": [
+    { "src": "/favicon-96.png", "sizes": "96x96", "type": "image/png" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#faf1d8",
+  "background_color": "#faf1d8",
+  "display": "standalone"
+}

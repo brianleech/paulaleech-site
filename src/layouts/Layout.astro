@@ -44,7 +44,12 @@ const ogOrigin = Astro.url.origin.replace(/^http:/, 'https:');
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${ogOrigin}${BASE}/og/share-image.png`} />
+    <link rel="icon" href={`${BASE}/favicon.ico`} sizes="any" />
     <link rel="icon" type="image/svg+xml" href={`${BASE}/favicon.svg`} />
+    <link rel="icon" type="image/png" sizes="96x96" href={`${BASE}/favicon-96.png`} />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${BASE}/apple-touch-icon.png`} />
+    <link rel="manifest" href={`${BASE}/site.webmanifest`} />
+    <meta name="theme-color" content="#faf1d8" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
