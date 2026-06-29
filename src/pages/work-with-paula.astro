@@ -227,7 +227,8 @@ const specializationCoda = "And the things between, alongside, and underneath th
         const d = drawers.get(id);
         if (!d) return;
         // Track booking intent (Umami custom event). Safe no-op if script absent.
-        if (window.umami) window.umami.track('booking-open', { service: id, page: 'work-with-paula' });
+        // Event NAME encodes the service so each booking type is its own row in Umami.
+        if (window.umami) window.umami.track('book-' + id, { service: id, page: 'work-with-paula' });
         lastFocus = document.activeElement;
         const iframe = d.querySelector('iframe[data-src]');
         if (iframe && !iframe.src) iframe.src = iframe.getAttribute('data-src');

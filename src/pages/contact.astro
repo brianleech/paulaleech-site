@@ -196,7 +196,8 @@ const paths = [
         const d = drawers.get(id);
         if (!d) return;
         // Track booking intent (Umami custom event). Safe no-op if script absent.
-        if (window.umami) window.umami.track('booking-open', { service: id, page: 'contact' });
+        // Event NAME encodes the service so each booking type is its own row in Umami.
+        if (window.umami) window.umami.track('book-' + id, { service: id, page: 'contact' });
         lastFocus = document.activeElement;
         // Lazy-load the iframe src on first open
         const iframe = d.querySelector('iframe[data-src]');
