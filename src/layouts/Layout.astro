@@ -23,6 +23,17 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 // Force https for OG image URL — cloudflared tunnels and proxies hand us http internally
 // but the page is served over https, and iMessage/social cards reject mixed-protocol URLs.
 const ogOrigin = Astro.url.origin.replace(/^http:/, 'https:');
+
+// ─── Analytics (Umami) ───
+// Privacy-first, cookieless, no consent banner needed. Only emitted on real
+// production builds (Netlify), so local dev + previews don't pollute the stats.
+// The website ID lives in a Netlify env var (UMAMI_WEBSITE_ID), not in git.
+// Set it at: Netlify → Site config → Environment variables.
+// Self-hosted host? Override UMAMI_SRC. Default is Umami Cloud's script.
+const isNetlify = import.meta.env.NETLIFY === 'true' || process.env.NETLIFY === 'true';
+const umamiWebsiteId = import.meta.env.UMAMI_WEBSITE_ID || process.env.UMAMI_WEBSITE_ID;
+const umamiSrc = import.meta.env.UMAMI_SRC || process.env.UMAMI_SRC || 'https://cloud.umami.is/script.js';
+const enableUmami = isNetlify && !!umamiWebsiteId;
 ---
 <!doctype html>
 <html lang="en">
@@ -54,6 +65,9 @@ const ogOrigin = Astro.url.origin.replace(/^http:/, 'https:');
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
     <title>{title}</title>
+    {enableUmami && (
+      <script is:inline defer src={umamiSrc} data-website-id={umamiWebsiteId}></script>
+    )}
   </head>
   <body>
     <CloudsBG />
