@@ -20,6 +20,11 @@ Cinder's recommendation, agreed by Brian 2026-06-26:
 
 **Why phased:** each step is a clean, reversible move. Stacking them multiplies the ways email can break.
 
+### Status
+- **Phase 1 — DONE 2026-06-27.** Site live on Netlify, DNS repointed away from Squarespace hosting.
+- **Phase 2 — DONE 2026-07-04.** DNS moved to Cloudflare (free plan). Zone active, nameservers `carla.ns.cloudflare.com` + `peter.ns.cloudflare.com` set at Squarespace. All records recreated + verified (A/www DNS-ONLY not proxied — critical for Netlify; deleted stray `_domainconnect` Squarespace CNAME). All Google email records (MX/SPF/DKIM/DMARC) copied exactly and confirmed serving from Cloudflare. CF account owned by leech.brian@gmail.com. API token in keychain service `cloudflare-api-token`. CF zone id `3ca817aaecdb78daf1fd9e0b4cffade0`.
+- **Phase 3 — PENDING.** Registration still at Squarespace (~$20/yr). Transfer to Cloudflare to stop the charge. Needs auth code + domain unlock at Squarespace, 5–7 days.
+
 ---
 
 ## THE SACRED RULE — protect Google Workspace email
