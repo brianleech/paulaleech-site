@@ -47,6 +47,13 @@
     column-gap: 2rem;
   }
 
+  /* Eleven 2rem gutters are wider than a phone viewport. Once the tracks
+     collapse to zero, spanning children overhang the page. Keep the same
+     12-column logic with a compact gutter at narrow widths. */
+  @media (max-width: 767px) {
+    .pl-grid { column-gap: 1rem; }
+  }
+
   /* Section label (small mono) */
   .pl-label {
     font-family: var(--font-mono);
@@ -691,7 +698,7 @@
   position: relative;
   z-index: 2;
 }
-@media (max-width: 767.98px) {
+@media (max-width: 1279.98px) {
   .pl-mobile-nav-btn { display: inline-flex; }
 }
 .pl-mobile-nav-btn span {

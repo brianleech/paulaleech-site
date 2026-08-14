@@ -1,0 +1,485 @@
+---
+import Layout from '../layouts/Layout.astro';
+import verticalHeads from '../assets/illustrations/VerticalHeads_transparent.png';
+
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const teachingGroups = [
+  {
+    id: 'ssshc',
+    institution: 'South Shore Sexual Health Center',
+    shortName: 'SSSHC',
+    descriptor: 'Clinical curriculum & professional training',
+    records: [
+      { title: 'Sexual Compulsivity', period: 'Oct 1, 2024–present' },
+      { title: 'Range of Sexual Functioning', period: 'Nov 12, 2024' },
+      { title: 'Sex and Anxiety', period: 'Apr 12, 2024–present' },
+      { title: 'Sensate Focus Fundamentals', period: 'Jun 2020–present' },
+      { title: 'Sexual Attitude Reassessment (SAR)', period: 'Aug 2017–present' },
+      { title: 'Professional Communication', period: 'Dec 2015–present' },
+      { title: 'Learning Theory and Applications to the Practice of Sex Therapy', period: 'Oct 2015–present' },
+      { title: 'Intimacy', period: 'Oct 2015–2018' },
+      { title: 'Sexual Trauma', period: 'Sep 2015–present' },
+      { title: 'Sex Therapy Skills Training Intensives', period: 'Jan & Jul 2015–present' },
+      { title: 'Pregnancy and Sex', period: 'Jun 2015–present' },
+      { title: 'Becoming a Sex Therapist', period: 'Mar 2015–2018' },
+      { title: 'Pedophilia', period: 'Feb 2015–2018' },
+      { title: 'Sexuality and Couples Therapy', period: 'Apr 2015–2018' },
+    ],
+  },
+  {
+    id: 'isee',
+    institution: 'Institute for Sexuality Enlightenment and Education',
+    shortName: 'ISEE',
+    descriptor: 'Certification programs & advanced training',
+    records: [
+      { title: 'The Joy of Intimacy', period: 'Aug 2023–present' },
+      { title: 'Sensate Focus Certification Program, Levels 1 & 2', subtitle: 'The Power of Touch: Understanding the Utility and Beauty of the Sensate Focus Model in the Practice of Psychotherapy', period: 'Jun 2022–present' },
+      { title: 'The Body’s Wisdom: Sensate Focus for Sex Therapists', period: 'Oct 2020–present' },
+      { title: 'The Exceptional Therapist', period: 'Sep 2020–present' },
+      { title: 'Advanced Sexual Attitude Reassessment (SAR)', period: 'Jun 2016' },
+    ],
+  },
+  {
+    id: 'invited',
+    institution: 'University, independent & invited teaching',
+    shortName: 'Invited teaching',
+    descriptor: 'Guest courses, colloquia & public workshops',
+    records: [
+      { title: 'Pressure Off, Pleasure On: Ditching “Performance” for Sexual Liberation', period: 'Apr 22, 2025', venue: 'SheBop Portland' },
+      { title: 'Thera…Medium: Intuition Development in the Multi-Dimensional Sex Therapist', period: 'Mar 11 & 25, 2025', venue: 'Paula Leech Therapy' },
+      { title: 'Fantasy, Porn, and “Sex Addiction” in Relationships', period: 'Mar 2022', venue: 'Private Practice Colloquium' },
+      { title: 'Sexual Trauma: Healing the Body and Mind', period: 'Jun 2018', venue: 'University of Massachusetts Boston' },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Teaching & Training Experience | Paula Leech"
+  description="Paula Leech’s teaching record across a university course, professional institutes, clinical intensives, and public workshops."
+>
+  <section class="pl-page-hero pl-page-hero--teaching pl-reveal">
+    <div class="pl-page-hero-art" aria-hidden="true">
+      <img src={verticalHeads.src} alt="" class="pl-float-slow-rev" />
+    </div>
+    <div class="pl-page-hero-inner">
+      <p class="pl-label pl-page-hero-kicker">Teaching &amp; Training Experience</p>
+      <h1 class="pl-page-hero-title">
+        My teaching<br/><em>experience.</em>
+      </h1>
+      <p class="pl-page-hero-sub">
+        A university course, professional curricula, clinical intensives, and public workshops.
+      </p>
+    </div>
+  </section>
+
+  <section class="pl-teaching-intro mx-auto max-w-[1400px] px-12 lg:px-20 mt-28 md:mt-36 pl-reveal">
+    <div class="pl-grid items-start">
+      <div class="col-span-12 md:col-span-4">
+        <span class="pl-label">Complete record</span>
+        <h2 class="pl-teaching-intro-title">A practice shaped<br/><em>through teaching.</em></h2>
+      </div>
+      <div class="col-span-12 md:col-span-8 mt-8 md:mt-0">
+        <p class="pl-teaching-intro-copy">
+          This record gathers Paula’s teaching from 2015 to the present, spanning university teaching, professional certification programs, therapist training, and community workshops.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pl-teaching-record mx-auto max-w-[1400px] px-12 lg:px-20 mt-24 md:mt-32 pl-reveal">
+    <div class="pl-teaching-record-grid">
+      <aside class="pl-teaching-index" aria-label="Teaching institutions">
+        <p class="pl-label">Jump to</p>
+        <nav>
+          {teachingGroups.map((group, index) => (
+            <a href={`#${group.id}`}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              {group.shortName}
+            </a>
+          ))}
+        </nav>
+      </aside>
+
+      <div class="pl-teaching-groups">
+        {teachingGroups.map((group, index) => (
+          <section id={group.id} class="pl-teaching-group" aria-labelledby={`${group.id}-title`}>
+            <header class="pl-teaching-group-head">
+              <span class="pl-teaching-group-num">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <p class="pl-label">{group.descriptor}</p>
+                <h2 id={`${group.id}-title`}>{group.institution}</h2>
+              </div>
+            </header>
+
+            <div class="pl-teaching-list">
+              {group.records.map((record) => (
+                <article class="pl-teaching-row">
+                  <time>{record.period}</time>
+                  <div class="pl-teaching-row-body">
+                    <h3>{record.title}</h3>
+                    {record.subtitle && <p class="pl-teaching-subtitle">{record.subtitle}</p>}
+                    {record.venue && <p class="pl-teaching-venue">{record.venue}</p>}
+                  </div>
+                  {record.period.includes('present') && <span class="pl-teaching-ongoing">Ongoing</span>}
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-32 md:mt-40 mb-32 pl-reveal">
+    <div class="pl-teaching-inquiry">
+      <div>
+        <span class="pl-label">For Programs &amp; Institutions</span>
+        <h2>Invite Paula to teach.</h2>
+        <p>Paula teaches and develops training for clinical communities.</p>
+      </div>
+      <a href="mailto:paula@paulaleech.com?subject=Teaching%20inquiry" class="pl-pill">Send an inquiry →</a>
+    </div>
+    <a href={`${BASE}/courses`} class="pl-teaching-back">View current courses and trainings →</a>
+  </section>
+</Layout>
+
+<style>
+  html { scroll-behavior: smooth; }
+
+  .pl-page-hero--teaching .pl-page-hero-art {
+    width: min(38%, 520px);
+    top: 3%;
+    right: 4%;
+    transform: none;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 86%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 86%, transparent 100%);
+  }
+
+  .pl-page-hero--teaching .pl-page-hero-art img {
+    width: 100%;
+    height: auto;
+    opacity: 0.92;
+  }
+
+  .pl-teaching-intro-title {
+    margin-top: 0.8rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+  }
+
+  .pl-teaching-intro-title em {
+    font-weight: 400;
+  }
+
+  .pl-teaching-intro-copy {
+    max-width: 35ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 2.5vw, 2.15rem);
+    line-height: 1.36;
+    letter-spacing: -0.018em;
+  }
+
+  .pl-teaching-record-grid {
+    display: grid;
+    grid-template-columns: minmax(11rem, 0.28fr) minmax(0, 1fr);
+    gap: clamp(3rem, 7vw, 7rem);
+    align-items: start;
+  }
+
+  .pl-teaching-index {
+    position: sticky;
+    top: 8.5rem;
+    padding-top: 0.25rem;
+  }
+
+  .pl-teaching-index nav {
+    margin-top: 1rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 24%, transparent);
+  }
+
+  .pl-teaching-index a {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 24%, transparent);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: color 180ms ease, padding-left 180ms ease;
+  }
+
+  .pl-teaching-index a span {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--color-plum);
+  }
+
+  .pl-teaching-index a:hover,
+  .pl-teaching-index a:focus-visible {
+    color: var(--color-plum);
+    padding-left: 0.35rem;
+  }
+
+  .pl-teaching-index a:focus-visible,
+  .pl-teaching-back:focus-visible {
+    outline: 2px solid var(--color-plum);
+    outline-offset: 5px;
+  }
+
+  .pl-teaching-group {
+    scroll-margin-top: 8rem;
+  }
+
+  .pl-teaching-group + .pl-teaching-group {
+    margin-top: clamp(5rem, 9vw, 8rem);
+  }
+
+  .pl-teaching-group-head {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    margin-bottom: 1.5rem;
+  }
+
+  .pl-teaching-group-num {
+    padding-top: 0.4rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.35rem;
+    color: var(--color-plum);
+  }
+
+  .pl-teaching-group-head h2 {
+    max-width: 18ch;
+    margin-top: 0.45rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.25vw, 3.7rem);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+
+  .pl-teaching-list {
+    border-bottom: 1px dashed color-mix(in srgb, var(--color-ink) 32%, transparent);
+  }
+
+  .pl-teaching-row {
+    display: grid;
+    grid-template-columns: 10rem minmax(0, 1fr) 5.5rem;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1.45rem 0.35rem;
+    border-top: 1px dashed color-mix(in srgb, var(--color-ink) 32%, transparent);
+    transition: background 180ms ease, padding 180ms ease;
+  }
+
+  .pl-teaching-row:hover {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    background: color-mix(in srgb, var(--color-honey) 24%, transparent);
+  }
+
+  .pl-teaching-row time {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.45;
+    letter-spacing: 0.035em;
+    color: var(--color-ink-soft);
+  }
+
+  .pl-teaching-row h3 {
+    max-width: 42ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.14rem, 1.8vw, 1.42rem);
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.012em;
+  }
+
+  .pl-teaching-subtitle {
+    max-width: 58ch;
+    margin-top: 0.45rem;
+    color: var(--color-ink-soft);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .pl-teaching-venue {
+    margin-top: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+    color: var(--color-plum);
+  }
+
+  .pl-teaching-ongoing {
+    justify-self: end;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-plum);
+  }
+
+  .pl-teaching-ongoing::before {
+    content: '';
+    display: inline-block;
+    width: 0.38rem;
+    height: 0.38rem;
+    margin-right: 0.45rem;
+    border-radius: 50%;
+    background: var(--color-plum);
+    vertical-align: 0.06rem;
+  }
+
+  .pl-teaching-inquiry {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: clamp(2rem, 5vw, 3.5rem);
+    background: color-mix(in srgb, var(--color-honey) 35%, transparent);
+    border-radius: 1rem;
+  }
+
+  .pl-teaching-inquiry h2 {
+    margin-top: 0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.025em;
+  }
+
+  .pl-teaching-inquiry p {
+    max-width: 52ch;
+    margin-top: 1rem;
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+  }
+
+  .pl-teaching-inquiry .pl-pill {
+    flex: none;
+  }
+
+  .pl-teaching-back {
+    display: inline-block;
+    margin-top: 1.4rem;
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-style: italic;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3rem;
+  }
+
+  @media (max-width: 900px) {
+    .pl-page-hero--teaching .pl-page-hero-art {
+      width: 48%;
+      right: -2%;
+      top: 12%;
+    }
+
+    /* The site-wide 12-column grid carries desktop gutters that exceed the
+       available track width on narrow screens. This intro is editorial, so
+       collapse it explicitly rather than allowing its columns to overhang. */
+    .pl-teaching-intro .pl-grid {
+      display: block;
+    }
+
+    .pl-teaching-intro .col-span-12 {
+      width: auto;
+      min-width: 0;
+    }
+
+    .pl-teaching-record-grid {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+
+    .pl-teaching-index {
+      position: static;
+    }
+
+    .pl-teaching-index nav {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pl-teaching-index a {
+      padding-right: 1rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .pl-page-hero--teaching .pl-page-hero-title {
+      font-size: 3.125rem;
+      line-height: 0.9;
+    }
+
+    .pl-page-hero--teaching .pl-page-hero-art {
+      width: 62%;
+      top: auto;
+      bottom: -4%;
+      right: -12%;
+      opacity: 0.7;
+    }
+
+    .pl-teaching-index nav {
+      grid-template-columns: 1fr;
+    }
+
+    .pl-teaching-index a {
+      min-height: 48px;
+      align-items: center;
+    }
+
+    .pl-teaching-group-head {
+      grid-template-columns: 2rem 1fr;
+      gap: 0.75rem;
+    }
+
+    .pl-teaching-row {
+      grid-template-columns: 1fr auto;
+      gap: 0.6rem 1rem;
+      padding: 1.25rem 0;
+    }
+
+    .pl-teaching-row time {
+      grid-column: 1 / -1;
+    }
+
+    .pl-teaching-row-body {
+      grid-column: 1;
+    }
+
+    .pl-teaching-ongoing {
+      grid-column: 2;
+      grid-row: 2;
+      align-self: start;
+      padding-top: 0.25rem;
+    }
+
+    .pl-teaching-inquiry {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .pl-teaching-index a,
+    .pl-teaching-row { transition: none; }
+  }
+</style>
