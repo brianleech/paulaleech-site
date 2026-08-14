@@ -69,22 +69,8 @@ const teachingGroups = [
         My teaching<br/><em>experience.</em>
       </h1>
       <p class="pl-page-hero-sub">
-        A university course, professional curricula, clinical intensives, and public workshops.
+        University courses, professional curricula, clinical intensives, and public workshops.
       </p>
-    </div>
-  </section>
-
-  <section class="pl-teaching-intro mx-auto max-w-[1400px] px-12 lg:px-20 mt-28 md:mt-36 pl-reveal">
-    <div class="pl-grid items-start">
-      <div class="col-span-12 md:col-span-4">
-        <span class="pl-label">Complete record</span>
-        <h2 class="pl-teaching-intro-title">A practice shaped<br/><em>through teaching.</em></h2>
-      </div>
-      <div class="col-span-12 md:col-span-8 mt-8 md:mt-0">
-        <p class="pl-teaching-intro-copy">
-          This record gathers Paula’s teaching from 2015 to the present, spanning university teaching, professional certification programs, therapist training, and community workshops.
-        </p>
-      </div>
     </div>
   </section>
 
@@ -150,10 +136,10 @@ const teachingGroups = [
 
   .pl-page-hero--teaching .pl-page-hero-art {
     width: auto;
-    height: 90%;
+    height: 115%;
     max-width: none;
     top: 50%;
-    right: 5%;
+    right: -1%;
     transform: translateY(-50%);
     -webkit-mask-image: none;
             mask-image: none;
@@ -168,26 +154,6 @@ const teachingGroups = [
     filter: none;
     transform: none;
     animation: none;
-  }
-
-  .pl-teaching-intro-title {
-    margin-top: 0.8rem;
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3.25rem);
-    line-height: 0.98;
-    letter-spacing: -0.025em;
-  }
-
-  .pl-teaching-intro-title em {
-    font-weight: 400;
-  }
-
-  .pl-teaching-intro-copy {
-    max-width: 35ch;
-    font-family: var(--font-display);
-    font-size: clamp(1.45rem, 2.5vw, 2.15rem);
-    line-height: 1.36;
-    letter-spacing: -0.018em;
   }
 
   .pl-teaching-record-grid {
@@ -394,23 +360,11 @@ const teachingGroups = [
   @media (max-width: 900px) {
     .pl-page-hero--teaching .pl-page-hero-art {
       width: auto;
-      height: 76%;
-      right: 2%;
+      height: 96%;
+      right: -5%;
       top: 50%;
       bottom: auto;
       transform: translateY(-50%);
-    }
-
-    /* The site-wide 12-column grid carries desktop gutters that exceed the
-       available track width on narrow screens. This intro is editorial, so
-       collapse it explicitly rather than allowing its columns to overhang. */
-    .pl-teaching-intro .pl-grid {
-      display: block;
-    }
-
-    .pl-teaching-intro .col-span-12 {
-      width: auto;
-      min-width: 0;
     }
 
     .pl-teaching-record-grid {
@@ -440,10 +394,10 @@ const teachingGroups = [
 
     .pl-page-hero--teaching .pl-page-hero-art {
       width: auto;
-      height: 55%;
+      height: 82%;
       top: auto;
-      bottom: 3%;
-      right: 1.5rem;
+      bottom: -12%;
+      right: -10%;
       transform: none;
       opacity: 1;
     }
