@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import verticalHeads from '../assets/illustrations/VerticalHeads_transparent.png';
+import verticalHeads from '../assets/illustrations/VerticalHeads.png';
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -61,7 +61,7 @@ const teachingGroups = [
 >
   <section class="pl-page-hero pl-page-hero--teaching pl-reveal">
     <div class="pl-page-hero-art" aria-hidden="true">
-      <img src={verticalHeads.src} alt="" class="pl-float-slow-rev" />
+      <img src={verticalHeads.src} alt="" />
     </div>
     <div class="pl-page-hero-inner">
       <p class="pl-label pl-page-hero-kicker">Teaching &amp; Training Experience</p>
@@ -149,18 +149,25 @@ const teachingGroups = [
   html { scroll-behavior: smooth; }
 
   .pl-page-hero--teaching .pl-page-hero-art {
-    width: min(38%, 520px);
-    top: 3%;
-    right: 4%;
-    transform: none;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 86%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 86%, transparent 100%);
+    width: auto;
+    height: 90%;
+    max-width: none;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    -webkit-mask-image: none;
+            mask-image: none;
   }
 
   .pl-page-hero--teaching .pl-page-hero-art img {
-    width: 100%;
-    height: auto;
-    opacity: 0.92;
+    width: auto;
+    height: 100%;
+    max-width: none;
+    opacity: 1;
+    mix-blend-mode: normal;
+    filter: none;
+    transform: none;
+    animation: none;
   }
 
   .pl-teaching-intro-title {
@@ -386,9 +393,12 @@ const teachingGroups = [
 
   @media (max-width: 900px) {
     .pl-page-hero--teaching .pl-page-hero-art {
-      width: 48%;
-      right: -2%;
-      top: 12%;
+      width: auto;
+      height: 76%;
+      right: 2%;
+      top: 50%;
+      bottom: auto;
+      transform: translateY(-50%);
     }
 
     /* The site-wide 12-column grid carries desktop gutters that exceed the
@@ -429,11 +439,13 @@ const teachingGroups = [
     }
 
     .pl-page-hero--teaching .pl-page-hero-art {
-      width: 62%;
+      width: auto;
+      height: 55%;
       top: auto;
-      bottom: -4%;
-      right: -12%;
-      opacity: 0.7;
+      bottom: 3%;
+      right: 1.5rem;
+      transform: none;
+      opacity: 1;
     }
 
     .pl-teaching-index nav {
