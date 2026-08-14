@@ -94,16 +94,41 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 
-  <!-- TEACHING EXPERIENCE -->
-  <section class="pl-about-teaching mx-auto max-w-[1400px] mt-32 md:mt-40 pl-reveal">
-    <div class="pl-about-teaching-inner">
-      <div>
-        <span class="pl-label">Academic &amp; Professional</span>
-        <h2>Teaching <em>experience.</em></h2>
+  <!-- TEACHING EXPERIENCE — compact ledger -->
+  <section class="pl-about-teaching-ledger mx-auto max-w-[1400px] px-12 lg:px-20 mt-32 md:mt-40 pl-reveal">
+    <div class="pl-grid items-start">
+      <div class="col-span-12 md:col-span-4">
+        <span class="pl-label">Teaching</span>
+        <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.25rem); line-height: 0.95; margin-top: 0.75rem; letter-spacing: -0.025em;">
+          Academic &amp;<br/><em style="font-weight: 400;">professional.</em>
+        </h2>
       </div>
-      <div class="pl-about-teaching-copy">
-        <p>Paula has taught since 2015, leading professional curricula and certification programs. Her record also includes a course at UMass Boston and public workshops.</p>
-        <a href={`${BASE}/teaching`} class="pl-about-teaching-link">View full teaching record →</a>
+      <div class="col-span-12 md:col-span-8 mt-10 md:mt-0">
+        <div class="pl-ledger-manuscript pl-ledger-manuscript--about">
+          <div class="pl-ledger-row">
+            <span class="pl-ledger-date">2015–</span>
+            <span class="pl-ledger-title">Sex Therapy Skills Training Intensives<span class="pl-ledger-tag">SSSHC</span></span>
+            <span class="pl-ledger-price">Ongoing</span>
+          </div>
+          <div class="pl-ledger-row">
+            <span class="pl-ledger-date">2020–</span>
+            <span class="pl-ledger-title">The Exceptional Therapist<span class="pl-ledger-tag">ISEE</span></span>
+            <span class="pl-ledger-price">Ongoing</span>
+          </div>
+          <div class="pl-ledger-row">
+            <span class="pl-ledger-date">2018</span>
+            <span class="pl-ledger-title">Sexual Trauma: Healing the Body and Mind<span class="pl-ledger-tag">UMass Boston</span></span>
+            <span class="pl-ledger-price">Guest course</span>
+          </div>
+          <div class="pl-ledger-row">
+            <span class="pl-ledger-date">2025</span>
+            <span class="pl-ledger-title">Pressure Off, Pleasure On<span class="pl-ledger-tag">SheBop Portland</span></span>
+            <span class="pl-ledger-price">Workshop</span>
+          </div>
+        </div>
+        <a href={`${BASE}/teaching`} style="display: inline-block; margin-top: 1.25rem; font-family: var(--font-display); font-style: italic; text-decoration: underline; text-underline-offset: 0.3rem;">
+          View full teaching record →
+        </a>
       </div>
     </div>
   </section>
@@ -232,69 +257,6 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 </Layout>
 
 <style>
-  .pl-about-teaching {
-    background: var(--color-blue);
-    color: var(--color-cream);
-  }
-  .pl-about-teaching-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: clamp(3rem, 8vw, 8rem);
-    align-items: end;
-    padding: clamp(3.5rem, 7vw, 6.5rem) clamp(3rem, 7vw, 6rem);
-  }
-  .pl-about-teaching .pl-label {
-    color: var(--color-cream) !important;
-    opacity: 0.78;
-  }
-  .pl-about-teaching h2 {
-    margin-top: 0.9rem;
-    color: var(--color-cream);
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 7vw, 6.75rem);
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-  }
-  .pl-about-teaching h2 em {
-    font-weight: 400;
-  }
-  .pl-about-teaching-copy p {
-    max-width: 38ch;
-    font-family: var(--font-display);
-    font-size: clamp(1.25rem, 2.2vw, 1.8rem);
-    line-height: 1.38;
-    letter-spacing: -0.015em;
-  }
-  .pl-about-teaching-link {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 0.78rem 1.2rem;
-    border-radius: 999px;
-    background: var(--color-cream);
-    color: var(--color-ink);
-    font-family: var(--font-display);
-    font-style: italic;
-    text-decoration: none;
-    transition: transform 180ms ease, background-color 180ms ease;
-  }
-  .pl-about-teaching-link:hover,
-  .pl-about-teaching-link:focus-visible {
-    color: var(--color-ink);
-    background: var(--color-honey);
-    transform: translateY(-2px);
-  }
-  .pl-about-teaching-link:focus-visible {
-    outline: 2px solid var(--color-cream);
-    outline-offset: 4px;
-  }
-  @media (max-width: 767px) {
-    .pl-about-teaching-inner {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-      padding: 3.5rem 3rem 4rem;
-    }
-  }
-
   .pl-portrait {
     position: relative;
     display: block;
