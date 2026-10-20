@@ -34,10 +34,10 @@ const artMap = {
 // Hard-coded date threshold so SSG is deterministic.
 const today = new Date().toISOString().slice(0, 10);
 const upcoming = trainingsData
-  .filter((t) => t.date >= today)
+  .filter((t) => (t.endDate || t.date) >= today)
   .sort((a, b) => a.date.localeCompare(b.date));
 const past = trainingsData
-  .filter((t) => t.date < today)
+  .filter((t) => (t.endDate || t.date) < today)
   .sort((a, b) => b.date.localeCompare(a.date));
 ---
 
@@ -79,7 +79,7 @@ const past = trainingsData
   {upcoming.length > 0 && (
     <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-24 md:mt-32 pl-reveal">
       <div class="pl-course-section-head">
-        <span class="pl-label">Now Booking</span>
+        <span class="pl-label">Current &amp; Upcoming</span>
         <h2 class="pl-course-section-title">
           What's<br/><em>running now.</em>
         </h2>
@@ -100,6 +100,7 @@ const past = trainingsData
               <div class="pl-course-spotlight-body">
                 <div class="pl-course-meta-row">
                   <span class="pl-course-date">{t.dateLabel}</span>
+                  {t.enrollmentClosed && <span class="pl-course-ces">In progress · Enrollment closed</span>}
                   {t.ces && <span class="pl-course-ces">{t.ces}</span>}
                 </div>
 
@@ -198,7 +199,7 @@ const past = trainingsData
                 )}
 
                 <div class="pl-course-cta-row">
-                  {(t.price || t.priceNote) && (
+                  {!t.enrollmentClosed && (t.price || t.priceNote) && (
                     <div class="pl-course-price-inline">
                       {t.price && <span class="pl-course-price-inline-num">{t.price}</span>}
                       {t.priceNote && <span class="pl-course-price-inline-note">{t.priceNote}</span>}

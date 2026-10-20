@@ -22,10 +22,10 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 // or 'Recurring' is treated as always-current (uses date 9999 in JSON).
 const today = new Date().toISOString().slice(0, 10);
 const upcoming = trainingsData
-  .filter(t => (t.date || '9999-12-31') >= today)
+  .filter(t => (t.endDate || t.date || '9999-12-31') >= today)
   .sort((a, b) => (a.date || '').localeCompare(b.date || ''));
 const past = trainingsData
-  .filter(t => (t.date || '9999-12-31') < today)
+  .filter(t => (t.endDate || t.date || '9999-12-31') < today)
   .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
   .slice(0, 3);
 ---
@@ -262,7 +262,7 @@ const past = trainingsData
   <section class="mx-auto max-w-[1400px] px-12 lg:px-20 mt-40 md:mt-56 pl-reveal">
     <div class="pl-grid items-start">
       <div class="col-span-12 md:col-span-4">
-        <span class="pl-label">Now Booking</span>
+        <span class="pl-label">Current &amp; Upcoming</span>
         <h2 style="font-family: var(--font-display); font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 0.95; margin-top: 0.75rem; letter-spacing: -0.025em;">
           What's<br/><em style="font-weight: 400;">running now.</em>
         </h2>
@@ -275,7 +275,7 @@ const past = trainingsData
               <span class={`pl-ledger-blot pl-ledger-blot--${t.blot || 'rose'}`} aria-hidden="true"></span>
               <span class="pl-ledger-date">{t.dateLabel}</span>
               <span class="pl-ledger-title">{t.title}<span class="pl-ledger-tag">{t.tag}</span></span>
-              <span class="pl-ledger-price">{t.price ? `${t.price} →` : '→'}</span>
+              <span class="pl-ledger-price">{t.enrollmentClosed ? 'In progress →' : t.price ? `${t.price} →` : '→'}</span>
             </a>
           ))}
         </div>
