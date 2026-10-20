@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import headerMark from '../assets/logos/HeaderMark.png';
 import CloudsBG from '../components/CloudsBG.astro';
+import { origin, descriptions, person, book, services } from '../data/seo';
 
 export interface Props {
   title: string;
@@ -9,7 +10,21 @@ export interface Props {
   /** When true, append "LMFT · CST · CSTS" next to the header logo (variant 5). */
   headerCredentials?: boolean;
 }
-const { title, description = "Paula Leech, LMFT, CST, CSTS — sex therapy, supervision, and courses.", headerCredentials = true } = Astro.props;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pagePath = (Astro.url.pathname.slice(basePath.length).replace(/\/$/, '') || '/');
+const { title, description = descriptions[pagePath] || 'Paula Leech — sex therapy, supervision, and courses.', headerCredentials = true } = Astro.props;
+const canonical = `${origin}${pagePath}`;
+const isPublicPage = Object.hasOwn(descriptions, pagePath);
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    person,
+    { '@type': 'WebSite', '@id': `${origin}/#website`, url: `${origin}/`, name: 'Paula Leech', publisher: { '@id': person['@id'] } },
+    { '@type': 'WebPage', '@id': `${canonical}#webpage`, url: canonical, name: title, description, isPartOf: { '@id': `${origin}/#website` }, about: { '@id': person['@id'] } },
+    ...(pagePath === '/' ? [book] : []),
+    ...(services[pagePath] ? [services[pagePath]] : []),
+  ],
+};
 
 const nav = [
   { label: 'About',                 href: '/about' },
@@ -41,6 +56,9 @@ const enableUmami = isNetlify && !!umamiWebsiteId;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {!isPublicPage && <meta name="robots" content="noindex, follow" />}
+    {isPublicPage && <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />}
     <!-- Social / link previews (Open Graph + Twitter Card).
          Use Astro.url.origin so previews work on whatever host is serving the page
          (production, branch deploys, cloudflared tunnels) rather than hardcoding Astro.site. -->
